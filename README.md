@@ -11,7 +11,15 @@ Landing page de ejemplo para una escuela de surf ficticia en Somo (Cantabria). E
 - **Preguntas frecuentes** desplegables.
 - **Formulario de reserva**. Es una demostración: no envía datos a ningún sitio.
 
-La página se adapta al móvil y cambia a colores oscuros si el dispositivo usa el modo oscuro. Si el dispositivo tiene activado "reducir movimiento", la portada muestra la foto fija en lugar del vídeo.
+La página se adapta al móvil y cambia a colores oscuros si el dispositivo usa el modo oscuro.
+
+## Animaciones
+
+- **Portada en capas**: al bajar, el vídeo se desplaza más despacio que la página y el título algo más rápido.
+- **Curva de la marea**: se dibuja sola al cargar la página.
+- **Al bajar por la página**: los bloques suben suavemente al entrar en pantalla, las tarjetas de cursos y las opiniones llegan escalonadas, los pasos de la clase entran desde la izquierda y la línea de cada opinión se dibuja de izquierda a derecha.
+
+Las animaciones de scroll usan CSS (`animation-timeline`), sin JavaScript. En navegadores que no lo soportan, la página se ve completa y sin animar. Si el dispositivo tiene activado "reducir movimiento", no hay ninguna animación y la portada muestra la foto fija en lugar del vídeo.
 
 ## Imagen y vídeo de portada
 

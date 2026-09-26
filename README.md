@@ -18,8 +18,9 @@ La página se adapta al móvil y cambia a colores oscuros si el dispositivo usa 
 - **Portada en capas**: al bajar, el vídeo se desplaza más despacio que la página y el título algo más rápido.
 - **Curva de la marea**: se dibuja sola al cargar la página.
 - **Al bajar por la página**: los bloques suben suavemente al entrar en pantalla, las tarjetas de cursos y las opiniones llegan escalonadas, los pasos de la clase entran desde la izquierda y la línea de cada opinión se dibuja de izquierda a derecha.
+- **Ola que rompe** antes de "Reserva tu plaza": al bajar, un mar de fondo crece hasta formar una ola, la cresta se curva en tubo y rompe en espuma y gotas. Se dibuja con JavaScript en un SVG, recalculando la forma según el scroll. Con "reducir movimiento" se queda quieta formando el tubo, y sin JavaScript se ve una ondulación suave.
 
-Las animaciones de scroll usan CSS (`animation-timeline`), sin JavaScript. En navegadores que no lo soportan, la página se ve completa y sin animar. Si el dispositivo tiene activado "reducir movimiento", no hay ninguna animación y la portada muestra la foto fija en lugar del vídeo.
+Las demás animaciones de scroll usan CSS (`animation-timeline`), sin JavaScript. En navegadores que no lo soportan, la página se ve completa y sin animar. Si el dispositivo tiene activado "reducir movimiento", no hay ninguna animación y la portada muestra la foto fija en lugar del vídeo.
 
 ## Imagen y vídeo de portada
 

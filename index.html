@@ -25,6 +25,8 @@
     --flag-ink: #1C1A0E;
     --water: rgba(23, 101, 110, 0.16);
     --band: rgba(244, 196, 52, 0.34);
+    --foam: #FFFFFF;
+    --wave-light: #2B8A93;
 
     --font-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
     --font-body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
@@ -46,6 +48,8 @@
       --hero-muted: #8FB0B0;
       --water: rgba(107, 186, 194, 0.18);
       --band: rgba(244, 196, 52, 0.22);
+      --foam: #E6F2F0;
+      --wave-light: #2C7880;
     }
   }
   :root[data-theme="dark"] {
@@ -61,6 +65,8 @@
     --hero-muted: #8FB0B0;
     --water: rgba(107, 186, 194, 0.18);
     --band: rgba(244, 196, 52, 0.22);
+    --foam: #E6F2F0;
+    --wave-light: #2C7880;
   }
 
   /* ---------- Base ---------- */
@@ -376,6 +382,13 @@
   .faq summary::after { content: "+"; font-family: var(--font-mono); color: var(--sea); font-size: 1.3rem; line-height: 1; }
   .faq details[open] summary::after { content: "−"; }
   .faq details p { color: var(--muted); padding-bottom: 18px; max-width: 40rem; }
+
+  /* ---------- Ola que rompe antes de reservar ---------- */
+  .wave-break { position: relative; z-index: 1; background: var(--surface-2); line-height: 0; margin-bottom: -1px; }
+  .wave-break svg { display: block; width: 100%; height: clamp(170px, 20vw, 280px); }
+  .wave-far { fill: var(--wave-light); opacity: 0.35; }
+  .wave-water { fill: url(#wave-fill); }
+  .wave-foam { fill: var(--foam); }
 
   /* ---------- Reservar ---------- */
   .booking { background: var(--sea-deep); color: var(--hero-ink); }
@@ -757,6 +770,22 @@
     </div>
   </section>
 
+  <!-- Ola que rompe: cambia de forma al bajar por la página -->
+  <div class="wave-break" id="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 240" preserveAspectRatio="none" focusable="false">
+      <defs>
+        <linearGradient id="wave-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" style="stop-color: var(--wave-light)"/>
+          <stop offset="0.6" style="stop-color: var(--sea-deep)"/>
+          <stop offset="1" style="stop-color: var(--sea-deep)"/>
+        </linearGradient>
+      </defs>
+      <path class="wave-far" d="M0,240 L0,160 C240,150 480,172 720,162 C960,152 1200,170 1440,160 L1440,240 Z"/>
+      <path class="wave-water" d="M0,240 L0,178 C300,178 480,112 700,112 C820,112 880,150 960,172 C1040,184 1200,178 1440,178 L1440,240 Z"/>
+      <g class="wave-foam"></g>
+    </svg>
+  </div>
+
   <!-- Reservar -->
   <section class="section booking" id="reservar">
     <div class="wrap">
@@ -837,6 +866,134 @@
       var show = function () { video.classList.add("is-playing"); };
       video.addEventListener("playing", show);
       if (!video.paused && video.readyState > 2) show();
+    }
+
+  // Dibuja la ola en un <svg> según el progreso p (0 = mar de fondo, 1 = ola rota)
+  function createWave(svg) {
+    var NS = "http://www.w3.org/2000/svg";
+    var water = svg.querySelector(".wave-water");
+    var far = svg.querySelector(".wave-far");
+    var foamLayer = svg.querySelector(".wave-foam");
+    var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
+    var ease = function (a, b, x) { var t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+    var f = function (n) { return Math.round(n * 10) / 10; };
+
+    // Números aleatorios con semilla fija: la espuma sale igual cada vez
+    var seed = 11;
+    var rnd = function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+    var dot = function () { var c = document.createElementNS(NS, "circle"); foamLayer.appendChild(c); return c; };
+    var churn = [], spray = [], lip = [], i;
+    for (i = 0; i < 48; i++) churn.push({ u: rnd(), j: rnd() * 2 - 1, s: 0.5 + rnd() * 0.5, el: dot() });
+    for (i = 0; i < 24; i++) spray.push({ a: -Math.PI * (0.12 + rnd() * 0.72), v: 0.45 + rnd() * 0.55, r: 1.4 + rnd() * 2.8, el: dot() });
+    for (i = 0; i < 9; i++) lip.push({ a: -Math.PI * (0.05 + rnd() * 0.55), d: 3 + rnd() * 12, r: 1.2 + rnd() * 2, el: dot() });
+
+    var set = function (el, x, y, r, o) {
+      el.setAttribute("cx", f(x)); el.setAttribute("cy", f(y));
+      el.setAttribute("r", f(Math.max(0, r))); el.setAttribute("opacity", f(o * 100) / 100);
+    };
+
+    function draw(p, W, H) {
+      var yb = H * 0.74;                          // nivel del mar en calma
+      var S = Math.min(W * 0.5, H * 2.6);         // escala horizontal de la ola
+      var k = clamp(S / 676, 0.55, 1.2);          // escala del tamaño de la espuma
+      var grow = ease(0, 0.6, p), steep = ease(0.2, 0.66, p);
+      var curl = ease(0.5, 0.8, p), droop = ease(0.6, 0.86, p), brk = ease(0.78, 1, p);
+      var Apeak = Math.min(H * 0.62, S * 0.62);
+      var A = Apeak * (0.18 + 0.82 * grow) * (1 - 0.6 * brk);
+      var xc = W * (0.18 + 0.36 * p);
+      var Lb = S * 0.6, Lf = S * (0.42 - 0.3 * steep + 0.18 * brk);
+      var Lc = S * 0.16 * curl * (1 - brk), D = A * 0.62 * droop * (1 - brk);
+      var top = yb - A;
+      var lerp = function (a, b, t) { return a + (b - a) * t; };
+
+      var Tx = xc + Lc, Ty = top + D;                          // punta del labio
+      var Fx = xc + Lf * 0.3 + Lc * 0.15, Fy = yb - A * 0.42;  // mitad de la pared
+      var Rx = xc + Lf, Ry = yb + A * 0.06;                    // seno delante de la ola
+      var x0 = Math.min(0, xc - Lb), xEnd = Math.max(W, Rx + S * 0.45);
+
+      water.setAttribute("d",
+        "M" + f(x0) + "," + H + " L" + f(x0) + "," + f(yb) + " L" + f(xc - Lb) + "," + f(yb) +
+        // espalda de la ola hasta la cresta
+        " C" + f(xc - Lb * 0.45) + "," + f(yb) + " " + f(xc - Lb * 0.28) + "," + f(top) + " " + f(xc) + "," + f(top) +
+        // labio que se lanza hacia delante
+        " C" + f(xc + Lc * 0.55) + "," + f(top - A * 0.06 * curl) + " " + f(Tx + Lc * 0.25) + "," + f(Ty - D * 0.55) + " " + f(Tx) + "," + f(Ty) +
+        // debajo del labio (el tubo) hasta la pared
+        " C" + f(lerp(xc + Lf * 0.18, Tx + Lc * 0.15, curl)) + "," + f(lerp(top, Ty + A * 0.12, curl)) + " " +
+               f(lerp(Fx - Lf * 0.06, Fx + Lc * 0.6, curl)) + "," + f(lerp(Fy - A * 0.2, Fy - A * 0.28, curl)) + " " + f(Fx) + "," + f(Fy) +
+        // parte baja de la pared hasta el seno
+        " C" + f(Fx + Lf * 0.08) + "," + f(Fy + A * 0.25) + " " + f(Rx - Lf * 0.3) + "," + f(Ry) + " " + f(Rx) + "," + f(Ry) +
+        // vuelta al mar en calma
+        " C" + f(Rx + S * 0.12) + "," + f(yb + A * 0.02) + " " + f(Rx + S * 0.3) + "," + f(yb) + " " + f(Rx + S * 0.45) + "," + f(yb) +
+        " L" + f(xEnd) + "," + f(yb) + " L" + f(xEnd) + "," + H + " Z");
+
+      // Mar de fondo, más claro, detrás de la ola
+      var d = "M0," + H, n = 36;
+      for (i = 0; i <= n; i++) {
+        var x = W * i / n;
+        d += " L" + f(x) + "," + f(yb - H * 0.07 - H * 0.035 * Math.sin(x / W * Math.PI * 3.2 + p * 4));
+      }
+      far.setAttribute("d", d + " L" + W + "," + H + " Z");
+
+      // Gotas en la punta del labio mientras se forma el tubo
+      lip.forEach(function (q) {
+        set(q.el, Tx + Math.cos(q.a) * q.d * curl * k, Ty + Math.sin(q.a) * q.d * curl * k, q.r * k, curl * (1 - brk) * 0.9);
+      });
+
+      // Punto de impacto del labio al romper
+      var Ix = W * 0.468 + S * 0.16, Iy = yb - 2;
+      // Altura aproximada de la superficie: espalda suave, pared más corta
+      var bump = function (x) {
+        var w = x < xc ? Lb * 0.42 : Math.max(Lf, S * 0.1) * 0.8;
+        return yb - A * Math.exp(-Math.pow((x - xc) / w, 2));
+      };
+
+      // Espuma que se agita y avanza sobre la ola rota
+      churn.forEach(function (q) {
+        var x = Ix - S * 0.06 + q.u * S * (0.1 + 0.6 * brk);
+        var r = (4 + 10 * q.s) * k * Math.sqrt(brk) * (1 - 0.45 * q.u) * ease(q.u * 0.5, q.u * 0.5 + 0.2, brk);
+        set(q.el, x, bump(x) - r * 0.2 + q.j * H * 0.03, r, 0.95);
+      });
+
+      // Gotas disparadas hacia arriba que caen y se desvanecen
+      spray.forEach(function (q) {
+        var x = Ix + Math.cos(q.a) * q.v * brk * S * 0.35 + brk * S * 0.1;
+        var y = Iy - Apeak * 0.4 + Math.sin(q.a) * q.v * brk * H * 0.55 + brk * brk * H * 0.35;
+        set(q.el, x, y, q.r * k, ease(0, 0.12, brk) * (1 - ease(0.6, 1, brk)));
+      });
+    }
+    return { draw: draw };
+  }
+
+    // La ola avanza con el scroll: 0 cuando asoma por abajo, 1 cuando está en la parte alta de la pantalla
+    var waveBox = document.getElementById("wave");
+    if (waveBox) {
+      var waveSvg = waveBox.querySelector("svg");
+      var wave = createWave(waveSvg);
+      var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var W = 0, H = 0, shown = null, drawn = null, raf = 0;
+      var measure = function () {
+        var box = waveSvg.getBoundingClientRect();
+        W = Math.round(box.width); H = Math.round(box.height);
+        waveSvg.setAttribute("viewBox", "0 0 " + W + " " + H);
+        shown = null; drawn = null;
+      };
+      var target = function () {
+        if (still) return 0.72;   // con "reducir movimiento", la ola queda quieta formando el tubo
+        var r = waveBox.getBoundingClientRect(), vh = window.innerHeight;
+        return Math.min(1, Math.max(0, (vh - r.top) / (vh * 0.75)));
+      };
+      var frame = function () {
+        raf = 0;
+        var t = target();
+        shown = shown === null ? t : shown + (t - shown) * 0.14;   // suaviza el movimiento
+        if (Math.abs(t - shown) < 0.001) shown = t;
+        if (shown !== drawn) { wave.draw(shown, W, H); drawn = shown; }
+        if (shown !== t) raf = requestAnimationFrame(frame);
+      };
+      var request = function () { if (!raf) raf = requestAnimationFrame(frame); };
+      measure(); request();
+      if (!still) window.addEventListener("scroll", request, { passive: true });
+      window.addEventListener("resize", function () { measure(); request(); });
     }
 
     var form = document.getElementById("booking-form");

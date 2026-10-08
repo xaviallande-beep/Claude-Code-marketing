@@ -42,3 +42,4 @@ Descarga el proyecto (botón **Code → Download ZIP** en GitHub), descomprímel
 | `img/portada.mp4` | Vídeo en bucle de la portada. |
 | `img/portada.jpg`, `img/portada-960.jpg` | Foto de la portada, que se ve mientras carga el vídeo o si no se puede reproducir. |
 | `README.md`  | Este archivo.                                           |
+| `wireframes/` | Wireframes de la página en escritorio y móvil (Task 15), listos para importar en Figma. |

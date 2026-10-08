@@ -1,0 +1,394 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="950" height="5660" viewBox="0 0 950 5660">
+<rect x="0.0" y="0.0" width="950.0" height="5660.0" fill="#EDEDED"/>
+<text x="40.0" y="52.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#1F1F1F">Pleamar · Landing page wireframe</text>
+<text x="40.0" y="82.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="400" fill="#555555">Mobile · 390 px (iPhone 14/15) · 4-column grid, 16 px margins and gutter</text>
+<g id="Mobile 390" transform="translate(40,110)">
+<rect x="0.0" y="0.0" width="390.0" height="5490.0" fill="#FFFFFF"/>
+<g id="01 Header">
+<text x="16.0" y="30.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="20" font-weight="800" fill="#1F1F1F">Pleamar</text>
+<text x="16.0" y="47.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#8A8A8A">escuela de surf · Somo</text>
+<line x1="348.0" y1="24.0" x2="372.0" y2="24.0" stroke="#1F1F1F" stroke-width="2"/>
+<line x1="348.0" y1="32.0" x2="372.0" y2="32.0" stroke="#1F1F1F" stroke-width="2"/>
+<line x1="348.0" y1="40.0" x2="372.0" y2="40.0" stroke="#1F1F1F" stroke-width="2"/>
+<line x1="0.0" y1="64.0" x2="390.0" y2="64.0" stroke="#D6D6D6" stroke-width="1"/>
+</g>
+<g id="02 Hero">
+<g id="Image placeholder">
+<rect x="0.0" y="64.0" width="390.0" height="460.0" fill="#E8E8E8"/>
+<line x1="0.0" y1="64.0" x2="390.0" y2="524.0" stroke="#CFCFCF" stroke-width="1.5"/>
+<line x1="390.0" y1="64.0" x2="0.0" y2="524.0" stroke="#CFCFCF" stroke-width="1.5"/>
+<rect x="91.0" y="276.0" width="208.0" height="36.0" fill="#FFFFFF" rx="18"/>
+<text x="195.0" y="299.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="500" fill="#555555" text-anchor="middle">Vídeo · encuadre vertical</text>
+</g>
+<rect x="0.0" y="350.0" width="390.0" height="174.0" fill="#FFFFFF" opacity="0.55"/>
+<text x="16.0" y="388.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="600" fill="#8A8A8A" letter-spacing="1.4">SOMO · CANTABRIA · ABR–OCT</text>
+<text x="16.0" y="428.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#1F1F1F">Tu primera ola</text>
+<text x="16.0" y="466.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#555555">te espera</text>
+<text x="16.0" y="504.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="34" font-weight="800" fill="#555555">en Somo</text>
+<rect x="16.0" y="552.0" width="358.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="566.0" width="358.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="580.0" width="358.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="594.0" width="358.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="608.0" width="214.8" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="640.0" width="358.0" height="52.0" fill="#1F1F1F" rx="26.0"/>
+<text x="195.0" y="671.2" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Reservar mi primera clase</text>
+<rect x="16.8" y="704.8" width="356.5" height="50.5" fill="#FFFFFF" rx="26.0" stroke="#1F1F1F" stroke-width="1.5"/>
+<text x="195.0" y="735.2" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F" text-anchor="middle">Ver cursos y precios</text>
+<circle cx="24.0" cy="787.0" r="8" fill="#E8E8E8" stroke="#BDBDBD" stroke-width="1"/>
+<path d="M20.0,787.0 l3,3 l5,-6" fill="none" stroke="#1F1F1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="40.0" y="792.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#555555">Máximo 6 alumnos por monitor</text>
+<circle cx="24.0" cy="813.0" r="8" fill="#E8E8E8" stroke="#BDBDBD" stroke-width="1"/>
+<path d="M20.0,813.0 l3,3 l5,-6" fill="none" stroke="#1F1F1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="40.0" y="818.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#555555">Tabla y neopreno incluidos</text>
+<circle cx="24.0" cy="839.0" r="8" fill="#E8E8E8" stroke="#BDBDBD" stroke-width="1"/>
+<path d="M20.0,839.0 l3,3 l5,-6" fill="none" stroke="#1F1F1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="40.0" y="844.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#555555">Desde 8 años</text>
+<g id="Parte de hoy card">
+<rect x="16.0" y="884.0" width="358.0" height="330.0" fill="#FFFFFF" rx="12" stroke="#BDBDBD" stroke-width="1"/>
+<text x="36.0" y="918.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">Parte de hoy</text>
+<text x="354.0" y="918.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#8A8A8A" text-anchor="end">Datos de ejemplo · sábado</text>
+<rect x="36.0" y="936.0" width="100.7" height="54.0" fill="#F5F5F5" rx="8"/>
+<text x="48.0" y="956.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#8A8A8A">Ola</text>
+<text x="48.0" y="978.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">1,2 m</text>
+<rect x="144.7" y="936.0" width="100.7" height="54.0" fill="#F5F5F5" rx="8"/>
+<text x="156.7" y="956.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#8A8A8A">Periodo</text>
+<text x="156.7" y="978.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">11 s</text>
+<rect x="253.3" y="936.0" width="100.7" height="54.0" fill="#F5F5F5" rx="8"/>
+<text x="265.3" y="956.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#8A8A8A">Viento</text>
+<text x="265.3" y="978.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">SO 9 km/h</text>
+<rect x="36.0" y="998.0" width="100.7" height="54.0" fill="#F5F5F5" rx="8"/>
+<text x="48.0" y="1018.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#8A8A8A">Agua</text>
+<text x="48.0" y="1040.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">17 °C</text>
+<rect x="144.7" y="998.0" width="100.7" height="54.0" fill="#F5F5F5" rx="8"/>
+<text x="156.7" y="1018.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#8A8A8A">Neopreno</text>
+<text x="156.7" y="1040.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">4/3 mm</text>
+<rect x="253.3" y="998.0" width="100.7" height="54.0" fill="#F5F5F5" rx="8"/>
+<text x="265.3" y="1018.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#8A8A8A">Bandera</text>
+<text x="265.3" y="1040.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">Amarilla</text>
+<g id="Tide chart">
+<rect x="36.0" y="1070.0" width="318.0" height="124.0" fill="#F5F5F5" rx="8"/>
+<rect x="75.8" y="1078.0" width="39.8" height="94.0" fill="#DCDCDC"/>
+<text x="95.6" y="1168.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10" font-weight="400" fill="#555555" text-anchor="middle">clase</text>
+<path d="M46.0,1112.8 L51.0,1108.7 L55.9,1104.7 L60.9,1100.8 L65.9,1097.2 L70.8,1093.8 L75.8,1090.7 L80.8,1087.9 L85.7,1085.5 L90.7,1083.4 L95.7,1081.7 L100.6,1080.4 L105.6,1079.5 L110.6,1079.1 L115.5,1079.0 L120.5,1079.5 L125.5,1080.3 L130.4,1081.5 L135.4,1083.2 L140.4,1085.3 L145.3,1087.7 L150.3,1090.4 L155.3,1093.5 L160.2,1096.9 L165.2,1100.5 L170.2,1104.3 L175.1,1108.3 L180.1,1112.4 L185.1,1116.6 L190.0,1120.9 L195.0,1125.1 L200.0,1129.3 L204.9,1133.5 L209.9,1137.5 L214.9,1141.3 L219.8,1144.9 L224.8,1148.3 L229.8,1151.4 L234.7,1154.2 L239.7,1156.6 L244.7,1158.7 L249.6,1160.4 L254.6,1161.6 L259.6,1162.5 L264.5,1162.9 L269.5,1162.9 L274.5,1162.5 L279.4,1161.7 L284.4,1160.4 L289.4,1158.7 L294.3,1156.7 L299.3,1154.2 L304.3,1151.5 L309.2,1148.4 L314.2,1145.0 L319.2,1141.4 L324.1,1137.6 L329.1,1133.6 L334.1,1129.5 L339.0,1125.3 L344.0,1121.0" fill="none" stroke="#1F1F1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="46.0" y1="1172.0" x2="344.0" y2="1172.0" stroke="#BDBDBD" stroke-width="1"/>
+<text x="46.0" y="1186.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10" font-weight="400" fill="#8A8A8A">06h</text>
+<text x="120.5" y="1186.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10" font-weight="400" fill="#8A8A8A" text-anchor="middle">10h</text>
+<text x="195.0" y="1186.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10" font-weight="400" fill="#8A8A8A" text-anchor="middle">14h</text>
+<text x="269.5" y="1186.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10" font-weight="400" fill="#8A8A8A" text-anchor="middle">18h</text>
+<text x="344.0" y="1186.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="10" font-weight="400" fill="#8A8A8A" text-anchor="end">22h</text>
+</g>
+</g>
+</g>
+<g id="03 Cursos y precios">
+<text x="16.0" y="1290.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#8A8A8A" letter-spacing="1.4">CURSOS Y PRECIOS</text>
+<text x="16.0" y="1326.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" font-weight="800" fill="#1F1F1F">Elige cómo empezar</text>
+<rect x="16.0" y="1350.0" width="358.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="1364.0" width="358.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="1378.0" width="214.8" height="8.0" fill="#D3D3D3" rx="4"/>
+<g id="Plan card · Curso de fin de semana">
+<rect x="16.0" y="1430.0" width="358.0" height="372.0" fill="#FFFFFF" rx="14" stroke="#1F1F1F" stroke-width="2.5"/>
+<rect x="36.0" y="1416.0" width="160.0" height="28.0" fill="#1F1F1F" rx="14"/>
+<text x="116.0" y="1434.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle" letter-spacing="1">EL MÁS RESERVADO</text>
+<text x="36.0" y="1478.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1F1F1F">Curso de fin de semana</text>
+<text x="36.0" y="1500.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8A8A8A">4 sesiones · sábado y domingo</text>
+<text x="36.0" y="1550.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="36" font-weight="800" fill="#1F1F1F">119 €</text>
+<text x="144.0" y="1550.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8A8A8A">por persona</text>
+<rect x="36.0" y="1574.0" width="318.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="36.0" y="1588.0" width="190.8" height="8.0" fill="#D3D3D3" rx="4"/>
+<circle cx="44.0" cy="1629.0" r="8" fill="#E8E8E8" stroke="#BDBDBD" stroke-width="1"/>
+<path d="M40.0,1629.0 l3,3 l5,-6" fill="none" stroke="#1F1F1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="60.0" y="1634.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#555555">Todo el material incluido</text>
+<circle cx="44.0" cy="1657.0" r="8" fill="#E8E8E8" stroke="#BDBDBD" stroke-width="1"/>
+<path d="M40.0,1657.0 l3,3 l5,-6" fill="none" stroke="#1F1F1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="60.0" y="1662.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#555555">Seguro de accidentes</text>
+<circle cx="44.0" cy="1685.0" r="8" fill="#E8E8E8" stroke="#BDBDBD" stroke-width="1"/>
+<path d="M40.0,1685.0 l3,3 l5,-6" fill="none" stroke="#1F1F1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="60.0" y="1690.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#555555">Fotos de tu última sesión</text>
+<rect x="36.0" y="1730.0" width="318.0" height="52.0" fill="#1F1F1F" rx="26.0"/>
+<text x="195.0" y="1761.2" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Reservar fin de semana</text>
+</g>
+<g id="Plan card · Bautismo de surf">
+<rect x="16.0" y="1826.0" width="358.0" height="238.0" fill="#FFFFFF" rx="14" stroke="#BDBDBD" stroke-width="1"/>
+<text x="36.0" y="1866.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1F1F1F">Bautismo de surf</text>
+<text x="36.0" y="1888.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8A8A8A">1 sesión · 2 horas</text>
+<text x="36.0" y="1936.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#1F1F1F">35 €</text>
+<text x="112.0" y="1936.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8A8A8A">por persona</text>
+<text x="36.0" y="1972.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1F1F1F">Qué incluye</text>
+<path d="M128,1964 l5,5 l5,-5" fill="none" stroke="#1F1F1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="36.8" y="1992.8" width="316.5" height="50.5" fill="#FFFFFF" rx="26.0" stroke="#1F1F1F" stroke-width="1.5"/>
+<text x="195.0" y="2023.2" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F" text-anchor="middle">Reservar bautismo</text>
+</g>
+<g id="Plan card · Bono mensual">
+<rect x="16.0" y="2088.0" width="358.0" height="238.0" fill="#FFFFFF" rx="14" stroke="#BDBDBD" stroke-width="1"/>
+<text x="36.0" y="2128.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="19" font-weight="700" fill="#1F1F1F">Bono mensual</text>
+<text x="36.0" y="2150.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8A8A8A">8 sesiones · en 30 días</text>
+<text x="36.0" y="2198.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="30" font-weight="800" fill="#1F1F1F">199 €</text>
+<text x="129.0" y="2198.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8A8A8A">por persona</text>
+<text x="36.0" y="2234.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#1F1F1F">Qué incluye</text>
+<path d="M128,2226 l5,5 l5,-5" fill="none" stroke="#1F1F1F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="36.8" y="2254.8" width="316.5" height="50.5" fill="#FFFFFF" rx="26.0" stroke="#1F1F1F" stroke-width="1.5"/>
+<text x="195.0" y="2285.2" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F" text-anchor="middle">Reservar bono</text>
+</g>
+</g>
+<g id="04 Cómo es una clase">
+<rect x="0.0" y="2330.0" width="390.0" height="740.0" fill="#F5F5F5"/>
+<text x="16.0" y="2382.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#8A8A8A" letter-spacing="1.4">PASO A PASO</text>
+<text x="16.0" y="2418.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" font-weight="800" fill="#1F1F1F">Así son tus dos horas</text>
+<rect x="16.0" y="2440.0" width="358.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="2454.0" width="358.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="2468.0" width="214.8" height="8.0" fill="#D3D3D3" rx="4"/>
+<line x1="28.0" y1="2510.0" x2="28.0" y2="2926.0" stroke="#BDBDBD" stroke-width="2"/>
+<circle cx="28.0" cy="2510.0" r="12" fill="#1F1F1F"/>
+<text x="28.0" y="2514.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="56.0" y="2514.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#8A8A8A">0:00 – 0:15</text>
+<text x="56.0" y="2538.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">Material a tu medida</text>
+<rect x="56.0" y="2554.0" width="318.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="56.0" y="2568.0" width="190.8" height="8.0" fill="#D3D3D3" rx="4"/>
+<circle cx="28.0" cy="2614.0" r="12" fill="#1F1F1F"/>
+<text x="28.0" y="2618.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+<text x="56.0" y="2618.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#8A8A8A">0:15 – 0:35</text>
+<text x="56.0" y="2642.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">Calentamiento y seguridad</text>
+<rect x="56.0" y="2658.0" width="318.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="56.0" y="2672.0" width="190.8" height="8.0" fill="#D3D3D3" rx="4"/>
+<circle cx="28.0" cy="2718.0" r="12" fill="#1F1F1F"/>
+<text x="28.0" y="2722.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+<text x="56.0" y="2722.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#8A8A8A">0:35 – 0:50</text>
+<text x="56.0" y="2746.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">El take-off en la arena</text>
+<rect x="56.0" y="2762.0" width="318.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="56.0" y="2776.0" width="190.8" height="8.0" fill="#D3D3D3" rx="4"/>
+<circle cx="28.0" cy="2822.0" r="12" fill="#1F1F1F"/>
+<text x="28.0" y="2826.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">4</text>
+<text x="56.0" y="2826.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#8A8A8A">0:50 – 1:50</text>
+<text x="56.0" y="2850.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">Al agua</text>
+<rect x="56.0" y="2866.0" width="318.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="56.0" y="2880.0" width="190.8" height="8.0" fill="#D3D3D3" rx="4"/>
+<circle cx="28.0" cy="2926.0" r="12" fill="#1F1F1F"/>
+<text x="28.0" y="2930.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">5</text>
+<text x="56.0" y="2930.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#8A8A8A">1:50 – 2:00</text>
+<text x="56.0" y="2954.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="700" fill="#1F1F1F">Repaso</text>
+<rect x="56.0" y="2970.0" width="318.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="56.0" y="2984.0" width="190.8" height="8.0" fill="#D3D3D3" rx="4"/>
+</g>
+<g id="05 Opiniones">
+<text x="16.0" y="3118.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#8A8A8A" letter-spacing="1.4">OPINIONES</text>
+<text x="16.0" y="3154.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" font-weight="800" fill="#1F1F1F">Lo que cuentan</text>
+<text x="16.0" y="3188.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" font-weight="800" fill="#1F1F1F">los alumnos</text>
+<rect x="16.0" y="3204.0" width="130.0" height="26.0" fill="#F5F5F5" rx="13" stroke="#BDBDBD" stroke-width="1"/>
+<text x="81.0" y="3221.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="400" fill="#555555" text-anchor="middle">Textos de ejemplo</text>
+<g id="Quote carousel">
+<rect x="16.0" y="3250.0" width="300.0" height="230.0" fill="#FFFFFF" rx="14" stroke="#BDBDBD" stroke-width="1"/>
+<text x="36.0" y="3306.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="52" font-weight="800" fill="#BDBDBD">“</text>
+<rect x="36.0" y="3322.0" width="260.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="36.0" y="3338.0" width="260.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="36.0" y="3354.0" width="260.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="36.0" y="3370.0" width="156.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<line x1="36.0" y1="3406.0" x2="126.0" y2="3406.0" stroke="#1F1F1F" stroke-width="2"/>
+<text x="36.0" y="3436.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Lucía</text>
+<text x="36.0" y="3456.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#8A8A8A">Curso de fin de semana · Madrid</text>
+<path d="M390,3250 H342 Q328,3250 328,3264 V3466 Q328,3480 342,3480 H390" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="348.0" y="3306.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="52" font-weight="800" fill="#BDBDBD">“</text>
+<rect x="348.0" y="3322.0" width="42.0" height="8.0" fill="#D3D3D3"/>
+<rect x="348.0" y="3338.0" width="42.0" height="8.0" fill="#D3D3D3"/>
+<circle cx="179.0" cy="3506.0" r="4" fill="#1F1F1F"/>
+<circle cx="195.0" cy="3506.0" r="4" fill="#BDBDBD"/>
+<circle cx="211.0" cy="3506.0" r="4" fill="#BDBDBD"/>
+</g>
+</g>
+<g id="06 Preguntas frecuentes">
+<rect x="0.0" y="3536.0" width="390.0" height="610.0" fill="#F5F5F5"/>
+<text x="16.0" y="3584.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#8A8A8A" letter-spacing="1.4">PREGUNTAS FRECUENTES</text>
+<text x="16.0" y="3620.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" font-weight="800" fill="#1F1F1F">Antes de venir</text>
+<rect x="16.0" y="3650.0" width="358.0" height="150.0" fill="#FFFFFF" rx="10" stroke="#BDBDBD" stroke-width="1"/>
+<text x="32.0" y="3685.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F">¿Tengo que saber nadar?</text>
+<line x1="342.0" y1="3680.0" x2="356.0" y2="3680.0" stroke="#1F1F1F" stroke-width="2"/>
+<rect x="32.0" y="3712.0" width="326.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="32.0" y="3726.0" width="326.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="32.0" y="3740.0" width="326.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="32.0" y="3754.0" width="195.6" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="3810.0" width="358.0" height="60.0" fill="#FFFFFF" rx="10" stroke="#BDBDBD" stroke-width="1"/>
+<text x="32.0" y="3845.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F">¿Desde qué edad se puede empezar?</text>
+<line x1="342.0" y1="3840.0" x2="356.0" y2="3840.0" stroke="#1F1F1F" stroke-width="2"/>
+<line x1="349.0" y1="3833.0" x2="349.0" y2="3847.0" stroke="#1F1F1F" stroke-width="2"/>
+<rect x="16.0" y="3880.0" width="358.0" height="80.0" fill="#FFFFFF" rx="10" stroke="#BDBDBD" stroke-width="1"/>
+<text x="32.0" y="3915.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F">¿Qué pasa si hay bandera roja</text>
+<text x="32.0" y="3935.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F">o no hay olas?</text>
+<line x1="342.0" y1="3910.0" x2="356.0" y2="3910.0" stroke="#1F1F1F" stroke-width="2"/>
+<line x1="349.0" y1="3903.0" x2="349.0" y2="3917.0" stroke="#1F1F1F" stroke-width="2"/>
+<rect x="16.0" y="3970.0" width="358.0" height="60.0" fill="#FFFFFF" rx="10" stroke="#BDBDBD" stroke-width="1"/>
+<text x="32.0" y="4005.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F">¿Qué tengo que llevar?</text>
+<line x1="342.0" y1="4000.0" x2="356.0" y2="4000.0" stroke="#1F1F1F" stroke-width="2"/>
+<line x1="349.0" y1="3993.0" x2="349.0" y2="4007.0" stroke="#1F1F1F" stroke-width="2"/>
+<rect x="16.0" y="4040.0" width="358.0" height="60.0" fill="#FFFFFF" rx="10" stroke="#BDBDBD" stroke-width="1"/>
+<text x="32.0" y="4075.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F">¿Cómo llego a Somo?</text>
+<line x1="342.0" y1="4070.0" x2="356.0" y2="4070.0" stroke="#1F1F1F" stroke-width="2"/>
+<line x1="349.0" y1="4063.0" x2="349.0" y2="4077.0" stroke="#1F1F1F" stroke-width="2"/>
+</g>
+<g id="07 Ola (ilustración animada)">
+<g id="Wave illustration">
+<path d="M0,4220 L0,4186.7 C19.5,4157.1 45.5,4157.1 65.0,4186.7 C84.5,4157.1 110.5,4157.1 130.0,4186.7 C149.5,4157.1 175.5,4157.1 195.0,4186.7 C214.5,4157.1 240.5,4157.1 260.0,4186.7 C279.5,4157.1 305.5,4157.1 325.0,4186.7 C344.5,4157.1 370.5,4157.1 390.0,4186.7 L390,4220 Z" fill="#E8E8E8" stroke="#CFCFCF" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<g id="08 Reservar">
+<rect x="0.0" y="4220.0" width="390.0" height="1190.0" fill="#F5F5F5"/>
+<text x="16.0" y="4268.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="600" fill="#8A8A8A" letter-spacing="1.4">RESERVAR</text>
+<text x="16.0" y="4304.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" font-weight="800" fill="#1F1F1F">Reserva tu plaza</text>
+<rect x="16.0" y="4326.0" width="358.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="4340.0" width="358.0" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.0" y="4354.0" width="214.8" height="8.0" fill="#D3D3D3" rx="4"/>
+<rect x="16.8" y="4390.8" width="171.5" height="46.5" fill="#FFFFFF" rx="24.0" stroke="#1F1F1F" stroke-width="1.5"/>
+<text x="102.5" y="4419.2" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F" text-anchor="middle">Llamar</text>
+<rect x="201.8" y="4390.8" width="171.5" height="46.5" fill="#FFFFFF" rx="24.0" stroke="#1F1F1F" stroke-width="1.5"/>
+<text x="287.5" y="4419.2" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F" text-anchor="middle">WhatsApp</text>
+<text x="16.0" y="4468.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#1F1F1F">hola@pleamar.example</text>
+<text x="16.0" y="4492.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">Paseo marítimo de Somo, acceso 3</text>
+<g id="Booking form">
+<rect x="16.0" y="4530.0" width="358.0" height="840.0" fill="#FFFFFF" rx="14" stroke="#BDBDBD" stroke-width="1"/>
+<text x="32.0" y="4570.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1F1F1F">Nombre</text>
+<rect x="32.0" y="4580.0" width="326.0" height="48.0" fill="#FFFFFF" rx="8" stroke="#BDBDBD" stroke-width="1"/>
+<text x="32.0" y="4654.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1F1F1F">Email</text>
+<rect x="32.0" y="4664.0" width="326.0" height="48.0" fill="#FFFFFF" rx="8" stroke="#BDBDBD" stroke-width="1"/>
+<text x="32.0" y="4738.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1F1F1F">Curso</text>
+<rect x="32.0" y="4748.0" width="326.0" height="48.0" fill="#FFFFFF" rx="8" stroke="#BDBDBD" stroke-width="1"/>
+<text x="46.0" y="4777.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#8A8A8A">Curso de fin de semana · 119 €</text>
+<path d="M330,4768 l6,6 l6,-6" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="32.0" y="4822.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1F1F1F">Fecha preferida</text>
+<rect x="32.0" y="4832.0" width="326.0" height="48.0" fill="#FFFFFF" rx="8" stroke="#BDBDBD" stroke-width="1"/>
+<text x="46.0" y="4861.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#8A8A8A">dd/mm/aaaa</text>
+<rect x="328.0" y="4846.0" width="16.0" height="16.0" fill="none" rx="2" stroke="#555555" stroke-width="1.5"/>
+<line x1="328.0" y1="4851.0" x2="344.0" y2="4851.0" stroke="#555555" stroke-width="1.5"/>
+<text x="32.0" y="4906.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1F1F1F">Tu nivel</text>
+<rect x="32.0" y="4918.0" width="326.0" height="48.0" fill="#FFFFFF" rx="8" stroke="#1F1F1F" stroke-width="1.5"/>
+<circle cx="52.0" cy="4942.0" r="7" fill="#FFFFFF" stroke="#1F1F1F" stroke-width="1.5"/>
+<circle cx="52.0" cy="4942.0" r="3.5" fill="#1F1F1F"/>
+<text x="68.0" y="4946.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#1F1F1F">Nunca he surfeado</text>
+<rect x="32.0" y="4974.0" width="326.0" height="48.0" fill="#FFFFFF" rx="8" stroke="#BDBDBD" stroke-width="1"/>
+<circle cx="52.0" cy="4998.0" r="7" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="1.5"/>
+<text x="68.0" y="5002.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#555555">He hecho alguna clase</text>
+<rect x="32.0" y="5030.0" width="326.0" height="48.0" fill="#FFFFFF" rx="8" stroke="#BDBDBD" stroke-width="1"/>
+<circle cx="52.0" cy="5054.0" r="7" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="1.5"/>
+<text x="68.0" y="5058.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#555555">Ya cojo espumas solo</text>
+<text x="32.0" y="5110.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="600" fill="#1F1F1F">Algo más (opcional)</text>
+<rect x="32.0" y="5120.0" width="326.0" height="100.0" fill="#FFFFFF" rx="8" stroke="#BDBDBD" stroke-width="1"/>
+<text x="46.0" y="5146.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="14" font-weight="400" fill="#8A8A8A">Ej.: dos adultos y un niño de 10</text>
+<rect x="32.0" y="5244.0" width="326.0" height="52.0" fill="#1F1F1F" rx="26.0"/>
+<text x="195.0" y="5275.2" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Enviar solicitud</text>
+<text x="32.0" y="5322.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#8A8A8A">Web de ejemplo: el formulario no</text>
+<text x="32.0" y="5339.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#8A8A8A">envía datos a ningún sitio.</text>
+</g>
+</g>
+<g id="09 Footer">
+<line x1="0.0" y1="5410.0" x2="390.0" y2="5410.0" stroke="#D6D6D6" stroke-width="1"/>
+<text x="195.0" y="5446.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#555555" text-anchor="middle">Pleamar Escuela de Surf · Somo, Cantabria</text>
+<text x="195.0" y="5466.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" fill="#8A8A8A" text-anchor="middle">Negocio ficticio creado como ejemplo</text>
+</g>
+<g id="Layout grid · 4 col">
+<rect x="16.0" y="0.0" width="77.5" height="5490.0" fill="#E5352B" opacity="0.03"/>
+<rect x="109.5" y="0.0" width="77.5" height="5490.0" fill="#E5352B" opacity="0.03"/>
+<rect x="203.0" y="0.0" width="77.5" height="5490.0" fill="#E5352B" opacity="0.03"/>
+<rect x="296.5" y="0.0" width="77.5" height="5490.0" fill="#E5352B" opacity="0.03"/>
+</g>
+<g id="Fold line">
+<line x1="0.0" y1="844.0" x2="390.0" y2="844.0" stroke="#E5352B" stroke-width="1.5" stroke-dasharray="8 6"/>
+<rect x="218.0" y="832.0" width="164.0" height="24.0" fill="#E5352B" rx="12"/>
+<text x="300.0" y="848.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">FOLD · 390 × 844</text>
+</g>
+</g>
+<g id="Annotation markers">
+<circle cx="454.0" cy="142.0" r="13" fill="#E5352B"/>
+<text x="454.0" y="146.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+<circle cx="454.0" cy="550.0" r="13" fill="#E5352B"/>
+<text x="454.0" y="554.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+<circle cx="454.0" cy="782.0" r="13" fill="#E5352B"/>
+<text x="454.0" y="786.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+<circle cx="454.0" cy="1160.0" r="13" fill="#E5352B"/>
+<text x="454.0" y="1164.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">4</text>
+<circle cx="454.0" cy="1590.0" r="13" fill="#E5352B"/>
+<text x="454.0" y="1594.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">5</text>
+<circle cx="454.0" cy="2630.0" r="13" fill="#E5352B"/>
+<text x="454.0" y="2634.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">6</text>
+<circle cx="454.0" cy="3400.0" r="13" fill="#E5352B"/>
+<text x="454.0" y="3404.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">7</text>
+<circle cx="454.0" cy="3810.0" r="13" fill="#E5352B"/>
+<text x="454.0" y="3814.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">8</text>
+<circle cx="454.0" cy="4530.0" r="13" fill="#E5352B"/>
+<text x="454.0" y="4534.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">9</text>
+<circle cx="454.0" cy="4910.0" r="13" fill="#E5352B"/>
+<text x="454.0" y="4914.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">10</text>
+</g>
+<g id="Notes">
+<text x="510.0" y="140.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="22" font-weight="700" fill="#1F1F1F">Annotations</text>
+<text x="510.0" y="166.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#8A8A8A">What changes from desktop, and why</text>
+<circle cx="523.0" cy="205.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="209.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">1</text>
+<text x="548.0" y="210.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Header collapses</text>
+<text x="548.0" y="232.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">Navigation goes into a hamburger menu. The</text>
+<text x="548.0" y="251.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">“Reservar” button leaves the header and becomes a</text>
+<text x="548.0" y="270.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">sticky bottom bar (see 11), inside the thumb zone.</text>
+<circle cx="523.0" cy="306.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="310.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">2</text>
+<text x="548.0" y="311.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Hero reframed</text>
+<text x="548.0" y="333.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">Video is cropped to a vertical frame. The H1</text>
+<text x="548.0" y="352.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">breaks into three lines at 34 px so it stays the</text>
+<text x="548.0" y="371.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">dominant element without overflowing.</text>
+<circle cx="523.0" cy="407.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="411.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">3</text>
+<text x="548.0" y="412.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Full-width buttons</text>
+<text x="548.0" y="434.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">Both CTAs stack at 52 px high and full width: easy</text>
+<text x="548.0" y="453.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">to tap (≥ 44 px target) and both visible above the</text>
+<text x="548.0" y="472.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">fold.</text>
+<circle cx="523.0" cy="508.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="512.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">4</text>
+<text x="548.0" y="513.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Report card below</text>
+<text x="548.0" y="535.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">The surf report moves under the hero instead of</text>
+<text x="548.0" y="554.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">beside it. Its stats keep a compact 3 × 2 grid.</text>
+<circle cx="523.0" cy="590.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="594.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">5</text>
+<text x="548.0" y="595.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Featured plan first</text>
+<text x="548.0" y="617.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">Pricing cards stack and the most-booked plan moves</text>
+<text x="548.0" y="636.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">to the top. The other two are compact, with “Qué</text>
+<text x="548.0" y="655.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">incluye” collapsed to save scroll.</text>
+<circle cx="523.0" cy="691.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="695.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">6</text>
+<text x="548.0" y="696.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Vertical timeline</text>
+<text x="548.0" y="718.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">The 5 steps switch from a horizontal row to a</text>
+<text x="548.0" y="737.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">vertical line, which is the natural reading</text>
+<text x="548.0" y="756.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">direction on a narrow screen.</text>
+<circle cx="523.0" cy="792.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="796.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">7</text>
+<text x="548.0" y="797.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Swipe carousel</text>
+<text x="548.0" y="819.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">Testimonials become a horizontal carousel. The</text>
+<text x="548.0" y="838.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">next card peeks in from the right and dots show</text>
+<text x="548.0" y="857.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">position.</text>
+<circle cx="523.0" cy="893.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="897.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">8</text>
+<text x="548.0" y="898.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Accordion</text>
+<text x="548.0" y="920.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">FAQ goes full width; long questions wrap to two</text>
+<text x="548.0" y="939.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">lines and the +/– icon keeps a fixed position.</text>
+<circle cx="523.0" cy="975.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="979.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">9</text>
+<text x="548.0" y="980.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Tap to contact</text>
+<text x="548.0" y="1002.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">Phone and WhatsApp become buttons: on a phone,</text>
+<text x="548.0" y="1021.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">calling is one tap, which a desktop link cannot</text>
+<text x="548.0" y="1040.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">offer.</text>
+<circle cx="523.0" cy="1076.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="1080.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">10</text>
+<text x="548.0" y="1081.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Single-column form</text>
+<text x="548.0" y="1103.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">One field per row, native date picker and level</text>
+<text x="548.0" y="1122.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">options as 48 px tappable cards instead of small</text>
+<text x="548.0" y="1141.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">radio buttons.</text>
+<circle cx="523.0" cy="1177.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="1181.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">11</text>
+<text x="548.0" y="1182.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="700" fill="#1F1F1F">Sticky booking bar</text>
+<text x="548.0" y="1204.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">Appears after the hero buttons scroll out of view,</text>
+<text x="548.0" y="1223.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="400" fill="#555555">so booking is always one thumb-tap away.</text>
+</g>
+<g id="Component · Sticky booking bar">
+<circle cx="523.0" cy="1279.0" r="13" fill="#E5352B"/>
+<text x="523.0" y="1283.5" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">11</text>
+<text x="544.0" y="1284.0" font-family="Inter, Helvetica, Arial, sans-serif" font-size="13" font-weight="700" fill="#1F1F1F">Component · sticky bar (fixed to viewport bottom)</text>
+<rect x="510.0" y="1300.0" width="390.0" height="84.0" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="1"/>
+<line x1="510.0" y1="1300.0" x2="900.0" y2="1300.0" stroke="#1F1F1F" stroke-width="1"/>
+<rect x="526.0" y="1316.0" width="358.0" height="52.0" fill="#1F1F1F" rx="26.0"/>
+<text x="705.0" y="1347.2" font-family="Inter, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#FFFFFF" text-anchor="middle">Reservar mi primera clase</text>
+</g>
+</svg>

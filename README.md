@@ -42,3 +42,23 @@ Descarga el proyecto (botón **Code → Download ZIP** en GitHub), descomprímel
 | `img/portada.mp4` | Vídeo en bucle de la portada. |
 | `img/portada.jpg`, `img/portada-960.jpg` | Foto de la portada, que se ve mientras carga el vídeo o si no se puede reproducir. |
 | `README.md`  | Este archivo.                                           |
+
+---
+
+# Quely · Cookies from Mallorca (carpeta `quely/`)
+
+Web de una sola página hecha a partir del wireframe "MacBook Air" de Figma. Abre `quely/index.html` con doble clic. Los textos están en inglés, como en el diseño.
+
+## Qué tiene de interactivo
+
+- **Portada con galletas que caen**: se apartan al pasar el ratón y se pueden morder con un clic (o un toque en el móvil). Tres mordiscos y la galleta se deshace en migas. Un contador lleva la cuenta de las galletas comidas, y el crujido suena sin usar archivos de audio (se puede silenciar).
+- **Franja roja en movimiento**: va más rápida cuanto más rápido bajas y cambia de sentido si subes.
+- **Horno que se calienta al bajar**: la bandeja pasa de masa cruda a galleta dorada y sube la temperatura. Al terminar sale "Freshly baked!". Al pulsar una galleta, alguien se la lleva.
+- **Cifras animadas**: 1853 y 100 % cuentan hacia arriba y "Mallorca" aparece letra a letra.
+- **Productos en 3D**: las tarjetas se inclinan siguiendo al ratón y las galletas saltan de la bolsa. Las bolsas están dibujadas en SVG.
+- **Galleta "volver arriba"**: abajo a la derecha. Se va comiendo según lees la página.
+- **Logo gigante en el pie**: se llena de rojo al llegar al final.
+
+Si el dispositivo tiene activado "reducir movimiento", las animaciones se desactivan y la página se ve completa y quieta.
+
+Las imágenes de galletas y bolsas son ilustraciones de código. Se pueden sustituir por las fotos reales del diseño.

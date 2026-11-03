@@ -481,7 +481,7 @@
     background: radial-gradient(circle at 50% 70%, var(--halo, #FDE7CF) 0 42%, transparent 70%);
     transform: translateZ(40px);
   }
-  .bag { width: 150px; height: auto; overflow: visible; transition: transform .6s var(--ease-spring); filter: drop-shadow(0 18px 18px rgba(46,27,17,.25)); }
+  .bag { width: auto; height: 210px; max-width: 80%; object-fit: contain; transition: transform .6s var(--ease-spring); filter: drop-shadow(0 18px 18px rgba(46,27,17,.25)); }
   .product:hover .bag { transform: translateY(-8px) rotate(-4deg) scale(1.04); }
   .bag .pop { transform: translateY(34px); transition: transform .6s var(--ease-spring); transform-box: fill-box; transform-origin: center; }
   .product:hover .bag .pop { transform: translateY(-14px) rotate(-18deg); }
@@ -505,13 +505,13 @@
     .product-grid { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; }
     .product { flex-direction: row; gap: 18px; padding: 18px; align-items: center; }
     .product-stage { height: 170px; width: 130px; flex-shrink: 0; margin: 0; }
-    .bag { width: 92px; }
+    .bag { width: auto; height: 140px; }
     .product h3 { font-size: 1.25rem; margin-top: 8px; }
     .product p { margin-bottom: 10px; font-size: .9rem; }
   }
   @media (max-width: 420px) {
     .product-stage { width: 104px; }
-    .bag { width: 80px; }
+    .bag { width: auto; height: 120px; }
   }
 
   /* =========================================================
@@ -686,7 +686,7 @@
     display: grid; place-items: center; padding: 56px 24px 40px;
     background: radial-gradient(circle at 50% 60%, var(--halo, #FDE1D6) 0 40%, var(--sand) 78%);
   }
-  .pdialog-stage .bag { width: min(220px, 70%); animation: float 5s ease-in-out infinite; }
+  .pdialog-stage .bag { width: auto; height: min(340px, 46vh); animation: float 5s ease-in-out infinite; }
   .pdialog-stage .bag .pop { transform: translateY(-14px) rotate(-18deg); }
   .pdialog-stage .bag .pop:nth-of-type(2) { transform: translateY(-30px) rotate(24deg); }
   .pdialog-stage .bag .pop:nth-of-type(3) { transform: translateY(-10px) rotate(40deg); }
@@ -705,7 +705,7 @@
   @media (max-width: 640px) {
     .pdialog-card { grid-template-columns: 1fr; }
     .pdialog-stage { padding: 40px 20px 16px; }
-    .pdialog-stage .bag { width: 120px; }
+    .pdialog-stage .bag { width: auto; height: 170px; }
     .pdialog-body { padding: 18px 22px 24px; gap: 12px; }
   }
 
@@ -728,7 +728,7 @@
   .basket-item.is-new { animation: item-in .45s var(--ease-spring); }
   @keyframes item-in { from { opacity: 0; transform: translateX(24px); } }
   .thumb { display: grid; place-items: center; width: 46px; height: 56px; }
-  .thumb .bag { width: 40px; filter: none; }
+  .thumb .bag { width: auto; height: 54px; max-width: 46px; filter: none; }
   .item-name { font-weight: 700; line-height: 1.2; display: block; }
   .item-meta { font-size: .8rem; color: var(--muted); }
   .item-side { display: grid; justify-items: end; gap: 4px; }
@@ -872,6 +872,103 @@
   .review:nth-child(3) .avatar .eyes { animation-delay: -3.1s; }
   @keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
   .story-list li span:first-child svg { width: 28px; height: 28px; }
+
+  /* =========================================================
+     Quiz: which Quely are you?
+     ========================================================= */
+  .quiz { position: relative; padding: clamp(80px, 10vw, 130px) 0; background: var(--red); color: var(--white); overflow: hidden; }
+  .quiz::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255,255,255,.08) 0 16px, transparent 17px);
+    background-size: 84px 84px; animation: drift 24s linear infinite;
+  }
+  @keyframes drift { to { background-position: 84px 84px; } }
+  .quiz .eyebrow { color: #FFD9A0; }
+  .quiz .section-head p { color: rgba(255,255,255,.88); }
+  .quiz-card {
+    position: relative; max-width: 780px; min-height: 330px; margin: 0 auto;
+    padding: clamp(22px, 4vw, 44px); border-radius: 28px;
+    background: var(--cream); color: var(--ink);
+    box-shadow: 0 30px 60px -28px rgba(70, 8, 4, .7);
+  }
+  .quiz-progress { display: flex; gap: 8px; margin-bottom: 24px; }
+  .quiz-progress span { position: relative; flex: 1; height: 6px; border-radius: 6px; background: var(--sand-2); overflow: hidden; }
+  .quiz-progress span::after { content: ""; position: absolute; inset: 0; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease-out); }
+  .quiz-progress span.on::after { transform: scaleX(1); }
+  .quiz-count { margin: 0 0 6px; font-size: .76rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .quiz-step { animation: step-in .5s var(--ease-out); }
+  .quiz-step h3 { margin: 0 0 22px; font-size: clamp(1.5rem, 3vw, 2.1rem); }
+  @keyframes step-in { from { opacity: 0; transform: translateX(40px); } }
+  .quiz-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .quiz-opt {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+    padding: 18px; border: 0; border-radius: 18px; background: var(--white);
+    box-shadow: inset 0 0 0 2px var(--line); text-align: left;
+    font: inherit; font-weight: 600; line-height: 1.35; cursor: pointer;
+    transition: transform .35s var(--ease-spring), box-shadow .25s, background-color .25s, color .25s;
+  }
+  .quiz-opt:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 2px var(--red), var(--shadow-1); }
+  .quiz-opt .letter {
+    display: grid; place-items: center; flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+    background: var(--red-soft); color: var(--red); font-family: var(--font-display); font-weight: 800;
+  }
+  .quiz-opt.is-picked { background: var(--red); color: var(--white); box-shadow: none; transform: scale(1.04); }
+  .quiz-opt.is-picked .letter { background: var(--white); }
+  .quiz-result { display: grid; grid-template-columns: auto 1fr; gap: clamp(20px, 4vw, 44px); align-items: center; animation: step-in .6s var(--ease-out); }
+  .quiz-img { display: grid; place-items: center; min-width: 150px; }
+  .quiz-result .bag { height: 250px; max-width: none; animation: result-pop .9s var(--ease-spring), float 5s ease-in-out .9s infinite; }
+  @keyframes result-pop { from { opacity: 0; transform: scale(.2) rotate(-30deg); } }
+  .quiz-result h3 { margin: 0 0 10px; font-size: clamp(1.9rem, 4vw, 2.7rem); }
+  .quiz-result p:not(.quiz-count) { margin: 0 0 22px; color: var(--muted); }
+  .quiz-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .link-plain { border: 0; background: none; padding: .5em; font: inherit; font-weight: 600; color: var(--muted); text-decoration: underline; cursor: pointer; }
+  .link-plain:hover { color: var(--red); }
+  @media (max-width: 700px) {
+    .quiz-options { grid-template-columns: 1fr; }
+    .quiz-opt { flex-direction: row; align-items: center; padding: 14px 16px; }
+    .quiz-result { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    .quiz-result .bag { height: 190px; }
+    .quiz-actions { justify-content: center; }
+  }
+  .burst { position: fixed; left: 0; top: 0; z-index: 300; width: 28px; height: 28px; pointer-events: none; }
+
+  /* =========================================================
+     Scratch the flour
+     ========================================================= */
+  .scratch { padding: clamp(80px, 10vw, 130px) 0; background: var(--brown); color: var(--cream); overflow: hidden; }
+  .scratch .wrap { display: grid; grid-template-columns: 1fr 1.15fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .scratch .eyebrow { color: var(--gold); }
+  .scratch-copy h2 { margin: 12px 0 16px; }
+  .scratch-copy p { margin: 0 0 16px; max-width: 40ch; color: #D9C3A8; font-size: 1.04rem; }
+  .scratch .link-plain { padding-left: 0; color: #D9C3A8; }
+  .scratch .link-plain:hover { color: var(--gold); }
+  .scratch-card {
+    position: relative; aspect-ratio: 3 / 2; border-radius: 24px; overflow: hidden;
+    background: #3B2417; box-shadow: 0 30px 60px -20px #000, 0 0 0 6px rgba(246, 231, 210, .08);
+  }
+  .scratch-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .prize {
+    position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 6px;
+    padding: 16px; text-align: center; color: var(--cream);
+    background: radial-gradient(circle at 50% 50%, rgba(46,27,17,.82) 0 40%, rgba(46,27,17,.3) 80%);
+  }
+  .prize-tag { font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+  .prize strong { font-family: var(--font-display); font-size: clamp(3rem, 8vw, 5rem); font-weight: 800; line-height: 1; color: var(--white); }
+  .prize-off { font-size: .9rem; }
+  .prize code { padding: .3em .8em; border: 2px dashed var(--gold); border-radius: 10px; font-family: ui-monospace, Menlo, monospace; font-size: 1.05rem; font-weight: 700; letter-spacing: .12em; }
+  .prize .btn { margin-top: 8px; }
+  .prize .btn[disabled] { opacity: 1; background: #2F7A3E; cursor: default; }
+  .scratch-card.is-revealed .prize strong { animation: bump .8s var(--ease-spring); }
+  .scratch-canvas {
+    position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='-20 -20 40 40'%3E%3Ccircle r='17' fill='%23E3A440' stroke='%23B8711F' stroke-width='2'/%3E%3Cg fill='%238A4A16'%3E%3Ccircle r='1.6'/%3E%3Ccircle cy='-8' r='1.6'/%3E%3Ccircle cy='8' r='1.6'/%3E%3Ccircle cx='-7' cy='-4' r='1.6'/%3E%3Ccircle cx='7' cy='-4' r='1.6'/%3E%3Ccircle cx='-7' cy='4' r='1.6'/%3E%3Ccircle cx='7' cy='4' r='1.6'/%3E%3C/g%3E%3C/svg%3E") 18 18, pointer;
+  }
+  .scratch-canvas[hidden] { display: none; }
+  .flour { position: absolute; z-index: 2; width: 6px; height: 6px; border-radius: 50%; background: #FBF6EC; pointer-events: none; animation: flour-fall .9s ease-in forwards; }
+  @keyframes flour-fall { to { transform: translate(var(--fx), 70px) scale(.3); opacity: 0; } }
+  .discount-row { color: #2F7A3E; font-weight: 600; margin-bottom: 6px; }
+  .discount-row[hidden] { display: none; }
+  @media (max-width: 860px) { .scratch .wrap { grid-template-columns: 1fr; } }
 
   /* =========================================================
      Scroll reveal
@@ -1219,17 +1316,7 @@
         <article class="reveal reveal--pop" style="--d:0s">
           <div class="product" data-tilt data-id="quelitas" style="--halo:#FDE1D6">
           <div class="product-stage">
-            <svg class="bag" viewBox="0 0 160 222" style="--bag:#D7261E; --bag-dark:#A9170F" role="img" data-i18n-aria="pack.1" aria-label="Quelitas pack">
-              <use class="pop" href="#mini-cookie" x="38" y="6" width="34" height="34"/>
-              <use class="pop" href="#mini-cookie" x="66" y="2" width="30" height="30"/>
-              <use class="pop" href="#mini-cookie" x="90" y="8" width="32" height="32"/>
-              <use href="#bag"/>
-              <rect x="34" y="78" width="92" height="84" rx="14" fill="#FFF3DF"/>
-              <use href="#mini-cookie" x="40" y="88" width="46" height="46"/>
-              <use href="#mini-cookie" x="74" y="98" width="46" height="46"/>
-              <use href="#mini-cookie" x="52" y="118" width="40" height="40"/>
-              <text x="80" y="184" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="800" font-size="17" fill="#fff">Quelitas</text>
-            </svg>
+            <img class="bag" src="img/quelitas.webp" width="183" height="422" alt="Quelitas pack" data-i18n-alt="pack.1" loading="lazy" decoding="async">
           </div>
           <div class="product-body">
             <span class="pill" data-i18n="p1.tag">Since 1853</span>
@@ -1243,17 +1330,7 @@
         <article class="reveal reveal--pop" style="--d:.1s">
           <div class="product" data-tilt data-id="quelitos" style="--halo:#FDEBC8">
           <div class="product-stage">
-            <svg class="bag" viewBox="0 0 160 222" style="--bag:#E3342B; --bag-dark:#B01E16" role="img" data-i18n-aria="pack.2" aria-label="Quelitos pack">
-              <use class="pop" href="#choc-cookie" x="38" y="6" width="34" height="34"/>
-              <use class="pop" href="#choc-cookie" x="66" y="2" width="30" height="30"/>
-              <use class="pop" href="#choc-cookie" x="90" y="8" width="32" height="32"/>
-              <use href="#bag"/>
-              <circle cx="80" cy="120" r="44" fill="#FFC93C"/>
-              <circle cx="80" cy="120" r="44" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="4 6"/>
-              <use href="#choc-cookie" x="46" y="92" width="44" height="44"/>
-              <use href="#choc-cookie" x="74" y="104" width="42" height="42"/>
-              <text x="80" y="184" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="800" font-size="17" fill="#fff">Quelitos</text>
-            </svg>
+            <img class="bag" src="img/quelitos.webp" width="251" height="371" alt="Quelitos pack" data-i18n-alt="pack.2" loading="lazy" decoding="async">
           </div>
           <div class="product-body">
             <span class="pill" data-i18n="p2.tag">Kids' favourite</span>
@@ -1267,20 +1344,7 @@
         <article class="reveal reveal--pop" style="--d:.2s">
           <div class="product" data-tilt data-id="merienda" style="--halo:#DCE5FA">
           <div class="product-stage">
-            <svg class="bag" viewBox="0 0 160 222" style="--bag:#22409A; --bag-dark:#152B6E" role="img" data-i18n-aria="pack.3" aria-label="Quely Merienda pack">
-              <use class="pop" href="#mini-cookie" x="38" y="6" width="34" height="34"/>
-              <rect class="pop" x="70" y="0" width="12" height="40" rx="6" fill="#9C3B2A"/>
-              <use class="pop" href="#mini-cookie" x="90" y="8" width="32" height="32"/>
-              <use href="#bag"/>
-              <text x="80" y="92" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="900" font-size="20" fill="#FFC93C" stroke="#152B6E" stroke-width="4" paint-order="stroke" transform="rotate(-6 80 86)">Merienda</text>
-              <g transform="rotate(-18 80 140)">
-                <rect x="56" y="104" width="13" height="66" rx="6.5" fill="#9C3B2A"/>
-                <rect x="58" y="104" width="4" height="66" rx="2" fill="#fff" fill-opacity=".2"/>
-                <circle cx="62" cy="120" r="2" fill="#F3D9C6"/><circle cx="64" cy="140" r="1.6" fill="#F3D9C6"/><circle cx="61" cy="156" r="2" fill="#F3D9C6"/>
-              </g>
-              <use href="#mini-cookie" x="72" y="108" width="46" height="46"/>
-              <text x="80" y="184" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="800" font-size="15" fill="#fff">Quely Merienda</text>
-            </svg>
+            <img class="bag" src="img/merienda.webp" width="242" height="488" alt="Quely Merienda pack" data-i18n-alt="pack.3" loading="lazy" decoding="async">
           </div>
           <div class="product-body">
             <span class="pill" data-i18n="p3.tag">Snack time</span>
@@ -1294,6 +1358,21 @@
 
       <div class="products-cta reveal">
         <a class="btn magnetic" href="#cookies" data-open-basket><span data-i18n="all">See all products</span> <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="quiz" id="quiz" aria-labelledby="quiz-title">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="eyebrow reveal" data-i18n="quiz.eyebrow">Quick test</span>
+        <h2 id="quiz-title" class="reveal" style="--d:.05s" data-i18n="quiz.title">Which Quely are you?</h2>
+        <p class="reveal" style="--d:.1s" data-i18n="quiz.sub">Three questions, ten seconds, one perfect match.</p>
+      </header>
+      <div class="quiz-card reveal reveal--pop" style="--d:.1s">
+        <div class="quiz-progress" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div id="quiz-stage" aria-live="polite"></div>
       </div>
     </div>
   </section>
@@ -1337,6 +1416,29 @@
         </figure>
       </div>
       <p class="swipe-hint" data-i18n="swipe">Swipe for more →</p>
+    </div>
+  </section>
+
+  <!-- ============ SCRATCH ============ -->
+  <section class="scratch" id="scratch" aria-labelledby="scratch-title">
+    <div class="wrap">
+      <div class="scratch-copy">
+        <span class="eyebrow reveal" data-i18n="scratch.eyebrow">A gift from the bakery</span>
+        <h2 id="scratch-title" class="reveal" style="--d:.05s" data-i18n="scratch.title">Scratch the flour</h2>
+        <p class="reveal" style="--d:.1s" data-i18n="scratch.text">Something is hidden under the flour on our worktop. Scratch it with your finger or the mouse to find out what.</p>
+        <button type="button" class="link-plain reveal" style="--d:.15s" id="scratch-skip" data-i18n="scratch.skip">Reveal it without scratching</button>
+      </div>
+      <div class="scratch-card reveal reveal--pop" id="scratch-card">
+        <img src="img/obrador.webp" width="550" height="366" alt="Hands picking up freshly baked Quelitas on a wooden table" data-i18n-alt="scratch.alt" loading="lazy" decoding="async">
+        <div class="prize" aria-live="polite">
+          <span class="prize-tag" data-i18n="scratch.won">You've won</span>
+          <strong>−10%</strong>
+          <span class="prize-off" data-i18n="scratch.off">off your order with the code</span>
+          <code>QUELY1853</code>
+          <button type="button" class="btn btn--small" id="prize-apply">Apply to my basket</button>
+        </div>
+        <canvas class="scratch-canvas" id="scratch-canvas" aria-hidden="true"></canvas>
+      </div>
     </div>
   </section>
 
@@ -1487,6 +1589,7 @@
       </section>
     </div>
     <footer class="drawer-foot">
+      <div class="subtotal discount-row" id="discount-row" hidden><span data-i18n="basket.discount">Code QUELY1853 (−10%)</span><span id="discount-amount"></span></div>
       <div class="subtotal"><span data-i18n="basket.subtotal">Subtotal</span><strong id="basket-subtotal">0,00 €</strong></div>
       <button class="btn btn--block" type="button" id="checkout"><span data-i18n="basket.checkout">Checkout</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
       <p class="note" id="basket-note" aria-live="polite"></p>
@@ -1534,6 +1637,21 @@
       'about.text': 'For over 170 years, Quely has made cookies and snacks on the island, with simple recipes and local ingredients such as olive oil. Three generations of know-how in every bite.',
       'stat.1': 'Our beginnings', 'stat.2': 'Natural olive oil', 'stat.3': 'Made on the island',
       'about.btn': 'Our story',
+      'quiz.eyebrow': 'Quick test', 'quiz.title': 'Which Quely are you?', 'quiz.sub': 'Three questions, ten seconds, one perfect match.',
+      'quiz.count': 'Question {n} of 3', 'quiz.your': 'Your match', 'quiz.is': "You're {name}!", 'quiz.again': 'Take the test again',
+      'quiz.q1': 'When do you fancy a Quely?', 'quiz.q1a': 'With my morning coffee', 'quiz.q1b': 'For an afternoon snack', 'quiz.q1c': "Any time: it's a treat!",
+      'quiz.q2': 'What are you craving?', 'quiz.q2a': 'Something light and crunchy', 'quiz.q2b': 'Sweet, with chocolate', 'quiz.q2c': 'Savoury and filling',
+      'quiz.q3': 'Where will you eat it?', 'quiz.q3a': 'At home, nice and calm', 'quiz.q3b': 'At school or at work', 'quiz.q3c': 'At the beach or on a trip',
+      'quiz.r.quelitas': "Classic, light and always welcome. Like your morning coffee: you can't do without it.",
+      'quiz.r.quelitos': 'Sweet and full of fun: chocolate is your thing.',
+      'quiz.r.merienda': 'Always on the go: you need a complete snack, ready to take anywhere.',
+      'scratch.eyebrow': 'A gift from the bakery', 'scratch.title': 'Scratch the flour',
+      'scratch.text': 'Something is hidden under the flour on our worktop. Scratch it with your finger or the mouse to find out what.',
+      'scratch.skip': 'Reveal it without scratching', 'scratch.here': 'Scratch here',
+      'scratch.won': "You've won", 'scratch.off': 'off your order with the code',
+      'scratch.apply': 'Apply to my basket', 'scratch.done': 'Applied ✓', 'scratch.applied': 'Code applied: −10% in your basket',
+      'scratch.alt': 'Hands picking up freshly baked Quelitas on a wooden table',
+      'basket.discount': 'Code QUELY1853 (−10%)',
       'island.eyebrow': 'The island', 'island.title': 'Baked on the island, by the sea',
       'island.text': 'Olive trees, sea breeze and the same way of baking since 1853.',
       'island.tip': 'Psst… give the windmill a push', 'island.mill': 'Spin the windmill',
@@ -1610,18 +1728,33 @@
       'about.text': 'Desde hace más de 170 años, Quely elabora galletas y snacks en la isla, con recetas sencillas e ingredientes locales como el aceite de oliva. Tres generaciones de saber hacer en cada bocado.',
       'stat.1': 'Nuestros inicios', 'stat.2': 'Aceite de oliva natural', 'stat.3': 'Hecho en la isla',
       'about.btn': 'Nuestra historia',
+      'quiz.eyebrow': 'Test rápido', 'quiz.title': '¿Qué Quely eres?', 'quiz.sub': 'Tres preguntas, diez segundos y tu galleta ideal.',
+      'quiz.count': 'Pregunta {n} de 3', 'quiz.your': 'Tu resultado', 'quiz.is': '¡Eres {name}!', 'quiz.again': 'Repetir el test',
+      'quiz.q1': '¿Cuándo te apetece una Quely?', 'quiz.q1a': 'Con el café de la mañana', 'quiz.q1b': 'Para merendar', 'quiz.q1c': 'A cualquier hora: ¡es un capricho!',
+      'quiz.q2': '¿Qué te apetece?', 'quiz.q2a': 'Algo ligero y crujiente', 'quiz.q2b': 'Dulce, con chocolate', 'quiz.q2c': 'Salado y que llene',
+      'quiz.q3': '¿Dónde te la vas a comer?', 'quiz.q3a': 'En casa, tranquilamente', 'quiz.q3b': 'En el cole o en el trabajo', 'quiz.q3c': 'En la playa o de excursión',
+      'quiz.r.quelitas': 'Clásica, ligera y siempre apetece. Como el café de la mañana: imprescindible.',
+      'quiz.r.quelitos': 'Dulce y con mucha chispa: lo tuyo es el chocolate.',
+      'quiz.r.merienda': 'Siempre en marcha: necesitas una merienda completa y lista para llevar.',
+      'scratch.eyebrow': 'Un regalo del obrador', 'scratch.title': 'Rasca la harina',
+      'scratch.text': 'Debajo de la harina de nuestra mesa de trabajo hay algo escondido. Ráscala con el dedo o con el ratón para descubrirlo.',
+      'scratch.skip': 'Descubrir sin rascar', 'scratch.here': 'Rasca aquí',
+      'scratch.won': 'Has ganado', 'scratch.off': 'en tu pedido con el código',
+      'scratch.apply': 'Aplicar a mi cesta', 'scratch.done': 'Aplicado ✓', 'scratch.applied': 'Código aplicado: −10 % en tu cesta',
+      'scratch.alt': 'Manos cogiendo Quelitas recién hechas sobre una mesa de madera',
+      'basket.discount': 'Código QUELY1853 (−10 %)',
       'island.eyebrow': 'La isla', 'island.title': 'Horneadas en la isla, junto al mar',
       'island.text': 'Olivos, brisa de mar y la misma forma de hornear desde 1853.',
       'island.tip': 'Psst… dale un empujón al molino', 'island.mill': 'Girar el molino',
       'island.img': 'Ilustración de Mallorca: un molino, olivos y el mar, con una galleta como sol',
       'story.1': 'Recetas sencillas, conservadas durante generaciones', 'story.2': 'Ingredientes locales, como el aceite de oliva', 'story.3': 'Tres generaciones de saber hacer en cada bocado',
       'products.title': 'Nuestros productos', 'products.sub': 'Tres formas de disfrutar Quely, horneadas en Mallorca.',
-      'p1.tag': 'Desde 1853', 'p1.desc': 'Desde el corazón del Mediterráneo, desde 1853.',
+      'p1.tag': 'Desde 1853', 'p1.desc': 'Del corazón del Mediterráneo, desde 1853.',
       'p1.long': 'Nuestro clásico desde 1853: una galleta ligera y crujiente hecha con aceite de oliva 100% natural. Perfecta sola, con el café de la mañana o con lo que quieras encima.',
       'p2.tag': 'La favorita de los peques', 'p2.desc': 'Galletas crujientes bañadas en chocolate con leche.',
       'p2.long': 'Galletitas crujientes bañadas en chocolate con leche. Las que siempre piden los peques (y los mayores también).',
-      'p3.tag': 'Hora de merendar', 'p3.desc': 'Quelitas y palitos de fuet, la merienda perfecta.',
-      'p3.long': 'Quelitas y palitos de fuet en un mismo paquete, listos para llevar. La merienda perfecta para el cole, el trabajo o la playa.',
+      'p3.tag': 'Hora de merendar', 'p3.desc': 'Quelitas y cañitas de fuet, la merienda perfecta.',
+      'p3.long': 'Quelitas y cañitas de fuet en un mismo paquete, listos para llevar. La merienda perfecta para el cole, el trabajo o la playa.',
       'pack.1': 'Paquete de Quelitas', 'pack.2': 'Paquete de Quelitos', 'pack.3': 'Paquete de Quely Merienda',
       'chip.oil': '100% aceite de oliva', 'chip.mallorca': 'Horneadas en Mallorca', 'chip.crunchy': 'Ligeras y crujientes',
       'chip.choc': 'Chocolate con leche', 'chip.kids': 'Favorita de los peques',
@@ -2185,7 +2318,7 @@
   const productCard = id => $(`.product[data-id="${id}"]`);
   const bagOf = id => {
     const svg = productCard(id).querySelector('.bag').cloneNode(true);
-    svg.removeAttribute('role'); svg.removeAttribute('aria-label'); svg.removeAttribute('data-i18n-aria');
+    svg.removeAttribute('data-i18n-alt'); svg.alt = ''; svg.loading = 'eager';
     svg.setAttribute('aria-hidden', 'true');
     return svg;
   };
@@ -2236,7 +2369,10 @@
     }
     shown = now;
     empty.hidden = count() > 0;
-    subtotalEl.textContent = money(total);
+    const disc = promo && total ? Math.round(total * 10) / 100 : 0;
+    $('#discount-row').hidden = !disc;
+    $('#discount-amount').textContent = '−' + money(disc);
+    subtotalEl.textContent = money(total - disc);
     checkoutBtn.disabled = count() === 0;
     if (!count()) noteWarn = false;
     note.textContent = t(noteWarn ? 'basket.demo' : 'basket.ship');
@@ -2435,6 +2571,200 @@
     $('#form-done').hidden = false;
   });
 
+  /* ---------- Cookie burst (quiz result, scratch prize) ---------- */
+  function burst(rect, n) {
+    if (reduceMotion) return;
+    const cx = rect.left + rect.width / 2 - 14, cy = rect.top + rect.height / 2 - 14;
+    for (let i = 0; i < n; i++) {
+      const el = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      el.setAttribute('class', 'burst');
+      el.setAttribute('viewBox', '-20 -20 40 40');
+      el.innerHTML = `<use href="#${Math.random() < .3 ? 'choc-cookie' : 'mini-cookie'}" x="-20" y="-20" width="40" height="40"/>`;
+      document.body.append(el);
+      const a = Math.random() * Math.PI * 2, d = 110 + Math.random() * 230, sc = .5 + Math.random() * .9;
+      const dx = Math.cos(a) * d, dy = Math.sin(a) * d - 90;
+      el.animate([
+        { transform: `translate(${cx}px, ${cy}px) scale(.2) rotate(0deg)`, opacity: 1 },
+        { transform: `translate(${cx + dx}px, ${cy + dy}px) scale(${sc}) rotate(${(Math.random() - .5) * 720}deg)`, opacity: 1, offset: .55 },
+        { transform: `translate(${cx + dx * 1.15}px, ${cy + dy + 180}px) scale(${sc}) rotate(${(Math.random() - .5) * 900}deg)`, opacity: 0 },
+      ], { duration: 1200 + Math.random() * 600, easing: 'cubic-bezier(.2, .7, .4, 1)' }).onfinish = () => el.remove();
+    }
+  }
+
+  /* ---------- Quiz: which Quely are you? ---------- */
+  // points each answer gives to each product
+  const QUIZ = [
+    [{ quelitas: 2 }, { merienda: 2 }, { quelitos: 2 }],
+    [{ quelitas: 2 }, { quelitos: 2 }, { merienda: 2, quelitas: 1 }],
+    [{ quelitas: 1, quelitos: 1 }, { merienda: 2 }, { merienda: 1, quelitas: 1 }],
+  ];
+  const quizStage = $('#quiz-stage'), quizBars = $$('.quiz-progress span');
+  let quizAnswers = [], quizBusy = false;
+
+  function quizWinner() {
+    const score = {};
+    quizAnswers.forEach((ans, q) => { for (const [k, v] of Object.entries(QUIZ[q][ans])) score[k] = (score[k] || 0) + v; });
+    return Object.keys(PRODUCTS).reduce((best, k) => (score[k] || 0) > (score[best] || 0) ? k : best);
+  }
+
+  function renderQuiz(animate) {
+    quizBars.forEach((b, i) => b.classList.toggle('on', i < quizAnswers.length));
+    const still = animate ? '' : ' style="animation:none"';
+    if (quizAnswers.length < QUIZ.length) {
+      const n = quizAnswers.length + 1;
+      quizStage.innerHTML = `
+        <div class="quiz-step"${still}>
+          <p class="quiz-count">${t('quiz.count').replace('{n}', n)}</p>
+          <h3>${t('quiz.q' + n)}</h3>
+          <div class="quiz-options">${['a', 'b', 'c'].map((l, i) => `
+            <button type="button" class="quiz-opt" data-answer="${i}"><span class="letter" aria-hidden="true">${l.toUpperCase()}</span>${t('quiz.q' + n + l)}</button>`).join('')}
+          </div>
+        </div>`;
+    } else {
+      const id = quizWinner(), pr = PRODUCTS[id];
+      quizStage.innerHTML = `
+        <div class="quiz-result"${still}>
+          <span class="quiz-img"></span>
+          <div>
+            <p class="quiz-count">${t('quiz.your')}</p>
+            <h3>${t('quiz.is').replace('{name}', pr.name)}</h3>
+            <p>${t('quiz.r.' + id)}</p>
+            <div class="quiz-actions">
+              <button type="button" class="btn" data-quiz-add="${id}">${t('add')}</button>
+              <button type="button" class="btn btn--ghost" data-product="${id}">${t('view')}</button>
+              <button type="button" class="link-plain" data-quiz-restart>${t('quiz.again')}</button>
+            </div>
+          </div>
+        </div>`;
+      const img = bagOf(id);
+      if (!animate) img.style.animation = 'float 5s ease-in-out infinite';
+      $('.quiz-img', quizStage).append(img);
+      if (animate) setTimeout(() => { burst($('.quiz-img', quizStage).getBoundingClientRect(), 24); crunch(true); }, 250);
+    }
+  }
+  const focusQuiz = () => { const el = $('.quiz-opt, .quiz-result .btn', quizStage); if (el) el.focus({ preventScroll: true }); };
+
+  quizStage.addEventListener('click', e => {
+    const opt = e.target.closest('[data-answer]');
+    if (opt) {
+      if (quizBusy) return;
+      quizBusy = true;
+      opt.classList.add('is-picked');
+      crunch(false);
+      setTimeout(() => { quizAnswers.push(+opt.dataset.answer); renderQuiz(true); focusQuiz(); quizBusy = false; }, reduceMotion ? 0 : 380);
+      return;
+    }
+    const add = e.target.closest('[data-quiz-add]');
+    if (add) { addToBasket(add.dataset.quizAdd, 1, add.getBoundingClientRect()); return; }
+    if (e.target.closest('[data-quiz-restart]')) { quizAnswers = []; renderQuiz(true); focusQuiz(); }
+  });
+
+  /* ---------- Scratch the flour ---------- */
+  const scard = $('#scratch-card'), scv = $('#scratch-canvas');
+  const sctx = scv.getContext('2d', { willReadFrequently: true });
+  const applyBtn = $('#prize-apply');
+  let scratched = false, touched = false, sDown = false, sLast = null, sMoves = 0, flourT = 0;
+  let promo = store.get('quely-promo') === '1';
+
+  function drawFlour() {
+    const w = scard.offsetWidth, h = scard.offsetHeight;
+    if (!w) return;
+    const d = Math.min(window.devicePixelRatio || 1, 2);
+    scv.width = Math.round(w * d); scv.height = Math.round(h * d);
+    sctx.setTransform(d, 0, 0, d, 0, 0);
+    sctx.globalCompositeOperation = 'source-over';
+    const g = sctx.createLinearGradient(0, 0, w, h);
+    g.addColorStop(0, '#FCF8EF'); g.addColorStop(1, '#EDE0C8');
+    sctx.fillStyle = g; sctx.fillRect(0, 0, w, h);
+    for (let i = 0; i < 2200; i++) {
+      sctx.fillStyle = Math.random() < .5 ? 'rgba(205, 184, 145, .35)' : 'rgba(255, 255, 255, .85)';
+      sctx.fillRect(Math.random() * w, Math.random() * h, 1.6, 1.6);
+    }
+    sctx.strokeStyle = 'rgba(196, 172, 130, .3)'; sctx.lineWidth = 2; sctx.lineCap = 'round';
+    for (let i = 0; i < 8; i++) {
+      const a = Math.random() * 6;
+      sctx.beginPath(); sctx.arc(Math.random() * w, Math.random() * h, 30 + Math.random() * 90, a, a + 1.2 + Math.random()); sctx.stroke();
+    }
+    const big = Math.round(Math.min(w / 7, 62));
+    sctx.textAlign = 'center'; sctx.textBaseline = 'middle';
+    sctx.fillStyle = '#B49567';
+    sctx.font = `italic 900 ${big}px Fraunces, Georgia, serif`;
+    sctx.fillText(t('scratch.here'), w / 2, h / 2 - 10);
+    sctx.font = `700 ${Math.round(big * .32)}px "Instrument Sans", Arial, sans-serif`;
+    sctx.fillStyle = '#A88B5C';
+    sctx.fillText('←  ·  ·  ·  →', w / 2, h / 2 + big * .7);
+  }
+
+  const sPoint = e => {
+    const r = scv.getBoundingClientRect();
+    return { x: (e.clientX - r.left) * scv.offsetWidth / r.width, y: (e.clientY - r.top) * scv.offsetHeight / r.height };
+  };
+  function sLine(a, b) {
+    sctx.globalCompositeOperation = 'destination-out';
+    sctx.strokeStyle = '#000'; sctx.lineCap = 'round'; sctx.lineJoin = 'round'; sctx.lineWidth = 48;
+    sctx.beginPath(); sctx.moveTo(a.x, a.y); sctx.lineTo(b.x + .01, b.y); sctx.stroke();
+  }
+  function puff(pt) {
+    for (let i = 0; i < 3; i++) {
+      const f = document.createElement('span');
+      f.className = 'flour';
+      f.style.left = pt.x + (Math.random() - .5) * 34 + 'px';
+      f.style.top = pt.y + (Math.random() - .5) * 20 + 'px';
+      f.style.setProperty('--fx', (Math.random() - .5) * 70 + 'px');
+      f.addEventListener('animationend', () => f.remove());
+      scard.append(f);
+    }
+  }
+  function checkScratch() {
+    if (scratched) return;
+    const data = sctx.getImageData(0, 0, scv.width, scv.height).data;
+    let clear = 0, total = 0;
+    for (let i = 3; i < data.length; i += 4 * 29) { total++; if (data[i] < 40) clear++; }
+    if (clear / total > .5) revealPrize();
+  }
+  function revealPrize() {
+    if (scratched) return;
+    scratched = true;
+    scard.classList.add('is-revealed');
+    const hide = () => { scv.hidden = true; };
+    if (reduceMotion) hide();
+    else scv.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 600, fill: 'forwards' }).onfinish = hide;
+    burst(scard.getBoundingClientRect(), 28);
+    crunch(true);
+  }
+
+  scv.addEventListener('pointerdown', e => {
+    if (scratched) return;
+    sDown = true; touched = true;
+    scv.setPointerCapture(e.pointerId);
+    sLast = sPoint(e); sLine(sLast, sLast);
+  });
+  scv.addEventListener('pointermove', e => {
+    if (!sDown) return;
+    const pt = sPoint(e);
+    sLine(sLast, pt); sLast = pt;
+    const now = performance.now();
+    if (!reduceMotion && now - flourT > 45) { flourT = now; puff(pt); }
+    if (++sMoves % 10 === 0) checkScratch();
+  });
+  const sUp = () => { if (sDown) { sDown = false; checkScratch(); } };
+  scv.addEventListener('pointerup', sUp);
+  scv.addEventListener('pointercancel', sUp);
+  $('#scratch-skip').addEventListener('click', () => { revealPrize(); applyBtn.focus({ preventScroll: true }); });
+
+  function renderPromoBtn() {
+    applyBtn.textContent = t(promo ? 'scratch.done' : 'scratch.apply');
+    applyBtn.disabled = promo;
+  }
+  applyBtn.addEventListener('click', () => {
+    promo = true;
+    store.set('quely-promo', '1');
+    renderPromoBtn(); renderBasket();
+    showToast(t('scratch.applied'));
+  });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (!touched && !scratched) drawFlour(); });
+  addEventListener('resize', () => { if (!touched && !scratched) drawFlour(); });
+
   /* ---------- Language switch ---------- */
   function applyLang(next) {
     lang = next;
@@ -2446,6 +2776,7 @@
     $$('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
     $$('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
     $$('[data-i18n-ph]').forEach(el => el.setAttribute('placeholder', t(el.dataset.i18nPh)));
+    $$('[data-i18n-alt]').forEach(el => { el.alt = t(el.dataset.i18nAlt); });
     toggle.setAttribute('aria-label', t(toggle.getAttribute('aria-expanded') === 'true' ? 'menu.close' : 'menu.open'));
     if (sendBtn.disabled && !formDone) sendBtn.querySelector('span').textContent = t('f.sending');
     $$('.field.is-invalid').forEach(f => validate(Object.keys(fields).find(k => fields[k].closest('.field') === f)));
@@ -2453,6 +2784,9 @@
     renderBasket();
     if (pDlg.open) fillProduct();
     renderFormDone();
+    renderQuiz(false);
+    renderPromoBtn();
+    if (!touched && !scratched) drawFlour();
     kick();
   }
   $('#lang-btn').addEventListener('click', () => applyLang(lang === 'en' ? 'es' : 'en'));

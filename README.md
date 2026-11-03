@@ -8,6 +8,8 @@ Landing page de ejemplo para una escuela de surf ficticia en Somo (Cantabria). E
 - **Cursos y precios** con tres opciones. La más reservada va destacada.
 - **Cómo es una clase**, paso a paso y con horarios.
 - **Opiniones** (textos de ejemplo).
+- **Test "¿Qué Quely eres?"**: tres preguntas con barra de progreso. Al terminar sale el producto que te corresponde con una explosión de galletas, y se puede añadir a la cesta desde ahí.
+- **Rasca la harina**: la foto del obrador está cubierta de harina. Al rascar con el ratón o el dedo (el cursor es una galleta) cae harina y aparece un código de descuento del 10 % (QUELY1853, de demostración) que se aplica a la cesta con un botón. También se puede descubrir sin rascar.
 - **Preguntas frecuentes** desplegables.
 - **Formulario de reserva**. Es una demostración: no envía datos a ningún sitio.
 
@@ -47,11 +49,11 @@ Descarga el proyecto (botón **Code → Download ZIP** en GitHub), descomprímel
 
 # Quely · Cookies from Mallorca (carpeta `quely/`)
 
-Web de una sola página hecha a partir del wireframe "MacBook Air" de Figma. Abre `quely/index.html` con doble clic: no hace falta instalar nada.
+Web de una sola página hecha a partir del wireframe "MacBook Air" de Figma. Abre `quely/index.html` con doble clic: no hace falta instalar nada. La carpeta `quely/img/` tiene que estar junto al archivo para que se vean las fotos.
 
 ## Secciones
 
-Portada · franja animada · Sobre nosotros · La isla · Productos · Opiniones · Preguntas frecuentes · Contacto · Pie.
+Portada · franja animada · Sobre nosotros · La isla · Productos · Test "¿Qué Quely eres?" · Opiniones · Rasca la harina · Preguntas frecuentes · Contacto · Pie.
 
 ## Qué se puede hacer
 
@@ -59,6 +61,8 @@ Portada · franja animada · Sobre nosotros · La isla · Productos · Opiniones
 - **Ficha de producto**: "Ver producto" (o clic en la tarjeta) abre una ficha con descripción, precio y cantidad.
 - **Cesta**: "Comprar online", "Ver todos los productos", "Cajas regalo" y "Ofertas" abren la cesta. Al añadir algo, una galleta vuela hasta el botón y sube el contador. Se pueden cambiar cantidades, quitar productos y añadir más desde la propia cesta. Se guarda en el navegador aunque cierres la página.
 - **Formulario de contacto**: comprueba que el nombre, el email y el mensaje estén bien antes de enviar.
+- **Test "¿Qué Quely eres?"**: tres preguntas con barra de progreso. Al terminar sale el producto que te corresponde con una explosión de galletas, y se puede añadir a la cesta desde ahí.
+- **Rasca la harina**: la foto del obrador está cubierta de harina. Al rascar con el ratón o el dedo (el cursor es una galleta) cae harina y aparece un código de descuento del 10 % (QUELY1853, de demostración) que se aplica a la cesta con un botón. También se puede descubrir sin rascar.
 - **Preguntas frecuentes** desplegables. "Envíos" y "Devoluciones" del pie abren la pregunta que toca.
 
 ## Animaciones
@@ -86,5 +90,6 @@ Al principio del código JavaScript de `quely/index.html` (busca `Shop settings`
 Además:
 
 - Las **opiniones** son los textos de ejemplo del wireframe: hay que cambiarlas por opiniones reales.
-- Todas las imágenes (galletas, bolsas, paisaje, retratos e iconos) están **dibujadas con código**: no hay archivos de imagen que cargar.
+- Las **fotos de los productos** (`img/quelitas.webp`, `img/quelitos.webp`, `img/merienda.webp`) son las que se pasaron, con el fondo blanco quitado. La del obrador (`img/obrador.webp`) está ampliada al doble porque la original era pequeña.
+- El resto de imágenes (galletas, paisaje, retratos e iconos) están **dibujadas con código**.
 - Todos los textos están juntos en el código (busca `const I18N`), en inglés y en español, para cambiarlos fácilmente.

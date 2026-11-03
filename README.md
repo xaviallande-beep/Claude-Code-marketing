@@ -51,7 +51,7 @@ Web de una sola página hecha a partir del wireframe "MacBook Air" de Figma. Abr
 
 ## Secciones
 
-Portada · franja animada · Sobre nosotros · Productos · Opiniones · Preguntas frecuentes · Contacto · Pie.
+Portada · franja animada · Sobre nosotros · La isla · Productos · Opiniones · Preguntas frecuentes · Contacto · Pie.
 
 ## Qué se puede hacer
 
@@ -68,6 +68,8 @@ Portada · franja animada · Sobre nosotros · Productos · Opiniones · Pregunt
 - **Horno** que dora las galletas al bajar. Al pulsar una, alguien se la lleva.
 - **Cifras** que cuentan solas, **tarjetas en 3D** que siguen al ratón y **galleta "volver arriba"** que se va comiendo según lees.
 - **Logo gigante** del pie que se llena de rojo.
+- **La isla**: una ilustración de Mallorca a todo el ancho, con mar, barcos, olivos que se mueven con el viento y un molino que gira más rápido si lo pulsas. El sol es una galleta gigante que se va poniendo detrás de las montañas según bajas.
+- **Retratos ilustrados** en las opiniones (parpadean de vez en cuando) e **iconos dibujados** en "Nuestra historia".
 
 Con "reducir movimiento" activado en el dispositivo, todo se ve completo y sin animar.
 
@@ -84,5 +86,5 @@ Al principio del código JavaScript de `quely/index.html` (busca `Shop settings`
 Además:
 
 - Las **opiniones** son los textos de ejemplo del wireframe: hay que cambiarlas por opiniones reales.
-- Las galletas y las bolsas son **ilustraciones de código**. Se pueden sustituir por las fotos reales.
+- Todas las imágenes (galletas, bolsas, paisaje, retratos e iconos) están **dibujadas con código**: no hay archivos de imagen que cargar.
 - Todos los textos están juntos en el código (busca `const I18N`), en inglés y en español, para cambiarlos fácilmente.

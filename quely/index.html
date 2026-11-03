@@ -333,7 +333,7 @@
   }
   .story-list li span:first-child {
     display: grid; place-items: center; flex-shrink: 0;
-    width: 36px; height: 36px; border-radius: 50%;
+    width: 46px; height: 46px; border-radius: 50%;
     background: var(--red-soft); color: var(--red); font-family: var(--font-display); font-weight: 800;
   }
   .btn[aria-expanded="true"] svg { transform: rotate(180deg); }
@@ -537,7 +537,7 @@
   }
   .review header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; position: relative; }
   .avatar {
-    display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;
+    display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%;
     font-family: var(--font-display); font-weight: 800; color: var(--white); font-size: 1.1rem;
     background: var(--av, var(--red));
     box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--sand-2);
@@ -830,6 +830,50 @@
   @media (max-width: 860px) { .contact .wrap { grid-template-columns: 1fr; } }
 
   /* =========================================================
+     Island scene (all drawn in SVG)
+     ========================================================= */
+  .island { --ip: .5; position: relative; padding-top: clamp(40px, 6vw, 70px); background: var(--cream); overflow: hidden; }
+  .island .section-head { margin-bottom: 0; position: relative; z-index: 1; }
+  .island .section-head h2 { margin-top: 10px; }
+  .island-tip { display: inline-block; margin-top: 16px; }
+  .island-art { display: block; width: 100%; height: clamp(440px, 44vw, 640px); margin-top: -40px; }
+  .island-art .layer { transform: translateY(calc((var(--ip) - .5) * var(--d) * 1px)); }
+  .island-art .dusk { opacity: calc(var(--ip) * .45); }
+  .island-art .sun-rays { transform-origin: 0 0; animation: spin 60s linear infinite; }
+  .island-art .sun-glow { transform-box: fill-box; transform-origin: center; animation: glow 4s ease-in-out infinite; }
+  @keyframes glow { 50% { transform: scale(1.08); opacity: .75; } }
+  .island-art .blades { transform-origin: 0 0; animation: spin 9s linear infinite; }
+  .island-art .mill { cursor: pointer; }
+  .island-art .mill:focus { outline: none; }
+  .island-art .mill:focus-visible .tower { stroke: var(--red); stroke-width: 3; }
+  .island-art .crown { transform-box: fill-box; transform-origin: 50% 100%; animation: sway 5s ease-in-out infinite; }
+  .island-art .tree-b .crown { animation-delay: -1.5s; animation-duration: 6s; }
+  .island-art .tree-c .crown { animation-delay: -3s; }
+  @keyframes sway { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.8deg); } }
+  .island-art .boat { animation: sail 70s linear infinite; }
+  .island-art .boat--far { animation-duration: 110s; animation-delay: -60s; }
+  .island-art .bob { transform-box: fill-box; transform-origin: 50% 100%; animation: bob 3.2s ease-in-out infinite; }
+  @keyframes sail { from { transform: translateX(-120px); } to { transform: translateX(1560px); } }
+  @keyframes bob { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(3px) rotate(2deg); } }
+  .island-art .shine path { animation: shine 4s ease-in-out infinite; }
+  .island-art .shine path:nth-child(2n) { animation-delay: -1.3s; }
+  .island-art .shine path:nth-child(3n) { animation-delay: -2.6s; }
+  @keyframes shine { 0%, 100% { transform: translateX(0); opacity: .2; } 50% { transform: translateX(18px); opacity: .8; } }
+  .island-art .birds { animation: birds 40s linear infinite; }
+  .island-art .wing { animation: flap .9s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  @keyframes birds { from { transform: translate(-200px, 40px); } to { transform: translate(1600px, -30px); } }
+  @keyframes flap { 50% { transform: scaleY(.4); } }
+
+  /* Illustrated avatars + story icons */
+  .avatar { overflow: hidden; }
+  .avatar svg { width: 100%; height: 100%; }
+  .avatar .eyes { transform-box: fill-box; transform-origin: center; animation: blink 5s infinite; }
+  .review:nth-child(2) .avatar .eyes { animation-delay: -1.7s; }
+  .review:nth-child(3) .avatar .eyes { animation-delay: -3.1s; }
+  @keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(.1); } }
+  .story-list li span:first-child svg { width: 28px; height: 28px; }
+
+  /* =========================================================
      Scroll reveal
      ========================================================= */
   .js .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s var(--ease-out), transform .9s var(--ease-out); transition-delay: var(--d, 0s); }
@@ -1033,14 +1077,134 @@
         <div class="story-more" id="story-more">
           <div>
             <ol class="story-list">
-              <li><span>1</span><span data-i18n="story.1">Simple recipes, kept for generations</span></li>
-              <li><span>2</span><span data-i18n="story.2">Local ingredients, like olive oil</span></li>
-              <li><span>3</span><span data-i18n="story.3">Three generations of know-how in every bite</span></li>
+              <li><span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5.5" y="9" width="13" height="6" rx="3" transform="rotate(-30 12 12)"/><path d="M3 18l3-1.7M18 7.7l3-1.7"/></svg></span><span data-i18n="story.1">Simple recipes, kept for generations</span></li>
+              <li><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20C9 15 13 9 20 4" stroke="#6B4A2E" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M11.5 11.5C7.5 10 5 12 4 15.5c3.5 1 6.5-.5 7.5-4z" fill="#7E8C4A"/><path d="M15 8c0-4 2-5.5 5.5-5.5 0 3.5-1.5 5.5-5.5 5.5z" fill="#7E8C4A"/><ellipse cx="16" cy="13.5" rx="2.6" ry="3.5" transform="rotate(30 16 13.5)" fill="#3D2B3F"/></svg></span><span data-i18n="story.2">Local ingredients, like olive oil</span></li>
+              <li><span aria-hidden="true"><svg viewBox="0 0 24 24" stroke="#B8711F" stroke-width="1.2"><ellipse cx="12" cy="18" rx="8.5" ry="3.2" fill="#D9963E"/><ellipse cx="12" cy="13.5" rx="8.5" ry="3.2" fill="#E7AC56"/><ellipse cx="12" cy="9" rx="8.5" ry="3.2" fill="#F5CF8E"/><g fill="#8A4A16" stroke="none"><circle cx="9" cy="9" r=".9"/><circle cx="12" cy="8.2" r=".9"/><circle cx="15" cy="9" r=".9"/></g></svg></span><span data-i18n="story.3">Three generations of know-how in every bite</span></li>
             </ol>
           </div>
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- ============ ISLAND (illustration) ============ -->
+  <section class="island" id="island" aria-labelledby="island-title">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="eyebrow reveal" data-i18n="island.eyebrow">The island</span>
+        <h2 id="island-title" class="reveal" style="--d:.05s" data-i18n="island.title">Baked on the island, by the sea</h2>
+        <p class="reveal" style="--d:.1s" data-i18n="island.text">Olive trees, sea breeze and the same way of baking since 1853.</p>
+        <span class="pill island-tip reveal" style="--d:.15s" data-i18n="island.tip">Psst… give the windmill a push</span>
+      </header>
+    </div>
+    <svg class="island-art" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMax slice" role="img" data-i18n-aria="island.img" aria-label="Illustration of Mallorca: a windmill, olive trees and the sea, with a cookie for a sun">
+      <defs>
+        <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#FFF8EC"/><stop offset=".55" stop-color="#FDE7C4"/><stop offset="1" stop-color="#F9CD92"/>
+        </linearGradient>
+        <linearGradient id="g-sea" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#6CBCCB"/><stop offset="1" stop-color="#2C7C93"/>
+        </linearGradient>
+        <linearGradient id="g-dusk" x1="0" y1="0" x2="0" y2="1"><stop offset=".1" stop-color="#F08A4B" stop-opacity="0"/><stop offset=".75" stop-color="#F08A4B"/></linearGradient>
+        <radialGradient id="g-sunglow"><stop offset="0" stop-color="#FFD98A" stop-opacity=".9"/><stop offset="1" stop-color="#FFD98A" stop-opacity="0"/></radialGradient>
+        <symbol id="olive" viewBox="-60 -110 120 115" overflow="visible">
+          <path d="M-7 2C-4-18-16-30-9-50C-5-60 5-60 7-47C9-36 0-26 2-14C3-8 6-3 8 2Z" fill="#6B4A2E"/>
+          <path d="M-6-40C-14-48-22-50-30-48M4-46C10-54 18-56 26-54" stroke="#6B4A2E" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <g class="crown">
+            <ellipse cx="-30" cy="-62" rx="26" ry="17" fill="#6F7E3E"/>
+            <ellipse cx="28" cy="-62" rx="26" ry="17" fill="#6F7E3E"/>
+            <ellipse cx="0" cy="-80" rx="32" ry="21" fill="#7E8C4A"/>
+            <ellipse cx="-14" cy="-56" rx="22" ry="13" fill="#7E8C4A"/>
+            <ellipse cx="14" cy="-55" rx="22" ry="13" fill="#7E8C4A"/>
+            <ellipse cx="-8" cy="-88" rx="16" ry="8" fill="#A3AE6A"/>
+            <ellipse cx="-34" cy="-68" rx="11" ry="6" fill="#A3AE6A"/>
+            <ellipse cx="26" cy="-68" rx="12" ry="6" fill="#98A35F"/>
+            <g fill="#3D2B3F"><circle cx="-20" cy="-52" r="2.6"/><circle cx="8" cy="-70" r="2.6"/><circle cx="32" cy="-56" r="2.6"/><circle cx="-38" cy="-60" r="2.4"/></g>
+          </g>
+        </symbol>
+      </defs>
+
+      <rect width="1440" height="560" fill="url(#g-sky)"/>
+      <rect class="dusk" width="1440" height="560" fill="url(#g-dusk)"/>
+
+      <!-- birds -->
+      <g class="birds" fill="none" stroke="#6D5545" stroke-width="2.4" stroke-linecap="round">
+        <path class="wing" d="M0 120q8-8 16 0q8-8 16 0"/>
+        <path class="wing" d="M44 100q6-6 12 0q6-6 12 0" style="animation-delay:-.3s"/>
+        <path class="wing" d="M70 132q5-5 10 0q5-5 10 0" style="animation-delay:-.6s"/>
+      </g>
+
+      <!-- sun: a giant cookie that sets as you scroll -->
+      <g class="layer" style="--d:220">
+        <g transform="translate(900 235)">
+          <circle class="sun-glow" r="160" fill="url(#g-sunglow)"/>
+          <g class="sun-rays" fill="#F7C46A" opacity=".8"><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(0)"/><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(30)"/><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(60)"/><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(90)"/><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(120)"/><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(150)"/><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(180)"/><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(210)"/><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(240)"/><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(270)"/><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(300)"/><rect x="-4" y="-150" width="8" height="34" rx="4" transform="rotate(330)"/></g>
+          <use href="#mini-cookie" x="-82" y="-82" width="164" height="164"/>
+        </g>
+      </g>
+
+      <!-- Tramuntana mountains -->
+      <g class="layer" style="--d:60">
+        <path d="M0 330C60 318 110 280 170 262C220 248 250 290 300 280C360 268 390 228 450 230C510 232 540 276 600 270C660 264 690 240 740 246C800 254 830 292 890 290C950 288 990 250 1050 246C1110 242 1150 282 1210 276C1270 270 1310 236 1370 240C1410 243 1430 256 1440 262V440H0Z" fill="#EBC195"/>
+      </g>
+      <g class="layer" style="--d:34">
+        <path d="M0 360C120 322 220 330 320 345C440 364 520 312 640 320C760 330 840 362 960 346C1080 330 1180 300 1300 318C1380 330 1420 338 1440 338V440H0Z" fill="#D9975E"/>
+      </g>
+
+      <!-- sea -->
+      <rect y="368" width="1440" height="192" fill="url(#g-sea)"/>
+      <g class="shine" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round"><path d="M446 376h79"/><path d="M588 376h38"/><path d="M507 376h55"/><path d="M800 384h88"/><path d="M1016 384h35"/><path d="M340 384h58"/><path d="M822 392h65"/><path d="M569 392h86"/><path d="M280 392h82"/><path d="M881 401h85"/><path d="M1126 401h47"/><path d="M850 401h52"/><path d="M1398 410h86"/><path d="M779 410h44"/><path d="M309 410h35"/><path d="M360 420h39"/><path d="M475 420h72"/><path d="M477 420h30"/><path d="M993 431h83"/><path d="M1206 431h41"/><path d="M538 431h48"/><path d="M8 443h39"/><path d="M858 443h64"/><path d="M756 443h69"/><path d="M1159 456h50"/><path d="M257 456h74"/><path d="M1055 456h90"/></g>
+      <g class="boat boat--far">
+        <g class="bob" transform="translate(0 0)">
+          <path d="M-14 380h28l-5 6h-18z" fill="#7A3B1E"/>
+          <path d="M0 356v23h14z" fill="#FFFFFF"/><path d="M-1 360v19h-10z" fill="#FFE7C2"/>
+        </g>
+      </g>
+      <g class="boat">
+        <g class="bob">
+          <path d="M-30 424h60l-9 12h-42z" fill="#8C3F1F"/>
+          <path d="M-30 424h60" stroke="#D7261E" stroke-width="3"/>
+          <path d="M0 372v50" stroke="#5A3A24" stroke-width="2.4"/>
+          <path d="M2 376v44h30z" fill="#FFFFFF"/><path d="M-2 382v38h-22z" fill="#FFE7C2"/>
+          <path d="M0 372l12 4-12 4z" fill="#D7261E"/>
+        </g>
+      </g>
+
+      <!-- headland with windmill (left) -->
+      <g class="layer" style="--d:12">
+        <path d="M0 430C150 400 300 394 420 404C520 412 600 430 660 470C700 500 722 530 732 560H0Z" fill="#C9A15E"/>
+        <path d="M0 450C160 424 320 420 450 432C540 440 600 462 640 500" stroke="#B38A47" stroke-width="3" fill="none" stroke-dasharray="2 10" stroke-linecap="round"/>
+        <use class="tree-a" href="#olive" x="268" y="300" width="120" height="115"/>
+        <g class="mill" id="mill" role="button" tabindex="0" data-i18n-aria="island.mill" aria-label="Spin the windmill">
+          <path class="tower" d="M518 424L528 334H556L566 424Z" fill="#EFE2CB" stroke="#D9C6A2" stroke-width="1.5"/>
+          <path d="M530 360h24M528 390h28" stroke="#D9C6A2" stroke-width="2"/>
+          <path d="M535 424v-22a7 7 0 0 1 14 0v22z" fill="#8C5A35"/>
+          <rect x="537" y="364" width="10" height="12" rx="5" fill="#8C5A35"/>
+          <path d="M522 338Q542 312 562 338Z" fill="#8C5A35"/>
+          <g transform="translate(542 332)">
+            <g class="blades"><g transform="rotate(0)"><path d="M0 0V-50" stroke="#6B4A2E" stroke-width="2.6"/><path d="M2 -14L13 -47L2 -50Z" fill="#FFF7E8" stroke="#6B4A2E" stroke-width="1.2" stroke-linejoin="round"/></g><g transform="rotate(60)"><path d="M0 0V-50" stroke="#6B4A2E" stroke-width="2.6"/><path d="M2 -14L13 -47L2 -50Z" fill="#FFF7E8" stroke="#6B4A2E" stroke-width="1.2" stroke-linejoin="round"/></g><g transform="rotate(120)"><path d="M0 0V-50" stroke="#6B4A2E" stroke-width="2.6"/><path d="M2 -14L13 -47L2 -50Z" fill="#FFF7E8" stroke="#6B4A2E" stroke-width="1.2" stroke-linejoin="round"/></g><g transform="rotate(180)"><path d="M0 0V-50" stroke="#6B4A2E" stroke-width="2.6"/><path d="M2 -14L13 -47L2 -50Z" fill="#FFF7E8" stroke="#6B4A2E" stroke-width="1.2" stroke-linejoin="round"/></g><g transform="rotate(240)"><path d="M0 0V-50" stroke="#6B4A2E" stroke-width="2.6"/><path d="M2 -14L13 -47L2 -50Z" fill="#FFF7E8" stroke="#6B4A2E" stroke-width="1.2" stroke-linejoin="round"/></g><g transform="rotate(300)"><path d="M0 0V-50" stroke="#6B4A2E" stroke-width="2.6"/><path d="M2 -14L13 -47L2 -50Z" fill="#FFF7E8" stroke="#6B4A2E" stroke-width="1.2" stroke-linejoin="round"/></g></g>
+            <circle r="5" fill="#6B4A2E"/>
+          </g>
+        </g>
+      </g>
+
+      <!-- headland (right) -->
+      <g class="layer" style="--d:12">
+        <path d="M1440 402C1300 396 1180 414 1080 450C1000 478 962 520 944 560H1440Z" fill="#C9A15E"/>
+        <use class="tree-c" href="#olive" x="1140" y="318" width="120" height="115"/>
+        <use href="#olive" x="1312" y="306" width="96" height="92"/>
+      </g>
+
+      <!-- foreground -->
+      <path d="M0 560V512C220 488 420 486 620 500C820 514 1000 520 1200 506C1320 498 1400 494 1440 492V560Z" fill="#B88A45"/>
+      <g fill="#E3D3B2" stroke="#B9A27A" stroke-width="1.5"><ellipse cx="30" cy="523" rx="20" ry="10"/><ellipse cx="66" cy="522" rx="15" ry="11"/><ellipse cx="92" cy="524" rx="16" ry="11"/><ellipse cx="120" cy="526" rx="15" ry="9"/><ellipse cx="146" cy="522" rx="15" ry="10"/><ellipse cx="172" cy="522" rx="21" ry="9"/><ellipse cx="210" cy="526" rx="16" ry="10"/><ellipse cx="238" cy="526" rx="15" ry="9"/><ellipse cx="264" cy="526" rx="18" ry="9"/><ellipse cx="296" cy="522" rx="21" ry="9"/><ellipse cx="334" cy="526" rx="15" ry="9"/><ellipse cx="360" cy="525" rx="19" ry="9"/><ellipse cx="394" cy="526" rx="16" ry="10"/><ellipse cx="422" cy="522" rx="17" ry="11"/><ellipse cx="452" cy="524" rx="18" ry="9"/><ellipse cx="484" cy="526" rx="16" ry="9"/><ellipse cx="512" cy="525" rx="18" ry="11"/><ellipse cx="544" cy="524" rx="21" ry="10"/><ellipse cx="582" cy="524" rx="22" ry="10"/><ellipse cx="622" cy="523" rx="18" ry="11"/><ellipse cx="48" cy="507" rx="20" ry="8"/><ellipse cx="85" cy="508" rx="18" ry="10"/><ellipse cx="118" cy="508" rx="17" ry="10"/><ellipse cx="149" cy="508" rx="17" ry="10"/><ellipse cx="180" cy="506" rx="14" ry="10"/><ellipse cx="205" cy="507" rx="17" ry="9"/><ellipse cx="236" cy="509" rx="15" ry="9"/><ellipse cx="263" cy="506" rx="14" ry="10"/><ellipse cx="288" cy="508" rx="18" ry="9"/><ellipse cx="321" cy="508" rx="19" ry="10"/><ellipse cx="356" cy="509" rx="17" ry="8"/><ellipse cx="387" cy="506" rx="20" ry="9"/><ellipse cx="424" cy="506" rx="17" ry="8"/><ellipse cx="455" cy="508" rx="19" ry="10"/><ellipse cx="490" cy="509" rx="18" ry="9"/><ellipse cx="523" cy="509" rx="19" ry="10"/><ellipse cx="558" cy="506" rx="16" ry="9"/><ellipse cx="587" cy="507" rx="16" ry="10"/><ellipse cx="616" cy="509" rx="14" ry="8"/></g>
+      <use class="tree-b" href="#olive" x="736" y="364" width="168" height="161"/>
+      <g stroke="#8E6A2E" stroke-width="2.4" stroke-linecap="round" fill="none">
+        <path d="M640 548l-6-14M646 548v-16M652 548l6-13"/>
+        <path d="M1010 540l-5-12M1015 540v-14M1020 540l5-11"/>
+        <path d="M1280 530l-5-12M1285 530v-14M1290 530l5-11"/>
+      </g>
+    </svg>
   </section>
 
   <!-- ============ PRODUCTS ============ -->
@@ -1143,7 +1307,7 @@
       <div class="review-grid">
         <figure class="review reveal" style="--d:0s">
           <header>
-            <span class="avatar" style="--av:#D7261E" aria-hidden="true">M</span>
+            <span class="avatar" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#FCE1C8"/><path d="M7 50c1-10 7-14.5 17-14.5S40 40 41 50z" fill="#D7261E"/><path d="M20.5 28h7v7.5a3.5 3.5 0 0 1-7 0z" fill="#E5AE84" opacity=".85"/><ellipse cx="24" cy="21.5" rx="9" ry="10" fill="#E5AE84"/><path d="M14.8 20.5C14.5 13 18.5 10 24 10s9.5 3 9.2 10.5c-1.6-3.6-4.4-5-9.2-5s-7.6 1.4-9.2 5z" fill="#3A2416"/><g class="eyes" fill="#2A1A11"><circle cx="20.6" cy="21.5" r="1.15"/><circle cx="27.4" cy="21.5" r="1.15"/></g><circle cx="18.3" cy="25" r="1.6" fill="#E87A6A" opacity=".35"/><circle cx="29.7" cy="25" r="1.6" fill="#E87A6A" opacity=".35"/><path d="M15.2 23.5c.6 6.6 4 9.5 8.8 9.5s8.2-2.9 8.8-9.5c-1.4 2.4-3.4 3.6-5.2 3.6h-7.2c-1.8 0-3.8-1.2-5.2-3.6z" fill="#3A2416"/><path d="M21.6 27.6c1.6 1 3.2 1 4.8 0" stroke="#F6E7D2" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg></span>
             <div>
               <cite>Marcos</cite>
               <div class="stars" role="img" data-i18n-aria="stars" aria-label="5 out of 5 stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div>
@@ -1153,7 +1317,7 @@
         </figure>
         <figure class="review reveal" style="--d:.1s">
           <header>
-            <span class="avatar" style="--av:#22409A" aria-hidden="true">O</span>
+            <span class="avatar" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#DCE5FA"/><path d="M7 50c1-10 7-14.5 17-14.5S40 40 41 50z" fill="#22409A"/><path d="M20.5 28h7v7.5a3.5 3.5 0 0 1-7 0z" fill="#B97A50" opacity=".85"/><ellipse cx="24" cy="21.5" rx="9" ry="10" fill="#B97A50"/><path d="M15 19c0-6 4-9.5 9-9.5 5.5 0 9 3.5 9 9.5-2-2.6-4.4-3.6-6.5-3.4-1.5 1.4-6.5 2-11.5 3.4z" fill="#1E140E"/><g class="eyes" fill="#2A1A11"><circle cx="20.6" cy="21.5" r="1.15"/><circle cx="27.4" cy="21.5" r="1.15"/></g><circle cx="18.3" cy="25" r="1.6" fill="#E87A6A" opacity=".35"/><circle cx="29.7" cy="25" r="1.6" fill="#E87A6A" opacity=".35"/><g fill="none" stroke="#2A1A11" stroke-width="1.3"><circle cx="20.6" cy="21.5" r="3"/><circle cx="27.4" cy="21.5" r="3"/><path d="M23.6 21.5h.8"/></g><path d="M21 27c1.8 1.6 4.2 1.6 6 0" stroke="#5A2E17" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg></span>
             <div>
               <cite>Oscar</cite>
               <div class="stars" role="img" data-i18n-aria="stars" aria-label="5 out of 5 stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div>
@@ -1163,7 +1327,7 @@
         </figure>
         <figure class="review reveal" style="--d:.2s">
           <header>
-            <span class="avatar" style="--av:#B8711F" aria-hidden="true">E</span>
+            <span class="avatar" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#FBE3DF"/><path d="M12 30c-1-12 3-21 12-21s13 9 12 21c-1 3-3 5-5 6H17c-2-1-4-3-5-6z" fill="#8A4A16"/><path d="M7 50c1-10 7-14.5 17-14.5S40 40 41 50z" fill="#B8711F"/><path d="M20.5 28h7v7.5a3.5 3.5 0 0 1-7 0z" fill="#F2C6A0" opacity=".85"/><ellipse cx="24" cy="21.5" rx="9" ry="10" fill="#F2C6A0"/><path d="M14.8 22c0-7 4-11 9.2-11s9.4 4 9.2 11c-3-1-6-3.5-7.6-6.4-1.6 3-6 5.6-10.8 6.4z" fill="#8A4A16"/><g class="eyes" fill="#2A1A11"><circle cx="20.6" cy="21.5" r="1.15"/><circle cx="27.4" cy="21.5" r="1.15"/></g><circle cx="18.3" cy="25" r="1.6" fill="#E87A6A" opacity=".35"/><circle cx="29.7" cy="25" r="1.6" fill="#E87A6A" opacity=".35"/><path d="M21 27c1.8 1.6 4.2 1.6 6 0" stroke="#A8402E" stroke-width="1.4" fill="none" stroke-linecap="round"/><circle cx="15" cy="26" r="1.2" fill="#E3A440"/><circle cx="33" cy="26" r="1.2" fill="#E3A440"/></svg></span>
             <div>
               <cite>Elsa</cite>
               <div class="stars" role="img" data-i18n-aria="stars" aria-label="5 out of 5 stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div>
@@ -1370,6 +1534,10 @@
       'about.text': 'For over 170 years, Quely has made cookies and snacks on the island, with simple recipes and local ingredients such as olive oil. Three generations of know-how in every bite.',
       'stat.1': 'Our beginnings', 'stat.2': 'Natural olive oil', 'stat.3': 'Made on the island',
       'about.btn': 'Our story',
+      'island.eyebrow': 'The island', 'island.title': 'Baked on the island, by the sea',
+      'island.text': 'Olive trees, sea breeze and the same way of baking since 1853.',
+      'island.tip': 'Psst… give the windmill a push', 'island.mill': 'Spin the windmill',
+      'island.img': 'Illustration of Mallorca: a windmill, olive trees and the sea, with a cookie for a sun',
       'story.1': 'Simple recipes, kept for generations', 'story.2': 'Local ingredients, like olive oil', 'story.3': 'Three generations of know-how in every bite',
       'products.title': 'Our products', 'products.sub': 'Three ways to enjoy Quely, baked in Mallorca.',
       'p1.tag': 'Since 1853', 'p1.desc': 'From the heart of the Mediterranean, since 1853.',
@@ -1442,6 +1610,10 @@
       'about.text': 'Desde hace más de 170 años, Quely elabora galletas y snacks en la isla, con recetas sencillas e ingredientes locales como el aceite de oliva. Tres generaciones de saber hacer en cada bocado.',
       'stat.1': 'Nuestros inicios', 'stat.2': 'Aceite de oliva natural', 'stat.3': 'Hecho en la isla',
       'about.btn': 'Nuestra historia',
+      'island.eyebrow': 'La isla', 'island.title': 'Horneadas en la isla, junto al mar',
+      'island.text': 'Olivos, brisa de mar y la misma forma de hornear desde 1853.',
+      'island.tip': 'Psst… dale un empujón al molino', 'island.mill': 'Girar el molino',
+      'island.img': 'Ilustración de Mallorca: un molino, olivos y el mar, con una galleta como sol',
       'story.1': 'Recetas sencillas, conservadas durante generaciones', 'story.2': 'Ingredientes locales, como el aceite de oliva', 'story.3': 'Tres generaciones de saber hacer en cada bocado',
       'products.title': 'Nuestros productos', 'products.sub': 'Tres formas de disfrutar Quely, horneadas en Mallorca.',
       'p1.tag': 'Desde 1853', 'p1.desc': 'Desde el corazón del Mediterráneo, desde 1853.',
@@ -1918,7 +2090,22 @@
      ------------------------------------------------------------ */
   const oven = $('#oven'), ovenTemp = $('#oven-temp'), ovenStatus = $('#oven-status');
   const trayCookies = $$('.tray-cookie');
-  const products = $('.products'), footer = $('#site-footer');
+  const products = $('.products'), footer = $('#site-footer'), island = $('#island');
+
+  // Windmill: each push speeds it up, then it slows back down
+  const mill = $('#mill'), bladeAnim = reduceMotion ? null : $('.blades', mill).getAnimations()[0];
+  let millBoost = 0, millRaf = 0;
+  function pushMill() {
+    if (!bladeAnim) return;
+    millBoost = Math.min(millBoost + 4, 14);
+    if (!millRaf) (function slow() {
+      millBoost *= .985;
+      bladeAnim.playbackRate = 1 + millBoost;
+      millRaf = millBoost > .05 ? requestAnimationFrame(slow) : (bladeAnim.playbackRate = 1, 0);
+    })();
+  }
+  mill.addEventListener('click', pushMill);
+  mill.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pushMill(); } });
   const band = $('.band'), bandAnim = reduceMotion ? null : $('#band-track').getAnimations()[0];
   const progressBtn = $('#progress-cookie'), progressTip = $('#progress-tip');
   const bites = $$('.bite', progressBtn);
@@ -1953,6 +2140,12 @@
     const done = bake >= .999;
     ovenStatus.textContent = done ? t('oven.ready') : bake > 0.02 ? t('oven.baking').replace('{p}', Math.round(bake * 100)) : t('oven.idle');
     if (done !== wasDone) { oven.classList.toggle('is-done', done); wasDone = done; }
+
+    // Island: parallax layers + the cookie sun sets as you scroll
+    if (!reduceMotion) {
+      const ir = island.getBoundingClientRect();
+      if (ir.bottom > 0 && ir.top < vh) island.style.setProperty('--ip', clamp((vh - ir.top) / (vh + ir.height), 0, 1).toFixed(3));
+    }
 
     // Products: decorative cookies spin
     const pr = products.getBoundingClientRect();

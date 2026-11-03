@@ -365,11 +365,11 @@
   .oven-timer { padding: .2em .7em; border-radius: 8px; background: rgba(255,255,255,.07); font-weight: 700; font-variant-numeric: tabular-nums; color: #E7CFB2; }
   .oven-status { display: flex; align-items: center; gap: 8px; color: #E7CFB2; }
   .oven-status i { width: 10px; height: 10px; border-radius: 50%; background: #8B7A6A; }
-  .oven.is-on .oven-status i { background: #FF8A2A; box-shadow: 0 0 10px #FF8A2A; animation: blink 1.2s ease-in-out infinite; }
+  .oven.is-on .oven-status i { background: #FF8A2A; box-shadow: 0 0 10px #FF8A2A; animation: blink-dot 1.2s ease-in-out infinite; }
   .oven.is-on[data-zone="perfect"] .oven-status i { background: #7BD88F; box-shadow: 0 0 12px #7BD88F; }
   .oven.is-on[data-zone="toasty"] .oven-status i,
   .oven.is-on[data-zone="burnt"] .oven-status i { background: #FF4A3A; box-shadow: 0 0 12px #FF4A3A; animation-duration: .4s; }
-  @keyframes blink { 50% { opacity: .3; } }
+  @keyframes blink-dot { 50% { opacity: .3; } }
   .tray {
     position: relative;
     display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(10px, 2vw, 18px);
@@ -1135,6 +1135,69 @@
   }
 
   /* =========================================================
+     Galleta, the bakery cat + cat mode
+     ========================================================= */
+  .michi {
+    --dir: 1; --ex: 0; --ey: 0;
+    position: fixed; left: 0; top: 0; z-index: 46; width: 104px; height: 108px;
+    transform: translate(14px, 120vh);
+  }
+  .michi:not(.is-free) { transition: transform .6s var(--ease-spring); }
+  @media (max-width: 600px) { .michi { width: 84px; height: 88px; } }
+  .michi-cat { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
+  .michi.is-running .michi-cat, .michi.is-pounce .michi-cat { pointer-events: none; }
+  .michi-cat svg { width: 100%; height: 100%; overflow: visible; transform: scaleX(var(--dir)); filter: drop-shadow(0 6px 10px rgba(46, 27, 17, .3)); }
+  .michi .tail { transform-origin: 86px 100px; animation: tail 2.4s ease-in-out infinite; }
+  @keyframes tail { 50% { transform: rotate(-16deg); } }
+  .michi .eyes { transform: translate(calc(var(--ex) * 1px), calc(var(--ey) * 1px)); transition: transform .15s; }
+  .michi .lids { transform-box: fill-box; transform-origin: center; animation: blink 4.6s infinite; }
+  .michi .closed, .michi .zzz { display: none; }
+  .michi.is-sleeping .lids { display: none; }
+  .michi.is-sleeping .closed, .michi.is-sleeping .zzz { display: inline; }
+  .michi .zzz text { animation: zzz 2.4s ease-in-out infinite; }
+  .michi .zzz text + text { animation-delay: -1.2s; }
+  @keyframes zzz { 0% { opacity: 0; transform: translateY(6px); } 50% { opacity: 1; } 100% { opacity: 0; transform: translateY(-10px); } }
+  .michi.is-running .michi-cat svg { animation: hop .3s ease-in-out infinite alternate; }
+  @keyframes hop { from { translate: 0 0; rotate: -5deg; } to { translate: 0 -10px; rotate: 5deg; } }
+  .michi.is-pounce .michi-cat svg { animation: pounce .62s var(--ease-out); }
+  @keyframes pounce { 0% { scale: 1 1; } 25% { scale: 1.18 .78; translate: 0 8px; } 55% { scale: .9 1.16; translate: 0 -28px; } 100% { scale: 1 1; translate: 0 0; } }
+  .michi-cat:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; border-radius: 20px; }
+  .michi-bubble {
+    position: fixed; left: 0; top: 0; z-index: 47;
+    width: max-content; max-width: min(300px, calc(100vw - 24px));
+    padding: 14px 16px; border-radius: 18px;
+    background: var(--white); color: var(--ink); box-shadow: var(--shadow-2), 0 0 0 2px #F7B5A8;
+    font-size: .92rem; font-weight: 600; line-height: 1.4;
+    animation: bubble-in .45s var(--ease-spring);
+  }
+  .michi-bubble[hidden] { display: none; }
+  .michi-bubble p { margin: 0; }
+  .michi-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; }
+  .michi-actions:empty { display: none; }
+  @keyframes bubble-in { from { opacity: 0; scale: .85; } }
+  .heart { position: fixed; z-index: 47; color: #E8506A; font-size: 20px; line-height: 1; pointer-events: none; animation: heart 1.3s ease-out forwards; }
+  @keyframes heart { to { transform: translate(var(--hx), -80px) scale(1.5); opacity: 0; } }
+  .laser-tap {
+    position: fixed; z-index: 45; width: 16px; height: 16px; margin: -8px 0 0 -8px; border-radius: 50%;
+    background: #FF2A2A; box-shadow: 0 0 12px 5px rgba(255, 40, 40, .55); pointer-events: none;
+    animation: laser-fade 1.8s ease-out forwards;
+  }
+  @keyframes laser-fade { 70% { opacity: 1; } 100% { opacity: 0; transform: scale(.4); } }
+  html.cat-mode body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%23FF2A2A' fill-opacity='.25'/%3E%3Ccircle cx='12' cy='12' r='5' fill='%23FF2A2A'/%3E%3Ccircle cx='12' cy='12' r='2' fill='%23FFD6D6'/%3E%3C/svg%3E") 12 12, crosshair; }
+  html.cat-mode a, html.cat-mode button, html.cat-mode [role="button"], html.cat-mode label, html.cat-mode summary { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Cg fill='%236B4A2E' stroke='white' stroke-width='1.5'%3E%3Cellipse cx='14' cy='18' rx='6.5' ry='5.5'/%3E%3Ccircle cx='6.5' cy='11' r='2.8'/%3E%3Ccircle cx='11.3' cy='6.8' r='2.8'/%3E%3Ccircle cx='16.7' cy='6.8' r='2.8'/%3E%3Ccircle cx='21.5' cy='11' r='2.8'/%3E%3C/g%3E%3C/svg%3E") 14 14, pointer; }
+  .hero-brand, .logo { position: relative; }
+  html.cat-mode .hero-brand::before, html.cat-mode .hero-brand::after,
+  html.cat-mode .logo::before, html.cat-mode .logo::after {
+    content: ""; position: absolute; aspect-ratio: 1; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cpath d='M4 38 L13 3 L37 29 Z' fill='%23D7261E' stroke='white' stroke-width='4' stroke-linejoin='round'/%3E%3Cpath d='M11 32 L15.5 13 L28 27 Z' fill='%23F7B5A8'/%3E%3C/svg%3E") center / contain no-repeat;
+    animation: ear-pop .6s var(--ease-spring) both;
+  }
+  html.cat-mode .hero-brand::before { z-index: -1; width: 21%; top: -19%; left: 12%; rotate: -12deg; }
+  html.cat-mode .hero-brand::after { z-index: -1; width: 21%; top: -21%; right: 10%; rotate: 12deg; scale: -1 1; }
+  html.cat-mode .logo::before { width: 16px; top: -10px; left: 6px; rotate: -10deg; }
+  html.cat-mode .logo::after { width: 16px; top: -10px; right: 6px; rotate: 10deg; scale: -1 1; }
+  @keyframes ear-pop { from { opacity: 0; translate: 0 30%; } }
+
+  /* =========================================================
      Scroll reveal
      ========================================================= */
   .js .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s var(--ease-out), transform .9s var(--ease-out); transition-delay: var(--d, 0s); }
@@ -1192,6 +1255,15 @@
       <circle cx="-8" cy="-4.5" r="1.4"/><circle cx="8" cy="-4.5" r="1.4"/>
       <circle cx="-8" cy="4.5" r="1.4"/><circle cx="8" cy="4.5" r="1.4"/>
     </g>
+  </symbol>
+  <symbol id="cat-face-cookie" viewBox="-20 -20 40 40">
+    <path d="M-15.5 -5 L-14 -19.5 L-4 -13 Z" fill="url(#g-cookie)"/>
+    <path d="M15.5 -5 L14 -19.5 L4 -13 Z" fill="url(#g-cookie)"/>
+    <path d="M-12.5 -8 L-12 -15.5 L-7 -12 Z M12.5 -8 L12 -15.5 L7 -12 Z" fill="#B8711F" fill-opacity=".35"/>
+    <circle cy="1.5" r="16.5" fill="url(#g-cookie)"/>
+    <circle cy="1.5" r="14" fill="none" stroke="#FCE3B4" stroke-opacity=".35" stroke-width="1.5"/>
+    <g fill="#6B3410" fill-opacity=".8"><ellipse cx="-6" cy="-1" rx="2.1" ry="2.6"/><ellipse cx="6" cy="-1" rx="2.1" ry="2.6"/><path d="M-1.8 4.2h3.6l-1.8 2.2z"/></g>
+    <g fill="none" stroke="#6B3410" stroke-opacity=".6" stroke-width="1" stroke-linecap="round"><path d="M0 6.4q-2 2.6-4.2 1M0 6.4q2 2.6 4.2 1"/><path d="M-8 4.5h-6.5M-8 7l-6 1.8M8 4.5h6.5M8 7l6 1.8"/></g>
   </symbol>
   <symbol id="choc-cookie" viewBox="-20 -20 40 40">
     <circle r="18" fill="url(#g-cookie)"/>
@@ -1764,6 +1836,43 @@
   </div>
 </footer>
 
+
+<!-- Galleta, the bakery cat -->
+<div class="michi" id="michi">
+  <button class="michi-cat" id="michi-cat" type="button" data-i18n-aria="cat.aria" aria-label="Galleta, the bakery cat. Click to pet her">
+    <svg viewBox="0 0 120 124" aria-hidden="true">
+      <path class="tail" d="M84 106C112 106 120 76 105 61c-4-4-9 0-6 4 9 12 5 31-17 33z" fill="#E08E45"/>
+      <ellipse cx="60" cy="98" rx="32" ry="25" fill="#E8A15A"/>
+      <path d="M38 88q6-5 10 1M74 88q6-6 10 0" stroke="#C46F2C" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <ellipse cx="60" cy="103" rx="17" ry="16" fill="#FFE9CC"/>
+      <ellipse cx="46" cy="119" rx="10" ry="6" fill="#FFE9CC"/>
+      <ellipse cx="74" cy="119" rx="10" ry="6" fill="#FFE9CC"/>
+      <path d="M37 75q23 11 46 0v6q-23 11-46 0z" fill="#D7261E"/>
+      <circle cx="60" cy="87" r="5" fill="#E3A440" stroke="#B8711F" stroke-width="1.5"/>
+      <path d="M32 44L34 11L57 27Z" fill="#E8A15A"/>
+      <path d="M37 38L38.5 19L51 28Z" fill="#F7B5A8"/>
+      <path d="M88 44L86 11L63 27Z" fill="#E8A15A"/>
+      <path d="M83 38L81.5 19L69 28Z" fill="#F7B5A8"/>
+      <ellipse cx="60" cy="50" rx="31" ry="28" fill="#E8A15A"/>
+      <path d="M52 25q8 5 16 0M49 32q11 5 22 0" stroke="#C46F2C" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M30 47h7M30 54h6M90 47h-7M90 54h-6" stroke="#C46F2C" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="60" cy="62" rx="15" ry="10" fill="#FFE9CC"/>
+      <circle cx="42" cy="60" r="4.5" fill="#F7B5A8" opacity=".75"/>
+      <circle cx="78" cy="60" r="4.5" fill="#F7B5A8" opacity=".75"/>
+      <g class="eyes"><g class="lids">
+        <ellipse cx="48" cy="48" rx="5.5" ry="7" fill="#2A1A11"/><ellipse cx="72" cy="48" rx="5.5" ry="7" fill="#2A1A11"/>
+        <circle cx="50" cy="45" r="2" fill="#FFFFFF"/><circle cx="74" cy="45" r="2" fill="#FFFFFF"/>
+      </g></g>
+      <g class="closed" fill="none" stroke="#2A1A11" stroke-width="2.4" stroke-linecap="round"><path d="M42 49q6 5 12 0M66 49q6 5 12 0"/></g>
+      <path d="M56 57h8l-4 5z" fill="#E86F6F" stroke="#C25555" stroke-width="1" stroke-linejoin="round"/>
+      <path d="M60 62q-3 5-8 3M60 62q3 5 8 3" stroke="#2A1A11" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <g stroke="#2A1A11" stroke-opacity=".45" stroke-width="1.3" stroke-linecap="round"><path d="M46 60l-16-3M46 63l-16 2M74 60l16-3M74 63l16 2"/></g>
+      <g class="zzz" font-family="Fraunces, Georgia, serif" font-weight="800" fill="#6D5545"><text x="90" y="24" font-size="14">z</text><text x="100" y="10" font-size="19">Z</text></g>
+    </svg>
+  </button>
+</div>
+<div class="michi-bubble" id="michi-bubble" hidden aria-live="polite"><p id="michi-text"></p><div class="michi-actions" id="michi-actions"></div></div>
+
 <!-- Back to top: a cookie that gets eaten as you scroll -->
 <button class="progress-cookie" id="progress-cookie" type="button" data-i18n-aria="top" aria-label="Back to top">
   <span class="progress-tip" id="progress-tip">Back to top</span>
@@ -1887,6 +1996,17 @@
       'about.text': 'For over 170 years, Quely has made cookies and snacks on the island, with simple recipes and local ingredients such as olive oil. Three generations of know-how in every bite.',
       'stat.1': 'Our beginnings', 'stat.2': 'Natural olive oil', 'stat.3': 'Made on the island',
       'about.btn': 'Our story',
+      'cat.aria': 'Galleta, the bakery cat. Click to pet her',
+      'cat.intro': "Meow! I'm Galleta, the bakery cat. Shall we switch on cat mode?",
+      'cat.yes': 'Yes, meow!', 'cat.later': 'Not now', 'cat.enable': 'Turn on cat mode', 'cat.disable': 'Turn off cat mode',
+      'cat.on': "Cat mode on! Move the mouse: I've got a laser dot to catch… and look at the cookies!",
+      'cat.onTouch': "Cat mode on! Tap anywhere and I'll chase the laser… and look at the cookies!",
+      'cat.off': 'Fine… nap time. Zzz',
+      'cat.p1': 'Meow! Can I have a Quelita?', 'cat.p2': 'Purrrr… purrrr…', 'cat.p3': "I'm Galleta, the bakery cat. I'm in charge of quality control.",
+      'cat.p4': 'I love napping next to the oven. It\'s always warm.', 'cat.p5': 'Chocolate Quelitos are not for cats. So unfair.',
+      'cat.p6': "Careful with the wheel… I've already lost seven lives.", 'cat.p7': 'A little to the left… right there. Purrr.',
+      'cat.c1': 'Gotcha!', 'cat.c2': 'Meow! Caught it!', 'cat.c3': 'Too slow, little light!', 'cat.count': "That's {n}!",
+      'cat.burnt': 'Sniff, sniff… something smells burnt!', 'cat.perfect': 'Mmm, that smells perfect. Save me one!', 'cat.basket': 'Meow! Save one for me.',
       'wheel.eyebrow': 'Only for the brave', 'wheel.title': 'The Quely wheel',
       'wheel.text': 'Spin it and see what you get: coupons, free products… or punishments like paying double. Only play if you dare!',
       'wheel.goodList': 'Coupons, free products, 2-for-1, extra spins', 'wheel.badList': 'Paying double, losing your discounts, an empty basket…',
@@ -2008,6 +2128,17 @@
       'about.text': 'Desde hace más de 170 años, Quely elabora galletas y snacks en la isla, con recetas sencillas e ingredientes locales como el aceite de oliva. Tres generaciones de saber hacer en cada bocado.',
       'stat.1': 'Nuestros inicios', 'stat.2': 'Aceite de oliva natural', 'stat.3': 'Hecho en la isla',
       'about.btn': 'Nuestra historia',
+      'cat.aria': 'Galleta, la gata del obrador. Pulsa para acariciarla',
+      'cat.intro': '¡Miau! Soy Galleta, la gata del obrador. ¿Activamos el modo gato?',
+      'cat.yes': '¡Sí, miau!', 'cat.later': 'Ahora no', 'cat.enable': 'Activar modo gato', 'cat.disable': 'Desactivar modo gato',
+      'cat.on': '¡Modo gato activado! Mueve el ratón: tengo un láser que cazar… ¡y mira las galletas!',
+      'cat.onTouch': '¡Modo gato activado! Toca la pantalla y cazaré el láser… ¡y mira las galletas!',
+      'cat.off': 'Vale… me echo una siesta. Zzz',
+      'cat.p1': '¡Miau! ¿Me das una Quelita?', 'cat.p2': 'Prrrr… prrrr…', 'cat.p3': 'Soy Galleta, la gata del obrador. Me encargo del control de calidad.',
+      'cat.p4': 'Me encanta dormir junto al horno. Siempre está calentito.', 'cat.p5': 'Los Quelitos con chocolate no son para gatos. Qué injusticia.',
+      'cat.p6': 'Cuidado con la ruleta… yo ya he perdido siete vidas.', 'cat.p7': 'Un poco más a la izquierda… ahí, ahí. Prrrr.',
+      'cat.c1': '¡Te pillé!', 'cat.c2': '¡Miau! ¡Cazado!', 'cat.c3': '¡Demasiado lenta, lucecita!', 'cat.count': '¡Y van {n}!',
+      'cat.burnt': 'Snif, snif… ¡huele a quemado!', 'cat.perfect': 'Mmm, qué bien huele. ¡Guárdame una!', 'cat.basket': '¡Miau! Guárdame una a mí.',
       'wheel.eyebrow': 'Solo para valientes', 'wheel.title': 'La ruleta Quely',
       'wheel.text': 'Gírala y descubre qué te toca: cupones, productos gratis… o castigos como pagar el doble. ¡Juega solo si te atreves!',
       'wheel.goodList': 'Cupones, productos gratis, 2x1, tiradas extra', 'wheel.badList': 'Pagar el doble, perder tus descuentos, quedarte sin cesta…',
@@ -2102,6 +2233,7 @@
   let lang = store.get('quely-lang') || ((navigator.language || '').toLowerCase().startsWith('es') ? 'es' : 'en');
   if (!I18N[lang]) lang = 'en';
   const t = key => I18N[lang][key] ?? I18N.en[key] ?? key;
+  let catMode = store.get('quely-catmode') === '1';
 
   /* ------------------------------------------------------------
      Nav: mobile menu + active section
@@ -2226,7 +2358,74 @@
     g.closePath();
   }
 
-  function makeSprite(r, choc) {
+  // cat mode: the same cookie, shaped like a cat's face
+  function makeCatSprite(r, choc) {
+    const size = (r + PAD) * 2;
+    const c = document.createElement('canvas');
+    c.width = c.height = Math.ceil(size * dpr);
+    const g = c.getContext('2d');
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const cx = r + PAD, cy = r + PAD + r * .08, h = r * .84;
+    const shape = () => {
+      g.beginPath();
+      g.arc(cx, cy, h, 0, Math.PI * 2);
+      g.moveTo(cx - h * .92, cy - h * .42); g.lineTo(cx - h * .78, cy - h * 1.22); g.lineTo(cx - h * .18, cy - h * .92); g.closePath();
+      g.moveTo(cx + h * .92, cy - h * .42); g.lineTo(cx + h * .18, cy - h * .92); g.lineTo(cx + h * .78, cy - h * 1.22); g.closePath();
+    };
+    g.save();
+    g.shadowColor = 'rgba(80, 40, 10, .28)'; g.shadowBlur = 8; g.shadowOffsetY = 4;
+    shape();
+    const grad = g.createRadialGradient(cx - h * .28, cy - h * .32, h * .05, cx, cy, h * 1.15);
+    grad.addColorStop(0, '#F8D79C'); grad.addColorStop(.55, '#E9AF5A'); grad.addColorStop(1, '#C17629');
+    g.fillStyle = grad; g.fill();
+    g.restore();
+    g.save();
+    shape(); g.clip();
+    for (let i = 0; i < 5; i++) {
+      const a = Math.random() * 6.28, d = Math.random() * h * .6;
+      g.fillStyle = `rgba(150, 78, 20, ${.06 + Math.random() * .1})`;
+      g.beginPath(); g.ellipse(cx + Math.cos(a) * d, cy + Math.sin(a) * d, h * (.15 + Math.random() * .2), h * (.1 + Math.random() * .15), Math.random() * 3, 0, 6.28); g.fill();
+    }
+    // inner ears
+    g.fillStyle = 'rgba(160, 82, 22, .3)';
+    g.beginPath(); g.moveTo(cx - h * .74, cy - h * .58); g.lineTo(cx - h * .7, cy - h * 1.02); g.lineTo(cx - h * .36, cy - h * .82); g.closePath(); g.fill();
+    g.beginPath(); g.moveTo(cx + h * .74, cy - h * .58); g.lineTo(cx + h * .36, cy - h * .82); g.lineTo(cx + h * .7, cy - h * 1.02); g.closePath(); g.fill();
+    g.lineWidth = h * .07; g.strokeStyle = 'rgba(255, 232, 185, .35)';
+    g.beginPath(); g.arc(cx, cy, h * .86, 0, Math.PI * 2); g.stroke();
+    if (choc) {
+      g.beginPath(); g.moveTo(cx - h * 1.3, cy + h * .45);
+      for (let x = -1.3; x <= 1.3; x += .1) g.lineTo(cx + x * h, cy + h * (.42 + Math.sin(x * 5) * .06));
+      g.lineTo(cx + h * 1.3, cy + h * 1.3); g.lineTo(cx - h * 1.3, cy + h * 1.3); g.closePath();
+      const cg = g.createLinearGradient(0, cy, 0, cy + h);
+      cg.addColorStop(0, '#6E381B'); cg.addColorStop(1, '#36180A');
+      g.fillStyle = cg; g.fill();
+    }
+    // face pressed into the dough
+    const ink = 'rgba(95, 45, 12, .78)';
+    g.fillStyle = ink;
+    [-1, 1].forEach(sx => { g.beginPath(); g.ellipse(cx + sx * h * .36, cy - h * .06, h * .1, h * .13, 0, 0, 6.28); g.fill(); });
+    g.fillStyle = 'rgba(255, 240, 215, .8)';
+    [-1, 1].forEach(sx => { g.beginPath(); g.arc(cx + sx * h * .36 + h * .03, cy - h * .1, h * .035, 0, 6.28); g.fill(); });
+    g.fillStyle = 'rgba(150, 66, 40, .85)';
+    g.beginPath(); g.moveTo(cx - h * .09, cy + h * .14); g.lineTo(cx + h * .09, cy + h * .14); g.lineTo(cx, cy + h * .25); g.closePath(); g.fill();
+    g.strokeStyle = ink; g.lineWidth = Math.max(1, h * .045); g.lineCap = 'round';
+    g.beginPath(); g.moveTo(cx, cy + h * .25); g.quadraticCurveTo(cx - h * .06, cy + h * .38, cx - h * .18, cy + h * .32); g.stroke();
+    g.beginPath(); g.moveTo(cx, cy + h * .25); g.quadraticCurveTo(cx + h * .06, cy + h * .38, cx + h * .18, cy + h * .32); g.stroke();
+    g.strokeStyle = 'rgba(105, 52, 14, .45)'; g.lineWidth = Math.max(.8, h * .03);
+    [-1, 1].forEach(sx => {
+      g.beginPath(); g.moveTo(cx + sx * h * .4, cy + h * .16); g.lineTo(cx + sx * h * .95, cy + h * .08); g.stroke();
+      g.beginPath(); g.moveTo(cx + sx * h * .4, cy + h * .26); g.lineTo(cx + sx * h * .92, cy + h * .34); g.stroke();
+    });
+    for (let i = 0; i < 12; i++) {
+      g.fillStyle = `rgba(255, 255, 255, ${.2 + Math.random() * .3})`;
+      g.fillRect(cx + (Math.random() - .5) * h * 1.6, cy + (Math.random() - .5) * h * 1.6, 1.2, 1.2);
+    }
+    g.restore();
+    return c;
+  }
+  function makeSprite(r, choc) { return catMode ? makeCatSprite(r, choc) : makeRoundSprite(r, choc); }
+
+  function makeRoundSprite(r, choc) {
     const size = (r + PAD) * 2;
     const c = document.createElement('canvas');
     c.width = c.height = Math.ceil(size * dpr);
@@ -2595,6 +2794,7 @@
       burst(trayCookies[5].getBoundingClientRect(), 20);
       crunch(true);
     }
+    if (lastBake === 'perfect' || lastBake === 'burnt') catReact('cat.' + lastBake);
     renderOven();
     void oven.offsetWidth;
     oven.classList.add('show-result');
@@ -2831,6 +3031,7 @@
     if (fromRect && !reduceMotion && !basketDlg.open) flyCookie(fromRect, target, () => renderBadge(true));
     else renderBadge(true);
     if (!basketDlg.open) showToast(t('added').replace('{name}', PRODUCTS[id].name));
+    if (Math.random() < .4) catReact('cat.basket');
   }
 
   function flyCookie(a, b, done) {
@@ -3383,6 +3584,7 @@
     gameStartEl.hidden = true;
     gameOverEl.hidden = true;
     gameCard.classList.add('is-playing');
+    catHome();
     gcv.focus({ preventScroll: true });
     runGame();
   }
@@ -3571,6 +3773,224 @@
   $('#wheel-hub').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trySpin(); } });
   wheelAccept.addEventListener('change', renderWheelUI);
   acceptLabel.addEventListener('animationend', () => acceptLabel.classList.remove('is-nudge'));
+
+  /* ---------- Galleta, the bakery cat (and cat mode) ---------- */
+  const michi = $('#michi'), michiBtn = $('#michi-cat'), michiBubble = $('#michi-bubble');
+  const michiText = $('#michi-text'), michiActions = $('#michi-actions');
+  const miniCookie = $('#mini-cookie'), ROUND_COOKIE = miniCookie.innerHTML, CAT_COOKIE = $('#cat-face-cookie').innerHTML;
+  const M = { x: 14, y: 0, vx: 0, vy: 0, dir: 1, state: 'hidden', raf: 0, last: 0, laser: null, laserT: 0, catchAt: null, catches: 0, lastSay: 0, peek: true, active: performance.now() };
+  const catSize = () => michi.offsetWidth || 104;
+  const homePos = () => ({ x: 14, y: innerHeight - catSize() * (M.peek ? .6 : .98) });
+  const canSound = () => soundOn && (!navigator.userActivation || navigator.userActivation.hasBeenActive);
+
+  function meow() {
+    if (!canSound()) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      const n = audio.currentTime, o = audio.createOscillator(), f = audio.createBiquadFilter(), g = audio.createGain();
+      o.type = 'sawtooth';
+      o.frequency.setValueAtTime(480, n); o.frequency.linearRampToValueAtTime(820, n + .16); o.frequency.linearRampToValueAtTime(560, n + .5);
+      f.type = 'bandpass'; f.Q.value = 5;
+      f.frequency.setValueAtTime(900, n); f.frequency.linearRampToValueAtTime(1900, n + .16); f.frequency.linearRampToValueAtTime(1000, n + .5);
+      g.gain.setValueAtTime(0, n); g.gain.linearRampToValueAtTime(.2, n + .05); g.gain.linearRampToValueAtTime(.13, n + .32); g.gain.linearRampToValueAtTime(0, n + .55);
+      o.connect(f).connect(g).connect(audio.destination);
+      o.start(n); o.stop(n + .6);
+    } catch (_) { /* no audio */ }
+  }
+  function purr() {
+    if (!canSound()) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      const n = audio.currentTime, o = audio.createOscillator(), lp = audio.createBiquadFilter();
+      const g = audio.createGain(), lfo = audio.createOscillator(), lfoGain = audio.createGain(), env = audio.createGain();
+      o.type = 'sawtooth'; o.frequency.value = 46;
+      lp.type = 'lowpass'; lp.frequency.value = 240;
+      g.gain.value = .09; lfo.frequency.value = 23; lfoGain.gain.value = .09;
+      lfo.connect(lfoGain).connect(g.gain);
+      env.gain.setValueAtTime(0, n); env.gain.linearRampToValueAtTime(1, n + .25); env.gain.linearRampToValueAtTime(0, n + 1.8);
+      o.connect(lp).connect(g).connect(env).connect(audio.destination);
+      o.start(n); lfo.start(n); o.stop(n + 1.9); lfo.stop(n + 1.9);
+    } catch (_) { /* no audio */ }
+  }
+
+  function positionBubble() {
+    if (michiBubble.hidden) return;
+    const s = catSize(), w = michiBubble.offsetWidth, h = michiBubble.offsetHeight;
+    let left = clamp(M.x + s * .3, 10, innerWidth - w - 10);
+    let top = M.y - h - 6;
+    if (top < 70) top = Math.min(M.y + s + 6, innerHeight - h - 10);
+    michiBubble.style.transform = `translate(${left.toFixed(0)}px, ${top.toFixed(0)}px)`;
+  }
+  function placeCat() {
+    michi.style.transform = `translate(${M.x.toFixed(1)}px, ${M.y.toFixed(1)}px)`;
+    michi.style.setProperty('--dir', M.dir);
+    positionBubble();
+  }
+
+  let sayTimer;
+  function say(text, mode, ms = 6500) {
+    michiText.textContent = text;
+    michiActions.innerHTML =
+      mode === 'intro' ? `<button type="button" class="btn btn--small" data-cat-toggle>${t('cat.yes')}</button><button type="button" class="link-plain" data-cat-close>${t('cat.later')}</button>`
+      : mode === 'toggle' ? `<button type="button" class="btn btn--small" data-cat-toggle>${t(catMode ? 'cat.disable' : 'cat.enable')}</button>`
+      : '';
+    michiBubble.hidden = false;
+    michiBubble.style.animation = 'none'; void michiBubble.offsetWidth; michiBubble.style.animation = '';
+    positionBubble();
+    M.lastSay = performance.now();
+    clearTimeout(sayTimer);
+    sayTimer = setTimeout(() => { michiBubble.hidden = true; }, ms);
+  }
+  function catReact(key) { if (M.state !== 'hidden') say(t(key), null, 4000); }
+
+  function hearts() {
+    if (reduceMotion) return;
+    const s = catSize();
+    for (let i = 0; i < 5; i++) {
+      const h = document.createElement('span');
+      h.className = 'heart'; h.textContent = '♥';
+      h.style.left = M.x + s * (.3 + Math.random() * .4) + 'px';
+      h.style.top = M.y + s * .2 + 'px';
+      h.style.setProperty('--hx', (Math.random() - .5) * 60 + 'px');
+      h.style.animationDelay = i * 90 + 'ms';
+      h.addEventListener('animationend', () => h.remove());
+      document.body.append(h);
+    }
+  }
+
+  function setCatMode(on, announce) {
+    catMode = on;
+    store.set('quely-catmode', on ? '1' : '0');
+    document.documentElement.classList.toggle('cat-mode', on);
+    // every decorative cookie on the page (sun, band, buttons, confetti…) turns into a cat cookie
+    miniCookie.innerHTML = on ? CAT_COOKIE : ROUND_COOKIE;
+    cookies.forEach(c => { c.sprite = makeSprite(c.r, c.choc); c.bites = 0; });
+    render();
+    if (GW) { gameSprites(); gameDraw(); }
+    if (!on) { M.laser = null; if (M.state !== 'hidden' && M.state !== 'home') goHome(); }
+    if (announce) {
+      meow();
+      say(t(on ? (finePointer ? 'cat.on' : 'cat.onTouch') : 'cat.off'), null, 7000);
+    }
+  }
+
+  function showCat() {
+    if (M.state !== 'hidden') return;
+    M.state = 'home';
+    const h = homePos(); M.x = h.x; M.y = h.y; placeCat();
+    setTimeout(() => {
+      meow();
+      if (!store.get('quely-cat-met') && !catMode) { store.set('quely-cat-met', '1'); say(t('cat.intro'), 'intro', 14000); }
+    }, 700);
+  }
+
+  function catHome() { if (M.state !== 'home' && M.state !== 'hidden') { M.laser = null; goHome(); } }
+  function goHome() {
+    M.state = 'returning';
+    startCatLoop();
+  }
+  function startCatLoop() {
+    if (reduceMotion) { if (M.state === 'returning') { M.state = 'home'; const h = homePos(); M.x = h.x; M.y = h.y; placeCat(); } return; }
+    if (!M.raf) { M.last = 0; michi.classList.add('is-free'); M.raf = requestAnimationFrame(catLoop); }
+  }
+  function catLoop(now) {
+    const dt = Math.min(40, now - (M.last || now));
+    M.last = now;
+    const s = catSize();
+    let tx, ty;
+    if (M.state === 'chase' && M.laser) { tx = M.laser.x - s / 2; ty = M.laser.y - s * .78; }
+    else if (M.state === 'returning') { const h = homePos(); tx = h.x; ty = h.y; }
+    else { M.raf = 0; michi.classList.remove('is-running'); return; }
+    const dx = tx - M.x, dy = ty - M.y, d = Math.hypot(dx, dy);
+    const max = M.state === 'chase' ? .8 : .45;
+    const wantX = d > 1 ? dx / d * Math.min(max, d * .012) : 0, wantY = d > 1 ? dy / d * Math.min(max, d * .012) : 0;
+    const k = Math.min(1, dt * .007);
+    M.vx += (wantX - M.vx) * k; M.vy += (wantY - M.vy) * k;
+    M.x += M.vx * dt; M.y += M.vy * dt;
+    if (Math.abs(M.vx) > .04) M.dir = M.vx < 0 ? -1 : 1;
+    michi.classList.toggle('is-running', Math.hypot(M.vx, M.vy) > .07);
+    placeCat();
+    if (M.state === 'chase' && d < 16) { pounce(); M.raf = 0; return; }
+    if (M.state === 'returning' && d < 2) {
+      M.state = 'home'; M.vx = M.vy = 0; M.dir = 1; M.x = tx; M.y = ty;
+      michi.classList.remove('is-running', 'is-free'); placeCat();
+      M.raf = 0; return;
+    }
+    M.raf = requestAnimationFrame(catLoop);
+  }
+  function pounce() {
+    M.state = 'pounce'; M.vx = M.vy = 0;
+    M.catchAt = { ...M.laser };
+    M.catches++;
+    michi.classList.remove('is-running');
+    michi.classList.add('is-pounce');
+    if (performance.now() - M.lastSay > 3000) say(t('cat.c' + (1 + (M.catches % 3))) + ' ' + t('cat.count').replace('{n}', M.catches), null, 2600);
+    setTimeout(() => { michi.classList.remove('is-pounce'); if (M.state === 'pounce') M.state = 'sit'; }, 620);
+  }
+
+  // the laser: the mouse pointer (or a tap) in cat mode
+  function setLaser(x, y) {
+    if (!catMode || M.state === 'hidden' || G.on || sDown) return;
+    M.laser = { x, y }; M.laserT = performance.now();
+    if (M.state === 'pounce') return;
+    if (M.state === 'sit' && M.catchAt && Math.hypot(x - M.catchAt.x, y - M.catchAt.y) < 70) return;
+    if (M.state !== 'chase') { M.state = 'chase'; startCatLoop(); }
+  }
+  addEventListener('pointermove', e => {
+    M.active = performance.now();
+    if (michi.classList.contains('is-sleeping')) michi.classList.remove('is-sleeping');
+    // eyes follow the pointer
+    const s = catSize(), cx = M.x + s / 2, cy = M.y + s * .42;
+    const dx = e.clientX - cx, dy = e.clientY - cy, d = Math.hypot(dx, dy) || 1;
+    michi.style.setProperty('--ex', (dx / d * 2.6 * M.dir).toFixed(2));
+    michi.style.setProperty('--ey', (dy / d * 2.2).toFixed(2));
+    if (e.pointerType === 'mouse' && !e.target.closest('#michi')) setLaser(e.clientX, e.clientY);
+  }, { passive: true });
+  addEventListener('pointerdown', e => {
+    M.active = performance.now();
+    if (!catMode || e.pointerType === 'mouse' || e.target.closest('#michi, #michi-bubble, a, button, input, label, canvas')) return;
+    const dot = document.createElement('span');
+    dot.className = 'laser-tap';
+    dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
+    dot.addEventListener('animationend', () => dot.remove());
+    document.body.append(dot);
+    setLaser(e.clientX, e.clientY);
+  });
+  document.addEventListener('mouseleave', () => { if (M.state === 'chase') M.state = 'sit'; });
+
+  // idle: stop chasing, go home, fall asleep
+  setInterval(() => {
+    const now = performance.now();
+    if (catMode && M.laser && now - M.laserT > 4500 && M.state === 'chase') M.state = 'sit';
+    if (M.laser && now - M.laserT > 9000 && (M.state === 'sit' || M.state === 'chase')) { M.laser = null; goHome(); }
+    if (M.state === 'home' && now - M.active > 20000) michi.classList.add('is-sleeping');
+  }, 500);
+  addEventListener('scroll', () => {
+    M.active = performance.now();
+    michi.classList.remove('is-sleeping');
+    if (scrollY > innerHeight * .6) showCat();
+  }, { passive: true });
+  addEventListener('resize', () => { if (M.state === 'home') { const h = homePos(); M.x = h.x; M.y = h.y; placeCat(); } positionBubble(); });
+
+  // petting
+  michiBtn.addEventListener('click', () => {
+    M.active = performance.now();
+    michi.classList.remove('is-sleeping');
+    purr(); hearts();
+    const n = 1 + Math.floor(Math.random() * 7);
+    say(t('cat.p' + n), 'toggle');
+  });
+  michiBtn.addEventListener('pointerenter', () => { if (M.state === 'home') { M.peek = false; const h = homePos(); M.y = h.y; placeCat(); } });
+  michiBtn.addEventListener('pointerleave', () => { if (M.state === 'home') { M.peek = true; const h = homePos(); M.y = h.y; placeCat(); } });
+  michiBtn.addEventListener('focus', () => { if (M.state === 'home') { M.peek = false; const h = homePos(); M.y = h.y; placeCat(); } });
+  michiBtn.addEventListener('blur', () => { if (M.state === 'home') { M.peek = true; const h = homePos(); M.y = h.y; placeCat(); } });
+  michiBubble.addEventListener('click', e => {
+    if (e.target.closest('[data-cat-toggle]')) setCatMode(!catMode, true);
+    else if (e.target.closest('[data-cat-close]')) michiBubble.hidden = true;
+  });
+
+  if (catMode) { setCatMode(true, false); showCat(); }
+  else setTimeout(showCat, 7000);
 
   /* ---------- Language switch ---------- */
   function applyLang(next) {

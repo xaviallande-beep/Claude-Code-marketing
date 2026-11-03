@@ -16,6 +16,13 @@ Landing page de ejemplo para una escuela de surf ficticia en Somo (Cantabria). E
   - Malas: pagas x2 (la cesta cuesta el doble), adiós descuentos (se borran cupones, 2x1 y el código de "Rasca la harina"), galleta quemada (no pasa nada) y cesta al suelo (se vacía la cesta).
   - Todo se aplica de verdad en la cesta, con una línea por cada efecto. Los efectos duran hasta que recargas la página.
   - Suena un clic en cada casilla y la flecha se mueve al pasar. Si ganas, salen galletas volando. Si pierdes, la ruleta tiembla.
+- **Galleta, la gata del obrador**: una gata naranja que asoma por la esquina de abajo a la izquierda, te sigue con los ojos y parpadea. Si la acaricias (clic), ronronea, suelta corazones y dice frases. También opina: si quemas las galletas del horno, si te salen perfectas o si compras algo. Si nadie la toca durante un rato, se duerme (Zzz).
+- **Modo gato** (la sorpresa): la primera vez Galleta pregunta "¿Activamos el modo gato?". También se puede activar o desactivar acariciándola. Al activarlo:
+  - Suena un maullido.
+  - Todas las galletas de la web pasan a tener cara de gato: las que caen en la portada, la franja, los botones, el sol de la isla, el minijuego…
+  - Al logo le salen orejas de gato.
+  - El ratón se convierte en un puntero láser rojo, y Galleta corre por la pantalla para cazarlo y salta encima cuando lo pilla. En el móvil, se toca la pantalla y corre hacia ese punto.
+  - Se queda guardado para la próxima visita.
 - **Preguntas frecuentes** desplegables.
 - **Formulario de reserva**. Es una demostración: no envía datos a ningún sitio.
 
@@ -75,6 +82,13 @@ Portada · franja animada · Sobre nosotros · La isla · Productos · Test "¿Q
   - Malas: pagas x2 (la cesta cuesta el doble), adiós descuentos (se borran cupones, 2x1 y el código de "Rasca la harina"), galleta quemada (no pasa nada) y cesta al suelo (se vacía la cesta).
   - Todo se aplica de verdad en la cesta, con una línea por cada efecto. Los efectos duran hasta que recargas la página.
   - Suena un clic en cada casilla y la flecha se mueve al pasar. Si ganas, salen galletas volando. Si pierdes, la ruleta tiembla.
+- **Galleta, la gata del obrador**: una gata naranja que asoma por la esquina de abajo a la izquierda, te sigue con los ojos y parpadea. Si la acaricias (clic), ronronea, suelta corazones y dice frases. También opina: si quemas las galletas del horno, si te salen perfectas o si compras algo. Si nadie la toca durante un rato, se duerme (Zzz).
+- **Modo gato** (la sorpresa): la primera vez Galleta pregunta "¿Activamos el modo gato?". También se puede activar o desactivar acariciándola. Al activarlo:
+  - Suena un maullido.
+  - Todas las galletas de la web pasan a tener cara de gato: las que caen en la portada, la franja, los botones, el sol de la isla, el minijuego…
+  - Al logo le salen orejas de gato.
+  - El ratón se convierte en un puntero láser rojo, y Galleta corre por la pantalla para cazarlo y salta encima cuando lo pilla. En el móvil, se toca la pantalla y corre hacia ese punto.
+  - Se queda guardado para la próxima visita.
 - **Preguntas frecuentes** desplegables. "Envíos" y "Devoluciones" del pie abren la pregunta que toca.
 
 ## Animaciones

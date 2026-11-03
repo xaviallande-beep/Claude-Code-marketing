@@ -338,33 +338,37 @@
   }
   .btn[aria-expanded="true"] svg { transform: rotate(180deg); }
 
-  /* ---------- Oven tray (scroll to bake) ---------- */
+  /* ---------- Oven: bake a batch yourself ---------- */
+  @property --heat { syntax: '<number>'; inherits: true; initial-value: 0; }
   .oven {
-    --bake: 0;
+    --heat: 0;
     position: relative;
     padding: clamp(20px, 3vw, 34px);
     border-radius: 28px;
     background:
-      radial-gradient(120% 80% at 50% 110%, rgba(255, 120, 30, calc(var(--bake) * .55)) 0%, transparent 60%),
+      radial-gradient(120% 80% at 50% 110%, rgba(255, 120, 30, calc(var(--heat) * .55)) 0%, transparent 60%),
       linear-gradient(160deg, #3B2417 0%, #22140C 100%);
     box-shadow: var(--shadow-2), inset 0 0 0 1px rgba(255,255,255,.06);
     color: #F6E7D2;
     overflow: hidden;
+    transition: --heat 1.4s ease;
   }
+  .oven.is-on { --heat: 1; }
   .oven::before { /* heating coil glow */
     content: ""; position: absolute; left: 8%; right: 8%; bottom: 14px; height: 6px; border-radius: 6px;
     background: linear-gradient(90deg, #FF7A1A, #FFB23F, #FF7A1A);
-    opacity: calc(.15 + var(--bake) * .85);
-    box-shadow: 0 0 calc(var(--bake) * 28px) rgba(255, 140, 40, .9);
+    opacity: calc(.15 + var(--heat) * .85);
+    box-shadow: 0 0 calc(var(--heat) * 28px) rgba(255, 140, 40, .9);
   }
-  .oven-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; font-size: .85rem; }
-  .oven-temp { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: #FFC069; font-variant-numeric: tabular-nums; }
+  .oven-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 18px; font-size: .85rem; }
+  .oven-temp { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: #FFC069; font-variant-numeric: tabular-nums; min-width: 3.6ch; }
+  .oven-timer { padding: .2em .7em; border-radius: 8px; background: rgba(255,255,255,.07); font-weight: 700; font-variant-numeric: tabular-nums; color: #E7CFB2; }
   .oven-status { display: flex; align-items: center; gap: 8px; color: #E7CFB2; }
-  .oven-status i {
-    width: 10px; height: 10px; border-radius: 50%; background: #FF8A2A;
-    box-shadow: 0 0 10px #FF8A2A; animation: blink 1.2s ease-in-out infinite;
-  }
-  .oven.is-done .oven-status i { background: #7BD88F; box-shadow: 0 0 10px #7BD88F; animation: none; }
+  .oven-status i { width: 10px; height: 10px; border-radius: 50%; background: #8B7A6A; }
+  .oven.is-on .oven-status i { background: #FF8A2A; box-shadow: 0 0 10px #FF8A2A; animation: blink 1.2s ease-in-out infinite; }
+  .oven.is-on[data-zone="perfect"] .oven-status i { background: #7BD88F; box-shadow: 0 0 12px #7BD88F; }
+  .oven.is-on[data-zone="toasty"] .oven-status i,
+  .oven.is-on[data-zone="burnt"] .oven-status i { background: #FF4A3A; box-shadow: 0 0 12px #FF4A3A; animation-duration: .4s; }
   @keyframes blink { 50% { opacity: .3; } }
   .tray {
     position: relative;
@@ -377,8 +381,12 @@
     box-shadow: inset 0 2px 0 rgba(255,255,255,.35), inset 0 -3px 8px rgba(0,0,0,.35), 0 18px 30px -16px #000;
   }
   .tray-cookie {
-    --c: #F3E2BF; --e: #E4C995;
-    position: relative; aspect-ratio: 1; border: 0; padding: 0; border-radius: 50%; cursor: grab;
+    --c: #F1DFBC; --e: #E2C795; --rise: .84; --round: 0; --holes: .12; --gloss: .45; --bub: 0; --smoke: 0;
+    --hole: rgba(120, 62, 18, var(--holes));
+    position: relative; aspect-ratio: 1; border: 0; padding: 0; cursor: grab;
+    border-radius:
+      calc(44% + 6% * var(--round)) calc(56% - 6% * var(--round)) calc(48% + 2% * var(--round)) calc(53% - 3% * var(--round)) /
+      calc(53% - 3% * var(--round)) calc(45% + 5% * var(--round)) calc(55% - 5% * var(--round)) calc(47% + 3% * var(--round));
     background:
       radial-gradient(circle at 50% 50%, var(--hole) 0 3.4%, transparent 4.4%),
       radial-gradient(circle at 50% 22%, var(--hole) 0 3.4%, transparent 4.4%),
@@ -387,14 +395,37 @@
       radial-gradient(circle at 74% 36%, var(--hole) 0 3.4%, transparent 4.4%),
       radial-gradient(circle at 26% 64%, var(--hole) 0 3.4%, transparent 4.4%),
       radial-gradient(circle at 74% 64%, var(--hole) 0 3.4%, transparent 4.4%),
-      radial-gradient(circle at 38% 32%, rgba(255,255,255,.35), transparent 45%),
-      radial-gradient(circle at 50% 50%, var(--c) 0 58%, var(--e) 100%);
-    --hole: rgba(120, 62, 18, calc(.15 + var(--bake) * .45));
-    box-shadow: 0 4px 6px -2px rgba(0,0,0,.45), inset 0 -3px 6px rgba(120, 60, 15, calc(var(--bake) * .35));
-    transform: scale(calc(.86 + var(--bake) * .14)) rotate(var(--r, 0deg));
-    transition: transform .5s var(--ease-spring);
+      radial-gradient(circle at 38% 30%, rgba(255,255,255,var(--gloss)), transparent 42%),
+      radial-gradient(circle at 50% 50%, var(--c) 0 56%, var(--e) 100%);
+    box-shadow: 0 4px 6px -2px rgba(0,0,0,.45), inset 0 -3px 6px rgba(80, 40, 10, calc(var(--round) * .35));
+    transform: scale(var(--rise)) rotate(var(--r, 0deg));
+    transition: transform .4s var(--ease-out);
   }
-  .tray-cookie:hover { transform: scale(calc(.92 + var(--bake) * .14)) rotate(calc(var(--r, 0deg) + 12deg)); }
+  .tray-cookie::after { /* bubbles in the raw dough */
+    content: ""; position: absolute; inset: 16%; border-radius: 50%; pointer-events: none;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(255,255,255,.75) 0 7%, transparent 9%),
+      radial-gradient(circle at 66% 62%, rgba(255,255,255,.65) 0 6%, transparent 8%),
+      radial-gradient(circle at 56% 24%, rgba(255,255,255,.6) 0 5%, transparent 7%),
+      radial-gradient(circle at 24% 72%, rgba(255,255,255,.6) 0 4%, transparent 6%);
+    opacity: var(--bub);
+    animation: bubble 1.1s ease-in-out infinite;
+  }
+  .tray-cookie:nth-child(2n)::after { animation-delay: -.5s; }
+  .tray-cookie:nth-child(3n)::after { animation-delay: -.8s; }
+  @keyframes bubble { 50% { transform: scale(1.18) rotate(20deg); } }
+  .tray-cookie::before { /* smoke when they burn */
+    content: ""; position: absolute; left: 20%; bottom: 55%; width: 60%; height: 70%; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(215, 205, 198, .85), rgba(120, 110, 104, .4) 45%, transparent 70%);
+    filter: blur(4px);
+    opacity: 0;
+    animation: smoke 1.6s ease-out infinite;
+  }
+  .tray-cookie:nth-child(2n)::before { animation-delay: -.6s; }
+  .tray-cookie:nth-child(3n)::before { animation-delay: -1.1s; }
+  @keyframes smoke { 0% { transform: translateY(0) scale(.5); opacity: var(--smoke); } 100% { transform: translateY(-70px) scale(1.7); opacity: 0; } }
+  .tray-cookie:hover { transform: scale(calc(var(--rise) + .06)) rotate(calc(var(--r, 0deg) + 12deg)); }
+  .oven.is-on .tray-cookie { cursor: default; }
   .tray-cookie.is-grabbed { animation: grab .9s var(--ease-out); }
   @keyframes grab {
     0% { transform: scale(1); }
@@ -403,24 +434,50 @@
     61% { transform: translateY(0) scale(.2); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
   }
-  .heat { position: absolute; inset: 40px 0 auto 0; height: 80px; pointer-events: none; opacity: calc(var(--bake) * (1 - var(--bake)) * 3.2); }
+  .heat { position: absolute; inset: 40px 0 auto 0; height: 80px; pointer-events: none; opacity: calc(var(--heat) * .9); }
   .heat path { fill: none; stroke: rgba(255, 210, 160, .5); stroke-width: 2; stroke-linecap: round; animation: rise 2.4s ease-in-out infinite; }
   .heat path:nth-child(2) { animation-delay: -.8s; }
   .heat path:nth-child(3) { animation-delay: -1.6s; }
   @keyframes rise { 0% { transform: translateY(20px); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-24px); opacity: 0; } }
   .oven-done {
-    position: absolute; top: 50%; left: 50%; z-index: 2;
-    padding: 10px 18px; border-radius: 999px;
+    position: absolute; top: 42%; left: 50%; z-index: 2;
+    padding: 10px 20px; border-radius: 999px;
     background: var(--cream); color: var(--red-deep);
-    font-family: var(--font-display); font-weight: 800; font-size: 1.1rem; white-space: nowrap;
+    font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; white-space: nowrap;
     box-shadow: var(--shadow-2);
     transform: translate(-50%, -50%) scale(0) rotate(-12deg);
-    transition: transform .5s var(--ease-spring);
     pointer-events: none;
   }
-  .oven.is-done .oven-done { transform: translate(-50%, -50%) scale(1) rotate(-6deg); animation: done-out .4s ease-in 1.8s forwards; }
-  @keyframes done-out { to { transform: translate(-50%, -50%) scale(0) rotate(6deg); } }
-  .oven-caption { margin: 16px 0 0; font-size: .8rem; color: #CDB394; text-align: center; }
+  .oven-done[data-r="perfect"] { background: #2F7A3E; color: var(--white); }
+  .oven-done[data-r="burnt"] { background: #1E120B; color: #FFB9A0; }
+  .oven.show-result .oven-done { animation: done-in 2.6s var(--ease-out) forwards; }
+  @keyframes done-in {
+    0% { transform: translate(-50%, -50%) scale(0) rotate(-12deg); }
+    15%, 80% { transform: translate(-50%, -50%) scale(1) rotate(-6deg); }
+    100% { transform: translate(-50%, -50%) scale(0) rotate(6deg); }
+  }
+  .gauge { --d: 0; position: relative; height: 14px; margin: 22px 6px 6px; border-radius: 999px;
+    background: linear-gradient(90deg, #F1DFBC 0 55%, #7BD88F 55% 82%, #D98A3A 82% 92%, #3A1F12 92%);
+    box-shadow: inset 0 1px 3px rgba(0,0,0,.45); }
+  .gauge-needle {
+    position: absolute; top: 50%; left: calc(var(--d) * 100%); width: 28px; height: 28px; margin: -14px 0 0 -14px;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,.5));
+    transform: rotate(calc(var(--d) * 720deg));
+  }
+  .gauge-needle svg { width: 100%; height: 100%; }
+  .gauge-labels { position: relative; height: 1.3em; margin: 0 6px; font-size: .72rem; color: #CDB394; }
+  .gauge-labels span { position: absolute; top: 0; }
+  .gauge-labels span:nth-child(2) { left: 68.5%; transform: translateX(-50%); color: #9FE3AE; }
+  .gauge-labels span:nth-child(3) { right: 0; }
+  .oven-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
+  .oven-btn.is-idle { animation: invite 2.2s ease-in-out infinite; }
+  .oven-btn.is-hot { background: #2F7A3E; animation: hot .6s ease-in-out infinite; }
+  @keyframes invite { 50% { box-shadow: 0 0 0 10px rgba(215, 38, 30, .18), 0 6px 18px -8px rgba(215, 38, 30, .7); } }
+  @keyframes hot { 50% { transform: scale(1.06); box-shadow: 0 0 0 10px rgba(123, 216, 143, .25); } }
+  .oven-score { font-size: .82rem; font-weight: 600; color: #FFC069; }
+  .oven-caption { margin: 14px 0 0; font-size: .85rem; color: #CDB394; text-align: center; min-height: 1.4em; }
+  .oven-result { font-weight: 700; color: #F6E7D2; }
+  .oven-result:not(:empty) + .oven-tip { display: none; }
 
   @media (max-width: 860px) {
     .about .wrap { grid-template-columns: 1fr; }
@@ -971,6 +1028,36 @@
   @media (max-width: 860px) { .scratch .wrap { grid-template-columns: 1fr; } }
 
   /* =========================================================
+     Minigame: catch the cookies
+     ========================================================= */
+  .game { padding: clamp(80px, 10vw, 130px) 0; background: var(--cream); }
+  .game-card {
+    position: relative; max-width: 900px; margin: 0 auto; aspect-ratio: 16 / 10;
+    border-radius: 28px; overflow: hidden; background: #FCE9CC;
+    box-shadow: var(--shadow-2), inset 0 0 0 1px rgba(46,27,17,.06);
+  }
+  @media (max-width: 640px) { .game-card { aspect-ratio: 3 / 4; } }
+  .game-card canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .game-card canvas:focus { outline: none; }
+  .game-card.is-playing canvas { touch-action: none; cursor: none; }
+  .game-overlay {
+    position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 14px;
+    padding: 24px; text-align: center;
+    background: rgba(255, 248, 236, .84); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+    animation: dlg-in .5s var(--ease-spring);
+  }
+  .game-overlay[hidden] { display: none; }
+  .game-overlay h3 { font-size: clamp(1.8rem, 4vw, 2.6rem); }
+  .game-legend { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; text-align: left; }
+  .game-legend li { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+  .game-legend svg { width: 30px; height: 30px; flex-shrink: 0; }
+  .game-legend .burnt { filter: brightness(.3) saturate(.5); }
+  .game-final { margin: 0; font-weight: 600; color: var(--muted); }
+  .game-final strong { display: block; font-family: var(--font-display); font-size: clamp(3rem, 9vw, 4.6rem); line-height: 1; color: var(--red); }
+  .game-best { margin: 0; font-weight: 700; color: var(--muted); }
+  .game-best.is-record { color: #2F7A3E; animation: bump .6s var(--ease-spring); }
+
+  /* =========================================================
      Scroll reveal
      ========================================================= */
   .js .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s var(--ease-out), transform .9s var(--ease-out); transition-delay: var(--d, 0s); }
@@ -1131,7 +1218,8 @@
       <figure class="oven reveal reveal--left" id="oven" style="margin:0">
         <div class="oven-top">
           <span class="oven-temp" id="oven-temp">20°C</span>
-          <span class="oven-status"><i></i><span id="oven-status">Scroll to bake</span></span>
+          <span class="oven-timer" id="oven-timer" aria-hidden="true">0:00</span>
+          <span class="oven-status" aria-live="polite"><i></i><span id="oven-status">Ready to bake</span></span>
         </div>
         <svg class="heat" viewBox="0 0 400 80" preserveAspectRatio="none" aria-hidden="true">
           <path d="M80 70c-10-15 10-25 0-40s10-25 0-30"/>
@@ -1139,22 +1227,27 @@
           <path d="M320 70c-10-15 10-25 0-40s10-25 0-30"/>
         </svg>
         <div class="tray" id="tray">
-          <!-- 12 cookies generated below in HTML for no-JS -->
-          <button class="tray-cookie" style="--r:10deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:-20deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:35deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:5deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:-8deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:22deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:-30deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:14deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:40deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:-15deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:0deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:28deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:10deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:-20deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:35deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:5deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:-8deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:22deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:-30deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:14deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:40deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:-15deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:0deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" type="button" style="--r:28deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
         </div>
-        <span class="oven-done" aria-hidden="true" data-i18n="oven.done">Freshly baked!</span>
-        <figcaption class="oven-caption" data-i18n="oven.caption">Our ovens, scroll by scroll. Go on, grab one.</figcaption>
+        <span class="oven-done" id="oven-done" aria-hidden="true"></span>
+        <div class="gauge" id="gauge" aria-hidden="true"><i class="gauge-needle"><svg viewBox="-20 -20 40 40"><use href="#mini-cookie" x="-20" y="-20" width="40" height="40"/></svg></i></div>
+        <div class="gauge-labels" aria-hidden="true"><span data-i18n="oven.z.raw">Raw</span><span data-i18n="oven.z.ok">Perfect</span><span data-i18n="oven.z.burnt">Burnt</span></div>
+        <div class="oven-controls">
+          <button type="button" class="btn oven-btn is-idle" id="oven-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5c2.2 3.2 5.5 5.6 5.5 10a5.5 5.5 0 0 1-11 0c0-2.3 1.1-3.9 2.2-5 .3 2 1.3 3.1 2.5 3.5C10.8 8.2 10.9 5 12 2.5z" fill="currentColor"/></svg><span>Turn on the oven</span></button>
+          <span class="oven-score" id="oven-score"></span>
+        </div>
+        <figcaption class="oven-caption"><span class="oven-result" id="oven-result" aria-live="polite"></span><span class="oven-tip" data-i18n="oven.caption">Take them out at just the right time: not raw, not burnt.</span></figcaption>
       </figure>
 
       <div class="about-copy">
@@ -1442,6 +1535,35 @@
     </div>
   </section>
 
+  <!-- ============ MINIGAME ============ -->
+  <section class="game" id="game" aria-labelledby="game-title">
+    <div class="wrap">
+      <header class="section-head">
+        <span class="eyebrow reveal" data-i18n="game.eyebrow">Minigame</span>
+        <h2 id="game-title" class="reveal" style="--d:.05s" data-i18n="game.title">Catch the cookies!</h2>
+        <p class="reveal" style="--d:.1s" data-i18n="game.sub">Move the bowl with the mouse, your finger or the arrow keys. Catch the good ones and dodge the burnt ones.</p>
+      </header>
+      <div class="game-card reveal reveal--pop" id="game-card">
+        <canvas id="game-canvas" tabindex="0" role="img" data-i18n-aria="game.aria" aria-label="Cookie catching game"></canvas>
+        <div class="game-overlay" id="game-start">
+          <h3 data-i18n="game.ready">Ready?</h3>
+          <ul class="game-legend">
+            <li><svg viewBox="-20 -20 40 40" aria-hidden="true"><use href="#mini-cookie" x="-20" y="-20" width="40" height="40"/></svg><span data-i18n="game.l1">Quelita: +1 point</span></li>
+            <li><svg viewBox="-20 -20 40 40" aria-hidden="true"><use href="#choc-cookie" x="-20" y="-20" width="40" height="40"/></svg><span data-i18n="game.l2">Quelito: +3 points</span></li>
+            <li><svg class="burnt" viewBox="-20 -20 40 40" aria-hidden="true"><use href="#mini-cookie" x="-20" y="-20" width="40" height="40"/></svg><span data-i18n="game.l3">Burnt cookie: you lose a life</span></li>
+          </ul>
+          <button type="button" class="btn" id="game-play"><span data-i18n="game.play">Play</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
+        </div>
+        <div class="game-overlay" id="game-over" hidden>
+          <h3 data-i18n="game.over">Game over!</h3>
+          <p class="game-final" aria-live="polite"><strong id="game-score">0</strong><span data-i18n="game.points">points</span></p>
+          <p class="game-best" id="game-best"></p>
+          <button type="button" class="btn" id="game-again"><span data-i18n="game.again">Play again</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ FAQ ============ -->
   <section class="faq" id="faq" aria-labelledby="faq-title">
     <div class="wrap">
@@ -1631,8 +1753,19 @@
       'hint.10': '{n} cookies. You deserve a <a href="#cookies">real pack →</a>',
       'sound': 'Crunch sound',
       'band.1': 'Baked in Mallorca', 'band.2': '100% olive oil', 'band.3': 'Since 1853', 'band.4': 'Crunchy & light', 'band.5': 'Three generations',
-      'oven.idle': 'Scroll to bake', 'oven.baking': 'Baking… {p}%', 'oven.ready': 'Ready!', 'oven.done': 'Freshly baked!',
-      'oven.caption': 'Our ovens, scroll by scroll. Go on, grab one.', 'oven.grab': 'Grab a cookie',
+      'oven.idle': 'Ready to bake', 'oven.baking': 'Baking… {p}%', 'oven.ready': 'Out of the oven',
+      'oven.caption': 'Take them out at just the right time: not raw, not burnt.', 'oven.grab': 'Grab a cookie',
+      'oven.start': 'Turn on the oven', 'oven.out': 'Take them out!', 'oven.again': 'Bake another batch',
+      'oven.z.raw': 'Raw', 'oven.z.ok': 'Perfect', 'oven.z.burnt': 'Burnt',
+      'oven.b.raw': 'Raw!', 'oven.b.perfect': 'Perfect!', 'oven.b.toasty': 'Toasty', 'oven.b.burnt': 'Burnt!',
+      'oven.r.raw': 'Still raw! They needed a little longer.', 'oven.r.perfect': 'Perfect! Golden and crunchy, just like in Mallorca.',
+      'oven.r.toasty': 'A little toasty, but still tasty.', 'oven.r.burnt': "Oh no, they're burnt! Try another batch.",
+      'oven.score': 'Perfect batches: {n}',
+      'game.eyebrow': 'Minigame', 'game.title': 'Catch the cookies!',
+      'game.sub': 'Move the bowl with the mouse, your finger or the arrow keys. Catch the good ones and dodge the burnt ones.',
+      'game.ready': 'Ready?', 'game.l1': 'Quelita: +1 point', 'game.l2': 'Quelito: +3 points', 'game.l3': 'Burnt cookie: you lose a life',
+      'game.play': 'Play', 'game.over': 'Game over!', 'game.points': 'points', 'game.best': 'Your best: {n}', 'game.record': 'New record!',
+      'game.again': 'Play again', 'game.score': 'Points', 'game.ouch': 'Ouch!', 'game.aria': 'Cookie catching game',
       'about.eyebrow': 'About us', 'about.title': 'Baking in Mallorca since 1853',
       'about.text': 'For over 170 years, Quely has made cookies and snacks on the island, with simple recipes and local ingredients such as olive oil. Three generations of know-how in every bite.',
       'stat.1': 'Our beginnings', 'stat.2': 'Natural olive oil', 'stat.3': 'Made on the island',
@@ -1722,8 +1855,19 @@
       'hint.10': '{n} galletas. Te mereces un <a href="#cookies">paquete de verdad →</a>',
       'sound': 'Sonido de crujido',
       'band.1': 'Horneadas en Mallorca', 'band.2': '100% aceite de oliva', 'band.3': 'Desde 1853', 'band.4': 'Crujientes y ligeras', 'band.5': 'Tres generaciones',
-      'oven.idle': 'Baja para hornear', 'oven.baking': 'Horneando… {p}%', 'oven.ready': '¡Listas!', 'oven.done': '¡Recién hechas!',
-      'oven.caption': 'Nuestro horno, scroll a scroll. Venga, coge una.', 'oven.grab': 'Coger una galleta',
+      'oven.idle': 'Listo para hornear', 'oven.baking': 'Horneando… {p}%', 'oven.ready': 'Fuera del horno',
+      'oven.caption': 'Sácalas en su punto: ni crudas ni quemadas.', 'oven.grab': 'Coger una galleta',
+      'oven.start': 'Encender el horno', 'oven.out': '¡Sácalas ya!', 'oven.again': 'Hornear otra tanda',
+      'oven.z.raw': 'Crudas', 'oven.z.ok': 'Perfectas', 'oven.z.burnt': 'Quemadas',
+      'oven.b.raw': '¡Crudas!', 'oven.b.perfect': '¡Perfectas!', 'oven.b.toasty': 'Tostaditas', 'oven.b.burnt': '¡Quemadas!',
+      'oven.r.raw': '¡Están crudas! Les faltaba un poco más.', 'oven.r.perfect': '¡Perfectas! Doradas y crujientes, como en Mallorca.',
+      'oven.r.toasty': 'Un pelín tostadas, pero se dejan comer.', 'oven.r.burnt': '¡Oh, no! Se han quemado. Prueba con otra tanda.',
+      'oven.score': 'Tandas perfectas: {n}',
+      'game.eyebrow': 'Minijuego', 'game.title': '¡Atrapa las galletas!',
+      'game.sub': 'Mueve el bol con el ratón, el dedo o las flechas del teclado. Atrapa las buenas y esquiva las quemadas.',
+      'game.ready': '¿Preparado?', 'game.l1': 'Quelita: +1 punto', 'game.l2': 'Quelito: +3 puntos', 'game.l3': 'Galleta quemada: pierdes una vida',
+      'game.play': 'Jugar', 'game.over': '¡Fin del juego!', 'game.points': 'puntos', 'game.best': 'Tu récord: {n}', 'game.record': '¡Nuevo récord!',
+      'game.again': 'Jugar otra vez', 'game.score': 'Puntos', 'game.ouch': '¡Ay!', 'game.aria': 'Juego de atrapar galletas',
       'about.eyebrow': 'Sobre nosotros', 'about.title': 'Horneando en Mallorca desde 1853',
       'about.text': 'Desde hace más de 170 años, Quely elabora galletas y snacks en la isla, con recetas sencillas e ingredientes locales como el aceite de oliva. Tres generaciones de saber hacer en cada bocado.',
       'stat.1': 'Nuestros inicios', 'stat.2': 'Aceite de oliva natural', 'stat.3': 'Hecho en la isla',
@@ -2208,21 +2352,113 @@
   }
 
   /* ------------------------------------------------------------
-     Tray: grab a cookie
+     Oven: bake a batch yourself and take it out at the right time
      ------------------------------------------------------------ */
-  $$('.tray-cookie').forEach(b => {
+  const oven = $('#oven'), ovenTemp = $('#oven-temp'), ovenStatus = $('#oven-status'), ovenTimer = $('#oven-timer');
+  const trayCookies = $$('.tray-cookie'), ovenBtn = $('#oven-btn'), ovenDone = $('#oven-done'), gauge = $('#gauge');
+  const ovenResult = $('#oven-result'), ovenScore = $('#oven-score');
+  const BAKE_SECONDS = 9.5; // from raw dough to burnt
+  // colour of the cookie as it bakes: dough → golden → toasted → burnt
+  const STOPS = [[0, [241, 223, 188]], [.4, [237, 203, 142]], [.7, [222, 156, 74]], [.86, [180, 108, 40]], [1, [58, 33, 19]]];
+  const colorAt = d => {
+    let i = 1;
+    while (i < STOPS.length - 1 && d > STOPS[i][0]) i++;
+    const [a0, c0] = STOPS[i - 1], [a1, c1] = STOPS[i];
+    const k = clamp((d - a0) / (a1 - a0), 0, 1);
+    return c0.map((v, j) => Math.round(lerp(v, c1[j], k)));
+  };
+  const rgb = c => `rgb(${c.join(',')})`;
+  // cookies near the edges of the tray bake a little faster than the middle ones
+  const ovenOffsets = trayCookies.map((_, i) => {
+    const col = i % 4, row = (i / 4) | 0;
+    return ((col === 0 || col === 3) + (row === 0 || row === 2)) * .035 - .03 + (Math.random() - .5) * .025;
+  });
+  const zoneOf = d => d < .55 ? 'raw' : d < .82 ? 'perfect' : d < .92 ? 'toasty' : 'burnt';
+  let ovenState = 'idle', doneness = 0, bakeT0 = 0, ovenRaf = 0, lastBake = null;
+  let perfectBatches = +(store.get('quely-perfect') || 0);
+
+  function paintCookies(d) {
+    trayCookies.forEach((el, i) => {
+      const di = clamp(d + ovenOffsets[i] * Math.min(d * 2, 1), 0, 1);
+      const st = el.style;
+      st.setProperty('--c', rgb(colorAt(di)));
+      st.setProperty('--e', rgb(colorAt(Math.min(1, di + .14)).map(v => Math.round(v * .88))));
+      st.setProperty('--rise', (.84 + Math.min(di / .6, 1) * .16).toFixed(3));
+      st.setProperty('--round', Math.min(di / .5, 1).toFixed(3));
+      st.setProperty('--holes', (.12 + Math.min(di / .7, 1) * .5).toFixed(3));
+      st.setProperty('--gloss', (.45 * (1 - Math.min(di / .45, 1))).toFixed(3));
+      st.setProperty('--bub', (di > .06 && di < .5 ? Math.sin((di - .06) / .44 * Math.PI) : 0).toFixed(3));
+      st.setProperty('--smoke', clamp((di - .84) / .16, 0, 1).toFixed(3));
+    });
+    gauge.style.setProperty('--d', d.toFixed(3));
+  }
+
+  function renderOven() {
+    ovenBtn.querySelector('span').textContent = t(ovenState === 'on' ? 'oven.out' : ovenState === 'done' ? 'oven.again' : 'oven.start');
+    if (ovenState !== 'on') ovenStatus.textContent = t(ovenState === 'done' ? 'oven.ready' : 'oven.idle');
+    ovenDone.dataset.r = lastBake || '';
+    ovenDone.textContent = lastBake ? t('oven.b.' + lastBake) : '';
+    ovenResult.textContent = lastBake ? t('oven.r.' + lastBake) : '';
+    ovenScore.textContent = perfectBatches ? t('oven.score').replace('{n}', perfectBatches) : '';
+  }
+
+  function ovenTick(now) {
+    if (ovenState !== 'on') return;
+    const sec = (now - bakeT0) / 1000;
+    doneness = clamp(sec / BAKE_SECONDS, 0, 1);
+    paintCookies(doneness);
+    ovenTemp.textContent = Math.round(20 + 160 * (1 - Math.pow(1 - Math.min(sec / 1.6, 1), 3))) + '°C';
+    ovenTimer.textContent = '0:' + String(Math.floor(sec)).padStart(2, '0');
+    ovenStatus.textContent = t('oven.baking').replace('{p}', Math.round(doneness * 100));
+    const z = zoneOf(doneness);
+    oven.dataset.zone = z;
+    ovenBtn.classList.toggle('is-hot', z === 'perfect');
+    if (doneness >= 1) { takeOut(); return; }
+    ovenRaf = requestAnimationFrame(ovenTick);
+  }
+
+  function startBake() {
+    ovenState = 'on'; doneness = 0; lastBake = null;
+    oven.classList.add('is-on');
+    oven.classList.remove('show-result');
+    ovenBtn.classList.remove('is-idle');
+    paintCookies(0);
+    renderOven();
+    bakeT0 = performance.now();
+    ovenRaf = requestAnimationFrame(ovenTick);
+  }
+
+  function takeOut() {
+    cancelAnimationFrame(ovenRaf);
+    ovenState = 'done';
+    lastBake = zoneOf(doneness);
+    oven.classList.remove('is-on');
+    ovenBtn.classList.remove('is-hot');
+    if (lastBake === 'perfect') {
+      perfectBatches++;
+      store.set('quely-perfect', perfectBatches);
+      burst(trayCookies[5].getBoundingClientRect(), 20);
+      crunch(true);
+    }
+    renderOven();
+    void oven.offsetWidth;
+    oven.classList.add('show-result');
+  }
+
+  ovenBtn.addEventListener('click', () => (ovenState === 'on' ? takeOut() : startBake()));
+  trayCookies.forEach(b => {
     b.addEventListener('click', () => {
+      if (ovenState === 'on') return;
       b.classList.remove('is-grabbed'); void b.offsetWidth; b.classList.add('is-grabbed');
       crunch(false);
     });
-    b.addEventListener('animationend', () => b.classList.remove('is-grabbed'));
+    b.addEventListener('animationend', e => { if (e.animationName === 'grab') b.classList.remove('is-grabbed'); });
   });
+  paintCookies(0);
 
   /* ------------------------------------------------------------
      Scroll-driven effects (one rAF loop, only while scrolling)
      ------------------------------------------------------------ */
-  const oven = $('#oven'), ovenTemp = $('#oven-temp'), ovenStatus = $('#oven-status');
-  const trayCookies = $$('.tray-cookie');
   const products = $('.products'), footer = $('#site-footer'), island = $('#island');
 
   // Windmill: each push speeds it up, then it slows back down
@@ -2242,10 +2478,8 @@
   const band = $('.band'), bandAnim = reduceMotion ? null : $('#band-track').getAnimations()[0];
   const progressBtn = $('#progress-cookie'), progressTip = $('#progress-tip');
   const bites = $$('.bite', progressBtn);
-  const DOUGH = [243, 226, 191], GOLD = [222, 152, 66], DOUGH_E = [228, 201, 149], GOLD_E = [178, 104, 34];
-  const mix = (a, b, t) => `rgb(${a.map((v, i) => Math.round(lerp(v, b[i], t))).join(',')})`;
 
-  let lastY = scrollY, vel = 0, ticking = false, wasDone = false;
+  let lastY = scrollY, vel = 0, ticking = false;
   progressBtn.addEventListener('click', () => scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
 
   function onScrollFrame() {
@@ -2262,17 +2496,6 @@
       bandAnim.playbackRate = vel < -0.5 ? -rate : rate;
       band.style.setProperty('--skew', clamp(-vel * .6, -14, 14).toFixed(2) + 'deg');
     }
-
-    // Oven: scroll to bake
-    const r = oven.getBoundingClientRect();
-    const bake = clamp((vh - r.top) / (vh * .55 + r.height / 2), 0, 1);
-    oven.style.setProperty('--bake', bake.toFixed(3));
-    const c = mix(DOUGH, GOLD, bake), e = mix(DOUGH_E, GOLD_E, bake);
-    trayCookies.forEach(t => { t.style.setProperty('--c', c); t.style.setProperty('--e', e); });
-    ovenTemp.textContent = Math.round(20 + bake * 160) + '°C';
-    const done = bake >= .999;
-    ovenStatus.textContent = done ? t('oven.ready') : bake > 0.02 ? t('oven.baking').replace('{p}', Math.round(bake * 100)) : t('oven.idle');
-    if (done !== wasDone) { oven.classList.toggle('is-done', done); wasDone = done; }
 
     // Island: parallax layers + the cookie sun sets as you scroll
     if (!reduceMotion) {
@@ -2765,6 +2988,262 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (!touched && !scratched) drawFlour(); });
   addEventListener('resize', () => { if (!touched && !scratched) drawFlour(); });
 
+  /* ---------- Minigame: catch the cookies ---------- */
+  const gameCard = $('#game-card'), gcv = $('#game-canvas'), gctx = gcv.getContext('2d');
+  const gameStartEl = $('#game-start'), gameOverEl = $('#game-over'), gameBestEl = $('#game-best');
+  const G = { on: false, score: 0, lives: 3, time: 0, spawn: 0, items: [], parts: [], texts: [], x: 0, tx: 0, squish: 0, shake: 0, flash: 0, keys: 0 };
+  const GS = {}; // cookie sprites for the game
+  let GW = 0, GH = 0, gameVisible = false, gameRaf = 0, gameLast = 0, gameRecord = false;
+  let best = +(store.get('quely-best') || 0);
+  const bowlW = () => (GW < 500 ? 96 : 124);
+  const bowlY = () => GH - 70;
+
+  function gameSprites() {
+    const r = GW < 500 ? 18 : 22;
+    GS.r = r;
+    GS.normal = makeSprite(r, false);
+    GS.choc = makeSprite(r, true);
+    const burnt = makeSprite(r, false), bctx = burnt.getContext('2d');
+    bctx.save();
+    bctx.setTransform(1, 0, 0, 1, 0, 0);
+    bctx.globalCompositeOperation = 'source-atop';
+    bctx.fillStyle = 'rgba(38, 20, 10, .82)';
+    bctx.fillRect(0, 0, burnt.width, burnt.height);
+    bctx.restore();
+    GS.burnt = burnt;
+  }
+
+  function gameResize() {
+    const d = Math.min(window.devicePixelRatio || 1, 2);
+    GW = gameCard.clientWidth; GH = gameCard.clientHeight;
+    if (!GW) return;
+    gcv.width = Math.round(GW * d); gcv.height = Math.round(GH * d);
+    gctx.setTransform(d, 0, 0, d, 0, 0);
+    gameSprites();
+    if (!G.on) G.x = G.tx = GW / 2;
+    G.x = clamp(G.x, bowlW() / 2, GW - bowlW() / 2);
+    G.tx = clamp(G.tx, bowlW() / 2, GW - bowlW() / 2);
+    gameDraw();
+  }
+
+  function roundRect(c, x, y, w, h, r) {
+    c.beginPath();
+    c.moveTo(x + r, y);
+    c.arcTo(x + w, y, x + w, y + h, r); c.arcTo(x + w, y + h, x, y + h, r);
+    c.arcTo(x, y + h, x, y, r); c.arcTo(x, y, x + w, y, r);
+    c.closePath();
+  }
+
+  function drawBowl(c, x, y, w) {
+    const h = 48, sq = G.squish;
+    c.save();
+    c.translate(x, y + h);
+    c.scale(1 + sq * .12, 1 - sq * .16);
+    c.translate(0, -h);
+    c.fillStyle = 'rgba(46, 27, 17, .2)';
+    c.beginPath(); c.ellipse(0, h + 8, w * .42, 6, 0, 0, Math.PI * 2); c.fill();
+    const g = c.createLinearGradient(-w / 2, 0, w / 2, 0);
+    g.addColorStop(0, '#B01E16'); g.addColorStop(.35, '#E3342B'); g.addColorStop(1, '#A9170F');
+    c.fillStyle = g;
+    c.beginPath();
+    c.moveTo(-w / 2, 6); c.lineTo(w / 2, 6);
+    c.bezierCurveTo(w / 2 - 4, h * .8, w / 2 - 16, h, w / 2 - 26, h);
+    c.lineTo(-w / 2 + 26, h);
+    c.bezierCurveTo(-w / 2 + 16, h, -w / 2 + 4, h * .8, -w / 2, 6);
+    c.closePath(); c.fill();
+    c.fillStyle = '#F04A3F'; roundRect(c, -w / 2 - 4, 0, w + 8, 10, 5); c.fill();
+    c.fillStyle = '#FFFFFF'; roundRect(c, -30, 17, 60, 21, 10.5); c.fill();
+    c.fillStyle = '#D7261E'; c.font = 'italic 900 15px Fraunces, Georgia, serif';
+    c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText('Quely', 0, 28);
+    c.textBaseline = 'alphabetic';
+    c.restore();
+  }
+
+  function gameDraw() {
+    if (!GW) return;
+    const c = gctx;
+    c.save();
+    if (G.shake > 0 && !reduceMotion) c.translate((Math.random() - .5) * 12 * G.shake / 350, (Math.random() - .5) * 8 * G.shake / 350);
+    const g = c.createLinearGradient(0, 0, 0, GH);
+    g.addColorStop(0, '#FFF3DE'); g.addColorStop(1, '#F7DDB4');
+    c.fillStyle = g; c.fillRect(-12, -12, GW + 24, GH + 24);
+    c.fillStyle = 'rgba(227, 164, 64, .13)';
+    for (let y = 30, row = 0; y < GH; y += 56, row++) {
+      for (let x = (row % 2) * 28 + 14; x < GW; x += 56) { c.beginPath(); c.arc(x, y, 5, 0, Math.PI * 2); c.fill(); }
+    }
+    c.fillStyle = '#C9A15E'; c.fillRect(-12, GH - 20, GW + 24, 32);
+    c.fillStyle = 'rgba(0, 0, 0, .08)'; c.fillRect(-12, GH - 20, GW + 24, 4);
+
+    const size = (GS.r + PAD) * 2;
+    for (const it of G.items) {
+      if (it.type === 'burnt') {
+        c.fillStyle = 'rgba(60, 50, 45, .2)';
+        c.beginPath(); c.arc(it.x + Math.sin(it.y * .05) * 5, it.y - GS.r - 10, 8, 0, Math.PI * 2); c.fill();
+      }
+      c.save(); c.translate(it.x, it.y); c.rotate(it.rot);
+      c.drawImage(GS[it.type], -size / 2, -size / 2, size, size);
+      c.restore();
+    }
+    drawBowl(c, G.x, bowlY(), bowlW());
+
+    for (const p of G.parts) { c.globalAlpha = clamp(p.life / 300, 0, 1); c.fillStyle = p.color; c.fillRect(p.x, p.y, p.s, p.s); }
+    c.textAlign = 'center';
+    c.font = 'italic 900 24px Fraunces, Georgia, serif';
+    for (const tx of G.texts) { c.globalAlpha = clamp(tx.life / 400, 0, 1); c.fillStyle = tx.color; c.fillText(tx.txt, tx.x, tx.y); }
+    c.globalAlpha = 1;
+
+    // HUD
+    c.textAlign = 'left';
+    c.fillStyle = '#6D5545'; c.font = '700 12px "Instrument Sans", Arial, sans-serif';
+    c.fillText(t('game.score').toUpperCase(), 20, 30);
+    c.fillStyle = '#D7261E'; c.font = '800 34px Fraunces, Georgia, serif';
+    c.fillText(G.score, 20, 64);
+    const ls = 34;
+    for (let i = 0; i < 3; i++) {
+      c.globalAlpha = i < G.lives ? 1 : .2;
+      c.drawImage(GS.normal, GW - 16 - ls - i * (ls - 2), 12, ls, ls);
+    }
+    c.globalAlpha = 1;
+    if (best) {
+      c.textAlign = 'right'; c.fillStyle = '#6D5545'; c.font = '600 12px "Instrument Sans", Arial, sans-serif';
+      c.fillText(t('game.best').replace('{n}', best), GW - 20, 64);
+    }
+    if (G.flash > 0) { c.fillStyle = `rgba(215, 38, 30, ${(G.flash / 350 * .28).toFixed(3)})`; c.fillRect(-12, -12, GW + 24, GH + 24); }
+    c.restore();
+  }
+
+  function addCrumbs(x, y, colors, n) {
+    for (let i = 0; i < n; i++) {
+      const a = -Math.PI * Math.random();
+      G.parts.push({ x, y, vx: Math.cos(a) * (.05 + Math.random() * .2), vy: Math.sin(a) * (.1 + Math.random() * .25), s: 2 + Math.random() * 3, color: colors[(Math.random() * colors.length) | 0], life: 500 + Math.random() * 300 });
+    }
+  }
+
+  function catchItem(it) {
+    const y = bowlY();
+    if (it.type === 'burnt') {
+      G.lives--; G.shake = 350; G.flash = 350;
+      G.texts.push({ x: it.x, y: y - 10, txt: t('game.ouch'), color: '#2A1A11', life: 800 });
+      addCrumbs(it.x, y, ['#2A1A11', '#4A2C1B', '#6B4A2E'], 14);
+      if (G.lives <= 0) endGame();
+    } else {
+      const pts = it.type === 'choc' ? 3 : 1;
+      G.score += pts; G.squish = 1;
+      G.texts.push({ x: it.x, y: y - 10, txt: '+' + pts, color: pts === 3 ? '#6E381B' : '#D7261E', life: 800 });
+      addCrumbs(it.x, y, it.type === 'choc' ? ['#5A2A12', '#E3A440', '#3A1A0B'] : ['#E3A440', '#C47A2C', '#F6D394'], 12);
+      crunch(false);
+    }
+  }
+
+  function gameUpdate(dt) {
+    G.time += dt;
+    const sec = G.time / 1000, bw = bowlW(), by = bowlY();
+    if (G.keys) G.tx = clamp(G.tx + G.keys * .8 * dt, bw / 2, GW - bw / 2);
+    G.x += (G.tx - G.x) * Math.min(1, dt * .02);
+    G.squish = Math.max(0, G.squish - dt * .006);
+    G.shake = Math.max(0, G.shake - dt);
+    G.flash = Math.max(0, G.flash - dt);
+
+    G.spawn -= dt;
+    if (G.spawn <= 0) {
+      G.spawn = Math.max(320, 950 - sec * 14) * (.75 + Math.random() * .5);
+      const burntP = Math.min(.42, .14 + sec * .006), r = Math.random();
+      const type = r < burntP ? 'burnt' : r < burntP + .2 ? 'choc' : 'normal';
+      const m = GS.r + 8;
+      G.items.push({
+        type, x: m + Math.random() * (GW - m * 2), y: -GS.r - 12,
+        vy: (.13 + sec * .0035) * (type === 'choc' ? 1.3 : 1) * (.9 + Math.random() * .2) * (GH / 560 + .3),
+        rot: Math.random() * 6.28, vr: (Math.random() - .5) * .006,
+      });
+    }
+    for (let i = G.items.length - 1; i >= 0; i--) {
+      const it = G.items[i];
+      it.y += it.vy * dt; it.rot += it.vr * dt;
+      if (it.y + GS.r * .4 >= by && it.y - GS.r <= by + 20 && Math.abs(it.x - G.x) < bw / 2 + 4) {
+        G.items.splice(i, 1);
+        catchItem(it);
+        if (!G.on) return;
+        continue;
+      }
+      if (it.y - GS.r > GH) G.items.splice(i, 1);
+    }
+    for (let i = G.parts.length - 1; i >= 0; i--) {
+      const p = G.parts[i];
+      p.vy += .0012 * dt; p.x += p.vx * dt; p.y += p.vy * dt; p.life -= dt;
+      if (p.life <= 0) G.parts.splice(i, 1);
+    }
+    for (let i = G.texts.length - 1; i >= 0; i--) {
+      const tx = G.texts[i];
+      tx.y -= .05 * dt; tx.life -= dt;
+      if (tx.life <= 0) G.texts.splice(i, 1);
+    }
+  }
+
+  function gameLoop(now) {
+    if (!G.on || !gameVisible || document.hidden) { gameRaf = 0; return; }
+    const dt = Math.min(40, now - (gameLast || now));
+    gameLast = now;
+    gameUpdate(dt);
+    gameDraw();
+    gameRaf = G.on ? requestAnimationFrame(gameLoop) : 0;
+  }
+  function runGame() {
+    if (!gameRaf && G.on && gameVisible && !document.hidden) { gameLast = 0; gameRaf = requestAnimationFrame(gameLoop); }
+  }
+
+  function startGame() {
+    if (!GW) gameResize();
+    Object.assign(G, { on: true, score: 0, lives: 3, time: 0, spawn: 500, items: [], parts: [], texts: [], squish: 0, shake: 0, flash: 0, keys: 0 });
+    G.x = G.tx = GW / 2;
+    gameStartEl.hidden = true;
+    gameOverEl.hidden = true;
+    gameCard.classList.add('is-playing');
+    gcv.focus({ preventScroll: true });
+    runGame();
+  }
+
+  function renderGameText() {
+    gameBestEl.textContent = gameRecord ? t('game.record') : t('game.best').replace('{n}', best);
+    gameDraw();
+  }
+
+  function endGame() {
+    G.on = false;
+    G.keys = 0; G.flash = 0; G.shake = 0; G.texts = []; G.parts = [];
+    gameCard.classList.remove('is-playing');
+    gameRecord = G.score > best;
+    if (gameRecord) { best = G.score; store.set('quely-best', best); }
+    $('#game-score').textContent = G.score;
+    gameBestEl.classList.toggle('is-record', gameRecord);
+    renderGameText();
+    gameOverEl.hidden = false;
+    $('#game-again').focus({ preventScroll: true });
+    if (gameRecord) { burst(gameCard.getBoundingClientRect(), 24); crunch(true); }
+  }
+
+  const aimAt = e => {
+    if (!G.on) return;
+    const r = gcv.getBoundingClientRect();
+    G.tx = clamp((e.clientX - r.left) * GW / r.width, bowlW() / 2, GW - bowlW() / 2);
+  };
+  gcv.addEventListener('pointermove', aimAt);
+  gcv.addEventListener('pointerdown', aimAt);
+  addEventListener('keydown', e => {
+    if (!G.on || !gameVisible) return;
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); G.keys = e.key === 'ArrowLeft' ? -1 : 1; }
+  });
+  addEventListener('keyup', e => {
+    if ((e.key === 'ArrowLeft' && G.keys < 0) || (e.key === 'ArrowRight' && G.keys > 0)) G.keys = 0;
+  });
+  $('#game-play').addEventListener('click', startGame);
+  $('#game-again').addEventListener('click', startGame);
+  new IntersectionObserver(([en]) => { gameVisible = en.isIntersecting; runGame(); }, { threshold: .3 }).observe(gameCard);
+  document.addEventListener('visibilitychange', runGame);
+  if ('ResizeObserver' in window) new ResizeObserver(gameResize).observe(gameCard);
+  else addEventListener('resize', gameResize);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(gameDraw);
+  gameResize();
+
   /* ---------- Language switch ---------- */
   function applyLang(next) {
     lang = next;
@@ -2786,6 +3265,8 @@
     renderFormDone();
     renderQuiz(false);
     renderPromoBtn();
+    renderOven();
+    renderGameText();
     if (!touched && !scratched) drawFlour();
     kick();
   }

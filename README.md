@@ -47,18 +47,42 @@ Descarga el proyecto (botón **Code → Download ZIP** en GitHub), descomprímel
 
 # Quely · Cookies from Mallorca (carpeta `quely/`)
 
-Web de una sola página hecha a partir del wireframe "MacBook Air" de Figma. Abre `quely/index.html` con doble clic. Los textos están en inglés, como en el diseño.
+Web de una sola página hecha a partir del wireframe "MacBook Air" de Figma. Abre `quely/index.html` con doble clic: no hace falta instalar nada.
 
-## Qué tiene de interactivo
+## Secciones
 
-- **Portada con galletas que caen**: se apartan al pasar el ratón y se pueden morder con un clic (o un toque en el móvil). Tres mordiscos y la galleta se deshace en migas. Un contador lleva la cuenta de las galletas comidas, y el crujido suena sin usar archivos de audio (se puede silenciar).
-- **Franja roja en movimiento**: va más rápida cuanto más rápido bajas y cambia de sentido si subes.
-- **Horno que se calienta al bajar**: la bandeja pasa de masa cruda a galleta dorada y sube la temperatura. Al terminar sale "Freshly baked!". Al pulsar una galleta, alguien se la lleva.
-- **Cifras animadas**: 1853 y 100 % cuentan hacia arriba y "Mallorca" aparece letra a letra.
-- **Productos en 3D**: las tarjetas se inclinan siguiendo al ratón y las galletas saltan de la bolsa. Las bolsas están dibujadas en SVG.
-- **Galleta "volver arriba"**: abajo a la derecha. Se va comiendo según lees la página.
-- **Logo gigante en el pie**: se llena de rojo al llegar al final.
+Portada · franja animada · Sobre nosotros · Productos · Opiniones · Preguntas frecuentes · Contacto · Pie.
 
-Si el dispositivo tiene activado "reducir movimiento", las animaciones se desactivan y la página se ve completa y quieta.
+## Qué se puede hacer
 
-Las imágenes de galletas y bolsas son ilustraciones de código. Se pueden sustituir por las fotos reales del diseño.
+- **Español / inglés**: botón EN/ES en el menú. La primera vez elige el idioma del navegador y luego recuerda la elección.
+- **Ficha de producto**: "Ver producto" (o clic en la tarjeta) abre una ficha con descripción, precio y cantidad.
+- **Cesta**: "Comprar online", "Ver todos los productos", "Cajas regalo" y "Ofertas" abren la cesta. Al añadir algo, una galleta vuela hasta el botón y sube el contador. Se pueden cambiar cantidades, quitar productos y añadir más desde la propia cesta. Se guarda en el navegador aunque cierres la página.
+- **Formulario de contacto**: comprueba que el nombre, el email y el mensaje estén bien antes de enviar.
+- **Preguntas frecuentes** desplegables. "Envíos" y "Devoluciones" del pie abren la pregunta que toca.
+
+## Animaciones
+
+- **Galletas que se pueden morder** en la portada: se apartan al pasar el ratón; tres mordiscos y se deshacen en migas, con sonido de crujido (se puede silenciar) y un contador.
+- **Franja roja** que acelera y cambia de sentido según cómo bajas.
+- **Horno** que dora las galletas al bajar. Al pulsar una, alguien se la lleva.
+- **Cifras** que cuentan solas, **tarjetas en 3D** que siguen al ratón y **galleta "volver arriba"** que se va comiendo según lees.
+- **Logo gigante** del pie que se llena de rojo.
+
+Con "reducir movimiento" activado en el dispositivo, todo se ve completo y sin animar.
+
+## Para publicarla de verdad
+
+Al principio del código JavaScript de `quely/index.html` (busca `Shop settings`) hay tres cosas por rellenar:
+
+| Qué | Para qué | Mientras esté vacío |
+|---|---|---|
+| `PRODUCTS` (precios) | Los precios que se muestran: **ahora son de ejemplo** (2,50 €, 2,95 € y 1,95 €). | Se ven los de ejemplo. |
+| `SHOP_URL` | Dirección de la tienda online a la que lleva "Finalizar compra". | Sale un aviso de "modo demo" y no se hace ningún pedido. |
+| `FORM_ENDPOINT` | Dirección que recibe los mensajes del formulario (por ejemplo, un formulario gratuito de [Formspree](https://formspree.io)). | Sale "modo demo" y el mensaje no se envía. |
+
+Además:
+
+- Las **opiniones** son los textos de ejemplo del wireframe: hay que cambiarlas por opiniones reales.
+- Las galletas y las bolsas son **ilustraciones de código**. Se pueden sustituir por las fotos reales.
+- Todos los textos están juntos en el código (busca `const I18N`), en inglés y en español, para cambiarlos fácilmente.

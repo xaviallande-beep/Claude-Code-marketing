@@ -145,7 +145,7 @@
   }
   .nav-links a:not(.btn):hover::after,
   .nav-links a[aria-current="true"]::after { transform: scaleX(1); transform-origin: left; }
-  .nav-links li:last-child { margin-left: 10px; }
+  .nav-links { margin-left: auto; }
   .nav-toggle {
     display: none; width: 44px; height: 44px; border: 0; border-radius: 12px;
     background: var(--white); box-shadow: var(--shadow-1); cursor: pointer;
@@ -157,7 +157,7 @@
   .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  @media (max-width: 820px) {
+  @media (max-width: 880px) {
     .nav-toggle { display: flex; }
     .nav-links {
       position: absolute; top: calc(100% + 8px); left: var(--gutter); right: var(--gutter);
@@ -169,8 +169,6 @@
     }
     .nav-links.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity .25s, transform .35s var(--ease-out); }
     .nav-links a:not(.btn) { padding: .85em 1em; font-size: 1rem; }
-    .nav-links li:last-child { margin: 8px 0 0; }
-    .nav-links .btn { width: 100%; justify-content: center; }
   }
 
   /* =========================================================
@@ -205,7 +203,7 @@
   }
   .hero-card h1 {
     margin: 14px 0 14px;
-    font-size: clamp(2.3rem, 5vw, 3.6rem);
+    font-size: clamp(2.2rem, 4.6vw, 3.4rem);
     font-weight: 800;
   }
   .hero-card h1 em {
@@ -494,6 +492,7 @@
   .product h3 { font-size: 1.5rem; font-weight: 800; margin: 12px 0 8px; }
   .product p { margin: 0 0 18px; color: var(--muted); font-size: .95rem; flex: 1; }
   .link-arrow {
+    border: 0; background: none; padding: 0; font: inherit; cursor: pointer;
     display: inline-flex; align-items: center; gap: .4em; align-self: flex-start;
     color: var(--red); font-weight: 700; font-size: .92rem; text-decoration: none;
   }
@@ -630,6 +629,207 @@
   .progress-cookie:hover .progress-tip, .progress-cookie:focus-visible .progress-tip { opacity: 1; }
 
   /* =========================================================
+     Nav tools: language + basket
+     ========================================================= */
+  .nav-tools { display: flex; align-items: center; gap: 10px; }
+  .lang-btn {
+    display: inline-flex; padding: 3px; border: 0; border-radius: 999px;
+    background: var(--sand-2); cursor: pointer;
+    font-size: .72rem; font-weight: 700; letter-spacing: .04em;
+  }
+  .lang-btn span { padding: .4em .65em; border-radius: 999px; color: var(--muted); transition: background-color .25s, color .25s, box-shadow .25s; }
+  html[lang="en"] .lang-btn [data-lang="en"],
+  html[lang="es"] .lang-btn [data-lang="es"] { background: var(--white); color: var(--ink); box-shadow: 0 1px 3px rgba(46,27,17,.18); }
+  .basket-btn .label { white-space: nowrap; }
+  .basket-btn svg.bag-ico { width: 1.15em; height: 1.15em; }
+  .btn.basket-btn:hover svg.bag-ico { transform: rotate(-10deg); }
+  .badge {
+    display: grid; place-items: center; min-width: 20px; height: 20px; padding: 0 6px; margin-right: -6px;
+    border-radius: 999px; background: var(--white); color: var(--red);
+    font-size: .72rem; font-weight: 800; font-variant-numeric: tabular-nums;
+  }
+  .badge[hidden] { display: none; }
+  .badge.bump { animation: bump .5s var(--ease-spring); }
+  @media (max-width: 880px) {
+    .nav-links { margin-left: 0; }
+    .nav-tools { margin-left: auto; gap: 8px; }
+  }
+  @media (max-width: 520px) {
+    .basket-btn .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .basket-btn { padding: .7em .9em; }
+  }
+
+  /* =========================================================
+     Dialogs (product + basket)
+     ========================================================= */
+  html:has(dialog[open]) { overflow: hidden; }
+  dialog { border: 0; padding: 0; color: inherit; background: transparent; }
+  dialog::backdrop { background: rgba(46, 27, 17, .5); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .close-btn {
+    position: absolute; top: 14px; right: 14px; z-index: 2;
+    display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 50%;
+    background: var(--white); box-shadow: var(--shadow-1); cursor: pointer;
+    transition: transform .35s var(--ease-spring);
+  }
+  .close-btn:hover { transform: rotate(90deg); }
+  .close-btn svg { width: 18px; height: 18px; }
+
+  .pdialog { width: min(780px, calc(100% - 32px)); max-height: calc(100dvh - 32px); margin: auto; overflow: visible; }
+  .pdialog[open] { animation: dlg-in .5s var(--ease-spring); }
+  @keyframes dlg-in { from { opacity: 0; transform: translateY(30px) scale(.94); } }
+  .pdialog-card {
+    position: relative; display: grid; grid-template-columns: 1fr 1.1fr;
+    max-height: calc(100dvh - 32px); overflow: auto;
+    border-radius: 28px; background: var(--cream); box-shadow: var(--shadow-2);
+  }
+  .pdialog-stage {
+    display: grid; place-items: center; padding: 56px 24px 40px;
+    background: radial-gradient(circle at 50% 60%, var(--halo, #FDE1D6) 0 40%, var(--sand) 78%);
+  }
+  .pdialog-stage .bag { width: min(220px, 70%); animation: float 5s ease-in-out infinite; }
+  .pdialog-stage .bag .pop { transform: translateY(-14px) rotate(-18deg); }
+  .pdialog-stage .bag .pop:nth-of-type(2) { transform: translateY(-30px) rotate(24deg); }
+  .pdialog-stage .bag .pop:nth-of-type(3) { transform: translateY(-10px) rotate(40deg); }
+  .pdialog-body { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding: 40px 34px 32px; }
+  .pdialog-body h2 { font-size: clamp(1.9rem, 4vw, 2.5rem); }
+  .pdialog-body p { margin: 0; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0; padding: 0; }
+  .chips li { padding: .35em .85em; border-radius: 999px; background: var(--white); box-shadow: inset 0 0 0 1px var(--line); font-size: .8rem; font-weight: 600; }
+  .price { font-family: var(--font-display); font-weight: 800; font-size: 1.9rem; color: var(--red); line-height: 1; }
+  .buy-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: auto; padding-top: 8px; }
+  .qty { display: inline-flex; align-items: center; border-radius: 999px; background: var(--white); box-shadow: inset 0 0 0 1.5px var(--line); }
+  .qty button { width: 38px; height: 38px; border: 0; border-radius: 50%; background: none; cursor: pointer; font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+  .qty button:hover { background: var(--sand); }
+  .qty output { min-width: 2.2ch; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .qty--sm button { width: 30px; height: 30px; font-size: 1rem; }
+  @media (max-width: 640px) {
+    .pdialog-card { grid-template-columns: 1fr; }
+    .pdialog-stage { padding: 40px 20px 16px; }
+    .pdialog-stage .bag { width: 120px; }
+    .pdialog-body { padding: 18px 22px 24px; gap: 12px; }
+  }
+
+  .drawer {
+    margin: 0 0 0 auto; width: min(430px, 100%);
+    height: 100%; max-height: 100%; max-width: 100%;
+  }
+  .drawer[open] { animation: drawer-in .5s var(--ease-out); }
+  @keyframes drawer-in { from { transform: translateX(100%); } }
+  .drawer-panel { display: flex; flex-direction: column; height: 100%; background: var(--cream); box-shadow: var(--shadow-2); }
+  .drawer-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 20px 18px 24px; border-bottom: 1px solid var(--line); }
+  .drawer-head h2 { font-size: 1.6rem; }
+  .drawer .close-btn { position: static; }
+  .drawer-body { flex: 1; overflow: auto; padding: 18px 20px 24px; }
+  .basket-list, .more-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .basket-item, .more-item {
+    display: grid; grid-template-columns: 46px 1fr auto; gap: 12px; align-items: center;
+    padding: 10px 12px; border-radius: 16px; background: var(--white); box-shadow: var(--shadow-1);
+  }
+  .basket-item.is-new { animation: item-in .45s var(--ease-spring); }
+  @keyframes item-in { from { opacity: 0; transform: translateX(24px); } }
+  .thumb { display: grid; place-items: center; width: 46px; height: 56px; }
+  .thumb .bag { width: 40px; filter: none; }
+  .item-name { font-weight: 700; line-height: 1.2; display: block; }
+  .item-meta { font-size: .8rem; color: var(--muted); }
+  .item-side { display: grid; justify-items: end; gap: 4px; }
+  .remove { border: 0; background: none; padding: 0; color: var(--muted); font: inherit; font-size: .76rem; text-decoration: underline; cursor: pointer; }
+  .remove:hover { color: var(--red); }
+  .empty { display: grid; justify-items: center; gap: 10px; padding: 26px 10px 8px; text-align: center; color: var(--muted); }
+  .empty svg { width: 76px; height: 76px; animation: float 4s ease-in-out infinite; }
+  .empty[hidden] { display: none; }
+  .more h3 { margin: 26px 0 12px; font-family: var(--font-body); font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+  .add-mini {
+    display: inline-flex; align-items: center; gap: .3em; padding: .45em .9em; border: 0; border-radius: 999px;
+    background: var(--red-soft); color: var(--red-deep); font: inherit; font-size: .8rem; font-weight: 700; cursor: pointer;
+    transition: background-color .2s, color .2s, transform .3s var(--ease-spring);
+  }
+  .add-mini:hover { background: var(--red); color: var(--white); }
+  .add-mini:active { transform: scale(.94); }
+  .drawer-foot { padding: 18px 20px 22px; border-top: 1px solid var(--line); background: var(--white); }
+  .subtotal { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; font-weight: 700; }
+  .subtotal strong { font-family: var(--font-display); font-size: 1.5rem; color: var(--ink); }
+  .btn--block { width: 100%; justify-content: center; }
+  .btn[disabled] { opacity: .45; cursor: not-allowed; box-shadow: none; }
+  .note { margin: 10px 0 0; font-size: .8rem; color: var(--muted); text-align: center; }
+  .note.is-warn { color: var(--red-deep); font-weight: 600; }
+
+  /* Flying cookie + toast */
+  .fly { position: fixed; left: 0; top: 0; z-index: 300; width: 36px; height: 36px; pointer-events: none; }
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; z-index: 250;
+    display: flex; align-items: center; gap: 14px; max-width: calc(100% - 32px);
+    padding: 10px 10px 10px 18px; border-radius: 999px;
+    background: var(--brown); color: var(--cream); font-size: .88rem; font-weight: 500;
+    box-shadow: var(--shadow-2);
+    transform: translate(-50%, 140%); opacity: 0;
+    transition: transform .5s var(--ease-spring), opacity .3s;
+  }
+  .toast.is-on { transform: translate(-50%, 0); opacity: 1; }
+  .toast button { border: 0; border-radius: 999px; padding: .5em 1em; background: var(--red); color: var(--white); font: inherit; font-weight: 700; cursor: pointer; white-space: nowrap; }
+
+  /* =========================================================
+     FAQ
+     ========================================================= */
+  .faq { padding: clamp(80px, 10vw, 130px) 0; background: var(--sand); }
+  .faq-list { display: grid; gap: 12px; max-width: 780px; margin: 0 auto; }
+  .faq details { border-radius: 18px; background: var(--white); box-shadow: var(--shadow-1); transition: box-shadow .3s; }
+  .faq details[open] { box-shadow: var(--shadow-2); }
+  .faq summary {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    padding: 20px 22px; list-style: none; cursor: pointer;
+    font-weight: 700; font-size: 1.04rem;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: ""; flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--red-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 5v14M5 12h14' stroke='%23D7261E' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E") center / 14px no-repeat;
+    transition: transform .4s var(--ease-spring);
+  }
+  .faq details[open] summary::after { transform: rotate(135deg); }
+  .faq details p { margin: 0; padding: 0 22px 22px; color: var(--muted); animation: faq-in .45s var(--ease-out); }
+  @keyframes faq-in { from { opacity: 0; transform: translateY(-8px); } }
+
+  /* =========================================================
+     Contact
+     ========================================================= */
+  .contact { padding: clamp(80px, 10vw, 130px) 0; }
+  .contact .wrap { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .contact-copy h2 { margin: 12px 0 16px; }
+  .contact-copy p { margin: 0; color: var(--muted); max-width: 40ch; font-size: 1.04rem; }
+  .postcard {
+    position: relative; display: grid; gap: 14px;
+    padding: clamp(22px, 3vw, 34px); border-radius: 24px;
+    background: var(--white); box-shadow: var(--shadow-2);
+  }
+  .postcard::before { /* stamp */
+    content: ""; position: absolute; top: -18px; right: 22px; width: 58px; height: 66px; rotate: 8deg;
+    background:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-20 -20 40 40'%3E%3Ccircle r='15' fill='%23E3A440'/%3E%3Cg fill='%238A4A16'%3E%3Ccircle r='1.5'/%3E%3Ccircle cy='-7' r='1.5'/%3E%3Ccircle cy='7' r='1.5'/%3E%3Ccircle cx='-6' cy='-3.5' r='1.5'/%3E%3Ccircle cx='6' cy='-3.5' r='1.5'/%3E%3Ccircle cx='-6' cy='3.5' r='1.5'/%3E%3Ccircle cx='6' cy='3.5' r='1.5'/%3E%3C/g%3E%3C/svg%3E") center / 40px no-repeat,
+      var(--red);
+    border: 4px dotted var(--cream); border-radius: 6px;
+    box-shadow: var(--shadow-1);
+  }
+  .field { display: grid; gap: 6px; }
+  .field label { font-weight: 600; font-size: .88rem; }
+  .field input, .field textarea {
+    width: 100%; padding: .8em 1em; border: 1.5px solid var(--line); border-radius: 12px;
+    background: var(--cream); color: var(--ink); font: inherit;
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .field textarea { min-height: 120px; resize: vertical; }
+  .field input:focus, .field textarea:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 4px rgba(215, 38, 30, .14); }
+  .field.is-invalid input, .field.is-invalid textarea { border-color: var(--red); animation: shake .4s; }
+  .err { font-size: .8rem; color: var(--red-deep); font-weight: 600; }
+  .err:empty { display: none; }
+  @keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+  .form-done { display: grid; justify-items: center; gap: 10px; padding: 26px 10px; text-align: center; animation: dlg-in .6s var(--ease-spring); }
+  .form-done svg { width: 84px; height: 84px; }
+  .form-done strong { font-family: var(--font-display); font-size: 1.5rem; }
+  .form-done p { margin: 0; color: var(--muted); font-size: .9rem; }
+  .form-done[hidden], .postcard form[hidden] { display: none; }
+  @media (max-width: 860px) { .contact .wrap { grid-template-columns: 1fr; } }
+
+  /* =========================================================
      Scroll reveal
      ========================================================= */
   .js .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s var(--ease-out), transform .9s var(--ease-out); transition-delay: var(--d, 0s); }
@@ -714,14 +914,21 @@
 <header class="nav" id="nav">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="Quely, back to top">Quely</a>
-    <button class="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Open menu"><span></span><span></span><span></span></button>
     <ul class="nav-links" id="nav-links">
-      <li><a href="#cookies">Cookies</a></li>
-      <li><a href="#story">Our story</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><a class="btn btn--small" href="#cookies">Buy online</a></li>
+      <li><a href="#cookies" data-i18n="nav.cookies">Cookies</a></li>
+      <li><a href="#story" data-i18n="nav.story">Our story</a></li>
+      <li><a href="#reviews" data-i18n="nav.reviews">Reviews</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
+    <div class="nav-tools">
+      <button class="lang-btn" id="lang-btn" type="button" data-i18n-aria="lang.switch" aria-label="Cambiar a español"><span data-lang="en">EN</span><span data-lang="es">ES</span></button>
+      <button class="btn btn--small basket-btn" id="basket-btn" type="button" data-open-basket>
+        <svg class="bag-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg>
+        <span class="label" data-i18n="nav.buy">Buy online</span>
+        <span class="badge" id="basket-count" hidden>0</span>
+      </button>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-i18n-aria="menu.open" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </header>
 
@@ -731,11 +938,11 @@
     <canvas class="hero-canvas" id="cookie-field" aria-hidden="true"></canvas>
     <div class="wrap">
       <div class="hero-card">
-        <span class="pill">Made in Mallorca</span>
-        <h1 id="hero-title">Cookies from Mallorca, baked with <em>olive oil</em></h1>
-        <p>Crunchy, light and made with 100% natural olive oil.</p>
+        <span class="pill" data-i18n="hero.tag">Made in Mallorca</span>
+        <h1 id="hero-title" data-i18n-html="hero.title">Cookies from Mallorca, baked with <em>olive oil</em></h1>
+        <p data-i18n="hero.sub">Crunchy, light and made with 100% natural olive oil.</p>
         <div class="hero-actions">
-          <a class="btn magnetic" href="#cookies">Discover our cookies
+          <a class="btn magnetic" href="#cookies"><span data-i18n="hero.cta">Discover our cookies</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#mini-cookie"/></svg>
           </a>
         </div>
@@ -747,7 +954,7 @@
     </div>
     <p class="hero-hint" id="hint" aria-live="polite">
       <span id="hint-text">Psst… tap a cookie to take a bite</span>
-      <button class="sound-btn" id="sound" aria-pressed="true" aria-label="Crunch sound">
+      <button class="sound-btn" id="sound" type="button" aria-pressed="true" data-i18n-aria="sound" aria-label="Crunch sound">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor"/>
           <path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/>
@@ -761,18 +968,18 @@
   <div class="band" aria-hidden="true">
     <div class="band-track" id="band-track">
       <div class="band-group">
-        <span class="band-item">Baked in Mallorca <svg><use href="#mini-cookie"/></svg></span>
-        <span class="band-item">100% olive oil <svg><use href="#mini-cookie"/></svg></span>
-        <span class="band-item">Since 1853 <svg><use href="#mini-cookie"/></svg></span>
-        <span class="band-item">Crunchy &amp; light <svg><use href="#mini-cookie"/></svg></span>
-        <span class="band-item">Three generations <svg><use href="#mini-cookie"/></svg></span>
+        <span class="band-item"><span data-i18n="band.1">Baked in Mallorca</span> <svg><use href="#mini-cookie"/></svg></span>
+        <span class="band-item"><span data-i18n="band.2">100% olive oil</span> <svg><use href="#mini-cookie"/></svg></span>
+        <span class="band-item"><span data-i18n="band.3">Since 1853</span> <svg><use href="#mini-cookie"/></svg></span>
+        <span class="band-item"><span data-i18n="band.4">Crunchy &amp; light</span> <svg><use href="#mini-cookie"/></svg></span>
+        <span class="band-item"><span data-i18n="band.5">Three generations</span> <svg><use href="#mini-cookie"/></svg></span>
       </div>
       <div class="band-group">
-        <span class="band-item">Baked in Mallorca <svg><use href="#mini-cookie"/></svg></span>
-        <span class="band-item">100% olive oil <svg><use href="#mini-cookie"/></svg></span>
-        <span class="band-item">Since 1853 <svg><use href="#mini-cookie"/></svg></span>
-        <span class="band-item">Crunchy &amp; light <svg><use href="#mini-cookie"/></svg></span>
-        <span class="band-item">Three generations <svg><use href="#mini-cookie"/></svg></span>
+        <span class="band-item"><span data-i18n="band.1">Baked in Mallorca</span> <svg><use href="#mini-cookie"/></svg></span>
+        <span class="band-item"><span data-i18n="band.2">100% olive oil</span> <svg><use href="#mini-cookie"/></svg></span>
+        <span class="band-item"><span data-i18n="band.3">Since 1853</span> <svg><use href="#mini-cookie"/></svg></span>
+        <span class="band-item"><span data-i18n="band.4">Crunchy &amp; light</span> <svg><use href="#mini-cookie"/></svg></span>
+        <span class="band-item"><span data-i18n="band.5">Three generations</span> <svg><use href="#mini-cookie"/></svg></span>
       </div>
     </div>
   </div>
@@ -792,43 +999,43 @@
         </svg>
         <div class="tray" id="tray">
           <!-- 12 cookies generated below in HTML for no-JS -->
-          <button class="tray-cookie" style="--r:10deg" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:-20deg" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:35deg" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:5deg" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:-8deg" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:22deg" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:-30deg" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:14deg" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:40deg" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:-15deg" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:0deg" aria-label="Grab a cookie"></button>
-          <button class="tray-cookie" style="--r:28deg" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:10deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:-20deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:35deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:5deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:-8deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:22deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:-30deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:14deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:40deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:-15deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:0deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
+          <button class="tray-cookie" style="--r:28deg" data-i18n-aria="oven.grab" aria-label="Grab a cookie"></button>
         </div>
-        <span class="oven-done" aria-hidden="true">Freshly baked!</span>
-        <figcaption class="oven-caption">Our ovens, scroll by scroll. Go on, grab one.</figcaption>
+        <span class="oven-done" aria-hidden="true" data-i18n="oven.done">Freshly baked!</span>
+        <figcaption class="oven-caption" data-i18n="oven.caption">Our ovens, scroll by scroll. Go on, grab one.</figcaption>
       </figure>
 
       <div class="about-copy">
-        <span class="eyebrow reveal">About us</span>
-        <h2 id="story-title" class="reveal" style="--d:.05s">Baking in Mallorca since 1853</h2>
-        <p class="reveal" style="--d:.1s">For over 170 years, Quely has made cookies and snacks on the island, with simple recipes and local ingredients such as olive oil. Three generations of know-how in every bite.</p>
+        <span class="eyebrow reveal" data-i18n="about.eyebrow">About us</span>
+        <h2 id="story-title" class="reveal" style="--d:.05s" data-i18n="about.title">Baking in Mallorca since 1853</h2>
+        <p class="reveal" style="--d:.1s" data-i18n="about.text">For over 170 years, Quely has made cookies and snacks on the island, with simple recipes and local ingredients such as olive oil. Three generations of know-how in every bite.</p>
         <ul class="stats reveal" style="--d:.15s">
-          <li><span class="stat-num" data-count="1853" data-from="1700">1853</span><span class="stat-label">Our beginnings</span></li>
-          <li><span class="stat-num" data-count="100" data-suffix="%">100%</span><span class="stat-label">Natural olive oil</span></li>
-          <li><span class="stat-num" data-scramble>Mallorca</span><span class="stat-label">Made on the island</span></li>
+          <li><span class="stat-num" data-count="1853" data-from="1700">1853</span><span class="stat-label" data-i18n="stat.1">Our beginnings</span></li>
+          <li><span class="stat-num" data-count="100" data-suffix="%">100%</span><span class="stat-label" data-i18n="stat.2">Natural olive oil</span></li>
+          <li><span class="stat-num" data-scramble>Mallorca</span><span class="stat-label" data-i18n="stat.3">Made on the island</span></li>
         </ul>
         <div class="reveal" style="--d:.2s">
-          <button class="btn btn--ghost" id="story-btn" aria-expanded="false" aria-controls="story-more">Our story
+          <button class="btn btn--ghost" id="story-btn" aria-expanded="false" aria-controls="story-more"><span data-i18n="about.btn">Our story</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
         <div class="story-more" id="story-more">
           <div>
             <ol class="story-list">
-              <li><span>1</span><span>Simple recipes, kept for generations</span></li>
-              <li><span>2</span><span>Local ingredients, like Mallorcan olive oil</span></li>
-              <li><span>3</span><span>Three generations of know-how in every bite</span></li>
+              <li><span>1</span><span data-i18n="story.1">Simple recipes, kept for generations</span></li>
+              <li><span>2</span><span data-i18n="story.2">Local ingredients, like olive oil</span></li>
+              <li><span>3</span><span data-i18n="story.3">Three generations of know-how in every bite</span></li>
             </ol>
           </div>
         </div>
@@ -840,15 +1047,15 @@
   <section class="products" id="cookies" aria-labelledby="products-title">
     <div class="wrap">
       <header class="section-head">
-        <h2 id="products-title" class="reveal">Our products</h2>
-        <p class="reveal" style="--d:.08s">Three ways to enjoy Quely, baked in Mallorca.</p>
+        <h2 id="products-title" class="reveal" data-i18n="products.title">Our products</h2>
+        <p class="reveal" style="--d:.08s" data-i18n="products.sub">Three ways to enjoy Quely, baked in Mallorca.</p>
       </header>
 
       <div class="product-grid">
         <article class="reveal reveal--pop" style="--d:0s">
-          <div class="product" data-tilt style="--halo:#FDE1D6">
+          <div class="product" data-tilt data-id="quelitas" style="--halo:#FDE1D6">
           <div class="product-stage">
-            <svg class="bag" viewBox="0 0 160 222" style="--bag:#D7261E; --bag-dark:#A9170F" role="img" aria-label="Quelitas pack">
+            <svg class="bag" viewBox="0 0 160 222" style="--bag:#D7261E; --bag-dark:#A9170F" role="img" data-i18n-aria="pack.1" aria-label="Quelitas pack">
               <use class="pop" href="#mini-cookie" x="38" y="6" width="34" height="34"/>
               <use class="pop" href="#mini-cookie" x="66" y="2" width="30" height="30"/>
               <use class="pop" href="#mini-cookie" x="90" y="8" width="32" height="32"/>
@@ -861,18 +1068,18 @@
             </svg>
           </div>
           <div class="product-body">
-            <span class="pill">Since 1853</span>
+            <span class="pill" data-i18n="p1.tag">Since 1853</span>
             <h3>Quelitas</h3>
-            <p>From the heart of the Mediterranean, since 1853.</p>
-            <a class="link-arrow" href="#cookies">View product <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+            <p data-i18n="p1.desc">From the heart of the Mediterranean, since 1853.</p>
+            <button class="link-arrow" type="button" data-product="quelitas"><span data-i18n="view">View product</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
           </div>
           </div>
         </article>
 
         <article class="reveal reveal--pop" style="--d:.1s">
-          <div class="product" data-tilt style="--halo:#FDEBC8">
+          <div class="product" data-tilt data-id="quelitos" style="--halo:#FDEBC8">
           <div class="product-stage">
-            <svg class="bag" viewBox="0 0 160 222" style="--bag:#E3342B; --bag-dark:#B01E16" role="img" aria-label="Quelitos pack">
+            <svg class="bag" viewBox="0 0 160 222" style="--bag:#E3342B; --bag-dark:#B01E16" role="img" data-i18n-aria="pack.2" aria-label="Quelitos pack">
               <use class="pop" href="#choc-cookie" x="38" y="6" width="34" height="34"/>
               <use class="pop" href="#choc-cookie" x="66" y="2" width="30" height="30"/>
               <use class="pop" href="#choc-cookie" x="90" y="8" width="32" height="32"/>
@@ -885,18 +1092,18 @@
             </svg>
           </div>
           <div class="product-body">
-            <span class="pill">Kids' favourite</span>
+            <span class="pill" data-i18n="p2.tag">Kids' favourite</span>
             <h3>Quelitos</h3>
-            <p>Crunchy cookies coated in milk chocolate.</p>
-            <a class="link-arrow" href="#cookies">View product <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+            <p data-i18n="p2.desc">Crunchy cookies coated in milk chocolate.</p>
+            <button class="link-arrow" type="button" data-product="quelitos"><span data-i18n="view">View product</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
           </div>
           </div>
         </article>
 
         <article class="reveal reveal--pop" style="--d:.2s">
-          <div class="product" data-tilt style="--halo:#DCE5FA">
+          <div class="product" data-tilt data-id="merienda" style="--halo:#DCE5FA">
           <div class="product-stage">
-            <svg class="bag" viewBox="0 0 160 222" style="--bag:#22409A; --bag-dark:#152B6E" role="img" aria-label="Quely Merienda pack">
+            <svg class="bag" viewBox="0 0 160 222" style="--bag:#22409A; --bag-dark:#152B6E" role="img" data-i18n-aria="pack.3" aria-label="Quely Merienda pack">
               <use class="pop" href="#mini-cookie" x="38" y="6" width="34" height="34"/>
               <rect class="pop" x="70" y="0" width="12" height="40" rx="6" fill="#9C3B2A"/>
               <use class="pop" href="#mini-cookie" x="90" y="8" width="32" height="32"/>
@@ -912,17 +1119,17 @@
             </svg>
           </div>
           <div class="product-body">
-            <span class="pill">Snack time</span>
+            <span class="pill" data-i18n="p3.tag">Snack time</span>
             <h3>Quely Merienda</h3>
-            <p>Quelitas and fuet sticks, the perfect snack.</p>
-            <a class="link-arrow" href="#cookies">View product <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+            <p data-i18n="p3.desc">Quelitas and fuet sticks, the perfect snack.</p>
+            <button class="link-arrow" type="button" data-product="merienda"><span data-i18n="view">View product</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
           </div>
           </div>
         </article>
       </div>
 
       <div class="products-cta reveal">
-        <a class="btn magnetic" href="#cookies">See all products <svg aria-hidden="true"><use href="#arrow"/></svg></a>
+        <a class="btn magnetic" href="#cookies" data-open-basket><span data-i18n="all">See all products</span> <svg aria-hidden="true"><use href="#arrow"/></svg></a>
       </div>
     </div>
   </section>
@@ -931,7 +1138,7 @@
   <section class="reviews" id="reviews" aria-labelledby="reviews-title">
     <div class="wrap">
       <header class="section-head">
-        <h2 id="reviews-title" class="reveal">What our customers say</h2>
+        <h2 id="reviews-title" class="reveal" data-i18n="reviews.title">What our customers say</h2>
       </header>
       <div class="review-grid">
         <figure class="review reveal" style="--d:0s">
@@ -939,68 +1146,121 @@
             <span class="avatar" style="--av:#D7261E" aria-hidden="true">M</span>
             <div>
               <cite>Marcos</cite>
-              <div class="stars" role="img" aria-label="5 out of 5 stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div>
+              <div class="stars" role="img" data-i18n-aria="stars" aria-label="5 out of 5 stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div>
             </div>
           </header>
-          <blockquote>Perfect with my morning coffee. Light, crunchy and not too sweet.</blockquote>
+          <blockquote data-i18n="r.1">Perfect with my morning coffee. Light, crunchy and not too sweet.</blockquote>
         </figure>
         <figure class="review reveal" style="--d:.1s">
           <header>
             <span class="avatar" style="--av:#22409A" aria-hidden="true">O</span>
             <div>
               <cite>Oscar</cite>
-              <div class="stars" role="img" aria-label="5 out of 5 stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div>
+              <div class="stars" role="img" data-i18n-aria="stars" aria-label="5 out of 5 stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div>
             </div>
           </header>
-          <blockquote>My kids love the Quely Merienda every afternoon. A great snack for school.</blockquote>
+          <blockquote data-i18n="r.2">My kids love the Quely Merienda every afternoon. A great snack for school.</blockquote>
         </figure>
         <figure class="review reveal" style="--d:.2s">
           <header>
             <span class="avatar" style="--av:#B8711F" aria-hidden="true">E</span>
             <div>
               <cite>Elsa</cite>
-              <div class="stars" role="img" aria-label="5 out of 5 stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div>
+              <div class="stars" role="img" data-i18n-aria="stars" aria-label="5 out of 5 stars"><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg><svg><use href="#star"/></svg></div>
             </div>
           </header>
-          <blockquote>The Quelitos with chocolate are my favourite. Crunchy and really tasty.</blockquote>
+          <blockquote data-i18n="r.3">The Quelitos with chocolate are my favourite. Crunchy and really tasty.</blockquote>
         </figure>
       </div>
-      <p class="swipe-hint">Swipe for more →</p>
+      <p class="swipe-hint" data-i18n="swipe">Swipe for more →</p>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="faq" id="faq" aria-labelledby="faq-title">
+    <div class="wrap">
+      <header class="section-head">
+        <h2 id="faq-title" class="reveal" data-i18n="faq.title">Questions? We've got answers</h2>
+      </header>
+      <div class="faq-list">
+        <details class="reveal" open><summary data-i18n="q.1">What makes Quely cookies different?</summary><p data-i18n="a.1">They're made in Mallorca with simple recipes and 100% natural olive oil, the way we've been baking since 1853. That's why they're so light and crunchy.</p></details>
+        <details class="reveal" style="--d:.06s"><summary data-i18n="q.2">Which one should I try first?</summary><p data-i18n="a.2">Start with Quelitas, the original. If you love chocolate, go for Quelitos. And for snack time, Quely Merienda.</p></details>
+        <details class="reveal" style="--d:.12s"><summary data-i18n="q.3">How do I order online?</summary><p data-i18n="a.3">Add the products you want to your basket and press Checkout. You can change the quantities at any time before paying.</p></details>
+        <details class="reveal" style="--d:.18s" id="faq-shipping"><summary data-i18n="q.4">What about shipping and returns?</summary><p data-i18n="a.4">You'll see the delivery options, times and costs at checkout, before you pay. If something isn't right with your order, write to us through the contact form.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="contact" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="contact-copy">
+        <span class="eyebrow reveal" data-i18n="contact.eyebrow">Contact</span>
+        <h2 id="contact-title" class="reveal" style="--d:.05s" data-i18n="contact.title">Let's talk</h2>
+        <p class="reveal" style="--d:.1s" data-i18n="contact.text">Questions about our cookies, orders for an event or for your shop, or just to say hello. Write to us and we'll get back to you.</p>
+      </div>
+      <div class="postcard reveal reveal--pop" style="--d:.1s">
+        <form id="contact-form" novalidate>
+          <div style="display:grid; gap:14px">
+            <div class="field">
+              <label for="f-name" data-i18n="f.name">Name</label>
+              <input id="f-name" name="name" autocomplete="name" required>
+              <span class="err" id="f-name-err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="f-email" data-i18n="f.email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+              <span class="err" id="f-email-err" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="f-msg" data-i18n="f.msg">Message</label>
+              <textarea id="f-msg" name="message" required data-i18n-ph="f.ph"></textarea>
+              <span class="err" id="f-msg-err" aria-live="polite"></span>
+            </div>
+            <div><button class="btn" type="submit" id="f-send"><span data-i18n="f.send">Send message</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button></div>
+          </div>
+        </form>
+        <div class="form-done" id="form-done" hidden aria-live="polite">
+          <svg viewBox="-24 -24 48 48" aria-hidden="true"><use href="#mini-cookie" x="-22" y="-22" width="44" height="44"/><circle cx="12" cy="12" r="9" fill="#2F7A3E" stroke="#fff" stroke-width="2.5"/><path d="M8 12l3 3 5-6" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <strong id="form-done-title"></strong>
+          <p id="form-done-note"></p>
+        </div>
+      </div>
     </div>
   </section>
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="footer" id="contact">
+<footer class="footer" id="site-footer">
   <div class="wrap">
     <div class="footer-top">
       <div class="footer-brand">
         <a class="logo" href="#top">Quely</a>
-        <p>Cookies from Mallorca.</p>
+        <p data-i18n="foot.tag">Cookies from Mallorca.</p>
       </div>
       <nav aria-label="Shop">
-        <h4>Shop</h4>
-        <ul><li><a href="#cookies">Cookies</a></li><li><a href="#cookies">Gift boxes</a></li><li><a href="#cookies">Offers</a></li></ul>
+        <h4 data-i18n="foot.shop">Shop</h4>
+        <ul><li><a href="#cookies" data-i18n="nav.cookies">Cookies</a></li><li><a href="#cookies" data-open-basket data-i18n="foot.gifts">Gift boxes</a></li><li><a href="#cookies" data-open-basket data-i18n="foot.offers">Offers</a></li></ul>
       </nav>
       <nav aria-label="Company">
-        <h4>Company</h4>
-        <ul><li><a href="#story">Our story</a></li><li><a href="#contact">Stores</a></li><li><a href="#contact">Contact</a></li></ul>
+        <h4 data-i18n="foot.company">Company</h4>
+        <ul><li><a href="#story" data-i18n="nav.story">Our story</a></li><li><a href="#contact" data-i18n="foot.stores">Stores</a></li><li><a href="#contact" data-i18n="nav.contact">Contact</a></li></ul>
       </nav>
       <nav aria-label="Help">
-        <h4>Help</h4>
-        <ul><li><a href="#contact">FAQ</a></li><li><a href="#contact">Shipping</a></li><li><a href="#contact">Returns</a></li></ul>
+        <h4 data-i18n="foot.help">Help</h4>
+        <ul><li><a href="#faq" data-i18n="foot.faq">FAQ</a></li><li><a href="#faq-shipping" data-i18n="foot.shipping">Shipping</a></li><li><a href="#faq-shipping" data-i18n="foot.returns">Returns</a></li></ul>
       </nav>
     </div>
     <div class="giant" id="giant" aria-hidden="true"><span>Q</span><span>u</span><span>e</span><span>l</span><span>y</span></div>
     <div class="footer-bottom">
-      <span>© 2026 Quely. All rights reserved.</span>
-      <span>Made with olive oil in Mallorca</span>
+      <span data-i18n="foot.rights">© 2026 Quely. All rights reserved.</span>
+      <span data-i18n="foot.made">Made with olive oil in Mallorca</span>
     </div>
   </div>
 </footer>
 
 <!-- Back to top: a cookie that gets eaten as you scroll -->
-<button class="progress-cookie" id="progress-cookie" aria-label="Back to top">
+<button class="progress-cookie" id="progress-cookie" type="button" data-i18n-aria="top" aria-label="Back to top">
   <span class="progress-tip" id="progress-tip">Back to top</span>
   <svg viewBox="-24 -24 48 48" aria-hidden="true">
     <defs>
@@ -1021,6 +1281,57 @@
   </svg>
 </button>
 
+<!-- Product detail -->
+<dialog class="pdialog" id="pdialog" aria-labelledby="pd-name">
+  <div class="pdialog-card">
+    <button class="close-btn" type="button" data-close data-i18n-aria="close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+    <div class="pdialog-stage" id="pd-stage"></div>
+    <div class="pdialog-body">
+      <span class="pill" id="pd-tag"></span>
+      <h2 id="pd-name"></h2>
+      <p id="pd-desc"></p>
+      <ul class="chips" id="pd-chips"></ul>
+      <div class="price" id="pd-price"></div>
+      <div class="buy-row">
+        <div class="qty">
+          <button type="button" data-step="-1" data-i18n-aria="qty.less" aria-label="Less">−</button>
+          <output id="pd-qty">1</output>
+          <button type="button" data-step="1" data-i18n-aria="qty.more" aria-label="More">+</button>
+        </div>
+        <button class="btn" type="button" id="pd-add"><svg class="bag-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg><span data-i18n="add">Add to basket</span></button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<!-- Basket -->
+<dialog class="drawer" id="basket" aria-labelledby="basket-title">
+  <div class="drawer-panel">
+    <header class="drawer-head">
+      <h2 id="basket-title" data-i18n="basket.title">Your basket</h2>
+      <button class="close-btn" type="button" data-close data-i18n-aria="close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+    </header>
+    <div class="drawer-body">
+      <ul class="basket-list" id="basket-list"></ul>
+      <div class="empty" id="basket-empty">
+        <svg viewBox="-24 -24 48 48" aria-hidden="true"><g mask="url(#bites)"><use href="#mini-cookie" x="-22" y="-22" width="44" height="44"/></g></svg>
+        <span data-i18n="basket.empty">Your basket is empty. Time for a snack?</span>
+      </div>
+      <section class="more" aria-labelledby="more-title">
+        <h3 id="more-title" data-i18n="basket.more">Add some cookies</h3>
+        <ul class="more-list" id="more-list"></ul>
+      </section>
+    </div>
+    <footer class="drawer-foot">
+      <div class="subtotal"><span data-i18n="basket.subtotal">Subtotal</span><strong id="basket-subtotal">0,00 €</strong></div>
+      <button class="btn btn--block" type="button" id="checkout"><span data-i18n="basket.checkout">Checkout</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
+      <p class="note" id="basket-note" aria-live="polite"></p>
+    </footer>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"><span id="toast-text"></span><button type="button" data-open-basket data-i18n="toast.view">View basket</button></div>
+
 <script>
 (() => {
   'use strict';
@@ -1032,6 +1343,163 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
   /* ------------------------------------------------------------
+     Languages (EN / ES). Every visible text lives here.
+     ------------------------------------------------------------ */
+  const I18N = {
+    en: {
+      'meta.title': 'Quely · Cookies from Mallorca',
+      'meta.desc': 'Crunchy, light cookies made in Mallorca with 100% natural olive oil. Baking on the island since 1853.',
+      'lang.switch': 'Cambiar a español',
+      'menu.open': 'Open menu', 'menu.close': 'Close menu',
+      'nav.cookies': 'Cookies', 'nav.story': 'Our story', 'nav.reviews': 'Reviews', 'nav.contact': 'Contact', 'nav.buy': 'Buy online',
+      'hero.tag': 'Made in Mallorca',
+      'hero.title': 'Cookies from Mallorca, baked with <em>olive oil</em>',
+      'hero.sub': 'Crunchy, light and made with 100% natural olive oil.',
+      'hero.cta': 'Discover our cookies',
+      'hint.start': 'Psst… tap a cookie to take a bite',
+      'hint.first': 'Crunch! Three bites finish a cookie…',
+      'hint.1': "{n} cookie eaten. Good, isn't it?",
+      'hint.2': '{n} cookies eaten. Crunchy, light… addictive.',
+      'hint.5': '{n} cookies! Olive oil does that.',
+      'hint.10': '{n} cookies. You deserve a <a href="#cookies">real pack →</a>',
+      'sound': 'Crunch sound',
+      'band.1': 'Baked in Mallorca', 'band.2': '100% olive oil', 'band.3': 'Since 1853', 'band.4': 'Crunchy & light', 'band.5': 'Three generations',
+      'oven.idle': 'Scroll to bake', 'oven.baking': 'Baking… {p}%', 'oven.ready': 'Ready!', 'oven.done': 'Freshly baked!',
+      'oven.caption': 'Our ovens, scroll by scroll. Go on, grab one.', 'oven.grab': 'Grab a cookie',
+      'about.eyebrow': 'About us', 'about.title': 'Baking in Mallorca since 1853',
+      'about.text': 'For over 170 years, Quely has made cookies and snacks on the island, with simple recipes and local ingredients such as olive oil. Three generations of know-how in every bite.',
+      'stat.1': 'Our beginnings', 'stat.2': 'Natural olive oil', 'stat.3': 'Made on the island',
+      'about.btn': 'Our story',
+      'story.1': 'Simple recipes, kept for generations', 'story.2': 'Local ingredients, like olive oil', 'story.3': 'Three generations of know-how in every bite',
+      'products.title': 'Our products', 'products.sub': 'Three ways to enjoy Quely, baked in Mallorca.',
+      'p1.tag': 'Since 1853', 'p1.desc': 'From the heart of the Mediterranean, since 1853.',
+      'p1.long': 'Our classic since 1853: a light, crunchy cookie made with 100% natural olive oil. Perfect on its own, with your morning coffee or with something on top.',
+      'p2.tag': "Kids' favourite", 'p2.desc': 'Crunchy cookies coated in milk chocolate.',
+      'p2.long': 'Little crunchy cookies coated in milk chocolate. The ones the kids always ask for (and the grown-ups too).',
+      'p3.tag': 'Snack time', 'p3.desc': 'Quelitas and fuet sticks, the perfect snack.',
+      'p3.long': 'Quelitas and fuet sticks in one pack, ready to go. The perfect snack for school, work or the beach.',
+      'pack.1': 'Quelitas pack', 'pack.2': 'Quelitos pack', 'pack.3': 'Quely Merienda pack',
+      'chip.oil': '100% olive oil', 'chip.mallorca': 'Baked in Mallorca', 'chip.crunchy': 'Light & crunchy',
+      'chip.choc': 'Milk chocolate', 'chip.kids': "Kids' favourite",
+      'chip.fuet': 'Quelitas + fuet', 'chip.go': 'Ready to go', 'chip.snack': 'Snack time',
+      'view': 'View product', 'all': 'See all products',
+      'reviews.title': 'What our customers say', 'stars': '5 out of 5 stars',
+      'r.1': 'Perfect with my morning coffee. Light, crunchy and not too sweet.',
+      'r.2': 'My kids love the Quely Merienda every afternoon. A great snack for school.',
+      'r.3': 'The Quelitos with chocolate are my favourite. Crunchy and really tasty.',
+      'swipe': 'Swipe for more →',
+      'faq.title': "Questions? We've got answers",
+      'q.1': 'What makes Quely cookies different?',
+      'a.1': "They're made in Mallorca with simple recipes and 100% natural olive oil, the way we've been baking since 1853. That's why they're so light and crunchy.",
+      'q.2': 'Which one should I try first?',
+      'a.2': 'Start with Quelitas, the original. If you love chocolate, go for Quelitos. And for snack time, Quely Merienda.',
+      'q.3': 'How do I order online?',
+      'a.3': 'Add the products you want to your basket and press Checkout. You can change the quantities at any time before paying.',
+      'q.4': 'What about shipping and returns?',
+      'a.4': "You'll see the delivery options, times and costs at checkout, before you pay. If something isn't right with your order, write to us through the contact form.",
+      'contact.eyebrow': 'Contact', 'contact.title': "Let's talk",
+      'contact.text': "Questions about our cookies, orders for an event or for your shop, or just to say hello. Write to us and we'll get back to you.",
+      'f.name': 'Name', 'f.email': 'Email', 'f.msg': 'Message', 'f.ph': 'Tell us…',
+      'f.send': 'Send message', 'f.sending': 'Sending…',
+      'e.name': 'Tell us your name', 'e.email': "That email doesn't look right", 'e.msg': 'Write a few words',
+      'f.ok': 'Thanks, {name}!', 'f.okNote': "We'll get back to you soon.",
+      'f.demo': "Demo mode: the form isn't connected yet, so this message wasn't sent.",
+      'f.fail': 'Something went wrong. Please try again in a moment.',
+      'foot.tag': 'Cookies from Mallorca.', 'foot.shop': 'Shop', 'foot.company': 'Company', 'foot.help': 'Help',
+      'foot.gifts': 'Gift boxes', 'foot.offers': 'Offers', 'foot.stores': 'Stores',
+      'foot.faq': 'FAQ', 'foot.shipping': 'Shipping', 'foot.returns': 'Returns',
+      'foot.rights': '© 2026 Quely. All rights reserved.', 'foot.made': 'Made with olive oil in Mallorca',
+      'top': 'Back to top', 'top.progress': 'Back to top · {p}% eaten', 'top.done': 'All gone! Back to top',
+      'close': 'Close', 'qty.less': 'Less', 'qty.more': 'More',
+      'add': 'Add to basket', 'added': '{name} added to your basket', 'toast.view': 'View basket',
+      'basket.title': 'Your basket', 'basket.empty': 'Your basket is empty. Time for a snack?',
+      'basket.more': 'Add some cookies', 'basket.add': 'Add', 'basket.remove': 'Remove', 'basket.each': '{p} each',
+      'basket.subtotal': 'Subtotal', 'basket.checkout': 'Checkout',
+      'basket.ship': 'Shipping is calculated at checkout.',
+      'basket.demo': "Demo mode: the online shop isn't connected yet, so no order has been placed.",
+    },
+    es: {
+      'meta.title': 'Quely · Galletas de Mallorca',
+      'meta.desc': 'Galletas crujientes y ligeras hechas en Mallorca con aceite de oliva 100% natural. Horneando en la isla desde 1853.',
+      'lang.switch': 'Switch to English',
+      'menu.open': 'Abrir menú', 'menu.close': 'Cerrar menú',
+      'nav.cookies': 'Galletas', 'nav.story': 'Nuestra historia', 'nav.reviews': 'Opiniones', 'nav.contact': 'Contacto', 'nav.buy': 'Comprar online',
+      'hero.tag': 'Hecho en Mallorca',
+      'hero.title': 'Galletas de Mallorca, horneadas con <em>aceite de oliva</em>',
+      'hero.sub': 'Crujientes, ligeras y hechas con aceite de oliva 100% natural.',
+      'hero.cta': 'Descubre nuestras galletas',
+      'hint.start': 'Psst… toca una galleta para darle un mordisco',
+      'hint.first': '¡Crunch! Con tres mordiscos te la acabas…',
+      'hint.1': '{n} galleta comida. Está buena, ¿eh?',
+      'hint.2': '{n} galletas comidas. Crujientes, ligeras… adictivas.',
+      'hint.5': '¡{n} galletas! Es lo que tiene el aceite de oliva.',
+      'hint.10': '{n} galletas. Te mereces un <a href="#cookies">paquete de verdad →</a>',
+      'sound': 'Sonido de crujido',
+      'band.1': 'Horneadas en Mallorca', 'band.2': '100% aceite de oliva', 'band.3': 'Desde 1853', 'band.4': 'Crujientes y ligeras', 'band.5': 'Tres generaciones',
+      'oven.idle': 'Baja para hornear', 'oven.baking': 'Horneando… {p}%', 'oven.ready': '¡Listas!', 'oven.done': '¡Recién hechas!',
+      'oven.caption': 'Nuestro horno, scroll a scroll. Venga, coge una.', 'oven.grab': 'Coger una galleta',
+      'about.eyebrow': 'Sobre nosotros', 'about.title': 'Horneando en Mallorca desde 1853',
+      'about.text': 'Desde hace más de 170 años, Quely elabora galletas y snacks en la isla, con recetas sencillas e ingredientes locales como el aceite de oliva. Tres generaciones de saber hacer en cada bocado.',
+      'stat.1': 'Nuestros inicios', 'stat.2': 'Aceite de oliva natural', 'stat.3': 'Hecho en la isla',
+      'about.btn': 'Nuestra historia',
+      'story.1': 'Recetas sencillas, conservadas durante generaciones', 'story.2': 'Ingredientes locales, como el aceite de oliva', 'story.3': 'Tres generaciones de saber hacer en cada bocado',
+      'products.title': 'Nuestros productos', 'products.sub': 'Tres formas de disfrutar Quely, horneadas en Mallorca.',
+      'p1.tag': 'Desde 1853', 'p1.desc': 'Desde el corazón del Mediterráneo, desde 1853.',
+      'p1.long': 'Nuestro clásico desde 1853: una galleta ligera y crujiente hecha con aceite de oliva 100% natural. Perfecta sola, con el café de la mañana o con lo que quieras encima.',
+      'p2.tag': 'La favorita de los peques', 'p2.desc': 'Galletas crujientes bañadas en chocolate con leche.',
+      'p2.long': 'Galletitas crujientes bañadas en chocolate con leche. Las que siempre piden los peques (y los mayores también).',
+      'p3.tag': 'Hora de merendar', 'p3.desc': 'Quelitas y palitos de fuet, la merienda perfecta.',
+      'p3.long': 'Quelitas y palitos de fuet en un mismo paquete, listos para llevar. La merienda perfecta para el cole, el trabajo o la playa.',
+      'pack.1': 'Paquete de Quelitas', 'pack.2': 'Paquete de Quelitos', 'pack.3': 'Paquete de Quely Merienda',
+      'chip.oil': '100% aceite de oliva', 'chip.mallorca': 'Horneadas en Mallorca', 'chip.crunchy': 'Ligeras y crujientes',
+      'chip.choc': 'Chocolate con leche', 'chip.kids': 'Favorita de los peques',
+      'chip.fuet': 'Quelitas + fuet', 'chip.go': 'Lista para llevar', 'chip.snack': 'Hora de merendar',
+      'view': 'Ver producto', 'all': 'Ver todos los productos',
+      'reviews.title': 'Lo que dicen nuestros clientes', 'stars': '5 de 5 estrellas',
+      'r.1': 'Perfectas con el café de la mañana. Ligeras, crujientes y nada empalagosas.',
+      'r.2': 'A mis hijos les encanta la Quely Merienda cada tarde. Una merienda genial para el cole.',
+      'r.3': 'Los Quelitos con chocolate son mis favoritos. Crujientes y riquísimos.',
+      'swipe': 'Desliza para ver más →',
+      'faq.title': '¿Dudas? Te respondemos',
+      'q.1': '¿Qué tienen de especial las galletas Quely?',
+      'a.1': 'Se hacen en Mallorca con recetas sencillas y aceite de oliva 100% natural, como llevamos haciendo desde 1853. Por eso son tan ligeras y crujientes.',
+      'q.2': '¿Cuál pruebo primero?',
+      'a.2': 'Empieza por las Quelitas, las de siempre. Si te encanta el chocolate, los Quelitos. Y para merendar, la Quely Merienda.',
+      'q.3': '¿Cómo compro online?',
+      'a.3': 'Añade a la cesta los productos que quieras y pulsa Finalizar compra. Puedes cambiar las cantidades cuando quieras antes de pagar.',
+      'q.4': '¿Y los envíos y devoluciones?',
+      'a.4': 'Verás las opciones, plazos y costes de envío al finalizar la compra, antes de pagar. Si algo no está bien en tu pedido, escríbenos desde el formulario de contacto.',
+      'contact.eyebrow': 'Contacto', 'contact.title': 'Hablemos',
+      'contact.text': 'Dudas sobre nuestras galletas, pedidos para un evento o para tu tienda, o simplemente saludar. Escríbenos y te responderemos.',
+      'f.name': 'Nombre', 'f.email': 'Email', 'f.msg': 'Mensaje', 'f.ph': 'Cuéntanos…',
+      'f.send': 'Enviar mensaje', 'f.sending': 'Enviando…',
+      'e.name': 'Dinos tu nombre', 'e.email': 'Ese email no parece correcto', 'e.msg': 'Escribe unas palabras',
+      'f.ok': '¡Gracias, {name}!', 'f.okNote': 'Te responderemos pronto.',
+      'f.demo': 'Modo demo: el formulario aún no está conectado, así que el mensaje no se ha enviado.',
+      'f.fail': 'Algo ha fallado. Inténtalo de nuevo en un momento.',
+      'foot.tag': 'Galletas de Mallorca.', 'foot.shop': 'Tienda', 'foot.company': 'Empresa', 'foot.help': 'Ayuda',
+      'foot.gifts': 'Cajas regalo', 'foot.offers': 'Ofertas', 'foot.stores': 'Tiendas',
+      'foot.faq': 'Preguntas frecuentes', 'foot.shipping': 'Envíos', 'foot.returns': 'Devoluciones',
+      'foot.rights': '© 2026 Quely. Todos los derechos reservados.', 'foot.made': 'Hecho con aceite de oliva en Mallorca',
+      'top': 'Volver arriba', 'top.progress': 'Volver arriba · {p}% comida', 'top.done': '¡Ni una miga! Volver arriba',
+      'close': 'Cerrar', 'qty.less': 'Menos', 'qty.more': 'Más',
+      'add': 'Añadir a la cesta', 'added': '{name} añadido a tu cesta', 'toast.view': 'Ver cesta',
+      'basket.title': 'Tu cesta', 'basket.empty': 'Tu cesta está vacía. ¿Una merienda?',
+      'basket.more': 'Añade galletas', 'basket.add': 'Añadir', 'basket.remove': 'Quitar', 'basket.each': '{p} c/u',
+      'basket.subtotal': 'Subtotal', 'basket.checkout': 'Finalizar compra',
+      'basket.ship': 'El envío se calcula al finalizar la compra.',
+      'basket.demo': 'Modo demo: la tienda online aún no está conectada, así que no se ha hecho ningún pedido.',
+    },
+  };
+  const store = {
+    get(k) { try { return localStorage.getItem(k); } catch (_) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (_) { /* storage blocked */ } },
+  };
+  let lang = store.get('quely-lang') || ((navigator.language || '').toLowerCase().startsWith('es') ? 'es' : 'en');
+  if (!I18N[lang]) lang = 'en';
+  const t = key => I18N[lang][key] ?? I18N.en[key] ?? key;
+
+  /* ------------------------------------------------------------
      Nav: mobile menu + active section
      ------------------------------------------------------------ */
   const nav = $('#nav');
@@ -1040,7 +1508,7 @@
   toggle.addEventListener('click', () => {
     const open = toggle.getAttribute('aria-expanded') !== 'true';
     toggle.setAttribute('aria-expanded', open);
-    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    toggle.setAttribute('aria-label', t(open ? 'menu.close' : 'menu.open'));
     links.classList.toggle('is-open', open);
   });
   links.addEventListener('click', e => {
@@ -1341,7 +1809,7 @@
     g.restore();
 
     c.bites++;
-    if (eaten === 0 && c.bites === 1) hintText.textContent = 'Crunch! Three bites finish a cookie…';
+    if (eaten === 0 && c.bites === 1) { hintState = 'first'; renderHint(); }
     c.vy -= 2.2; c.vx += (c.x - px) * .03; c.vr += (Math.random() - .5) * .006; c.pop = 1.12;
     spawnCrumbs(px, py, 12, 8, c.choc);
     crunch(false);
@@ -1357,16 +1825,14 @@
   }
 
   const hintText = $('#hint-text');
-  const lines = [
-    [1, n => `<b class="bump">${n}</b> cookie eaten. Good, isn't it?`],
-    [2, n => `<b class="bump">${n}</b> cookies eaten. Crunchy, light… addictive.`],
-    [5, n => `<b class="bump">${n}</b> cookies! Olive oil does that.`],
-    [10, n => `<b class="bump">${n}</b> cookies. You deserve a <a href="#cookies">real pack →</a>`],
-  ];
-  function updateHint() {
-    const line = [...lines].reverse().find(([min]) => eaten >= min);
-    if (line) hintText.innerHTML = line[1](eaten);
+  let hintState = 'start';
+  function renderHint() {
+    if (hintState === 'count') {
+      const key = eaten >= 10 ? 'hint.10' : eaten >= 5 ? 'hint.5' : eaten >= 2 ? 'hint.2' : 'hint.1';
+      hintText.innerHTML = t(key).replace('{n}', `<b class="bump">${eaten}</b>`);
+    } else hintText.textContent = t('hint.' + hintState);
   }
+  function updateHint() { hintState = 'count'; renderHint(); }
 
   hero.addEventListener('pointermove', e => {
     const r = hero.getBoundingClientRect();
@@ -1452,7 +1918,7 @@
      ------------------------------------------------------------ */
   const oven = $('#oven'), ovenTemp = $('#oven-temp'), ovenStatus = $('#oven-status');
   const trayCookies = $$('.tray-cookie');
-  const products = $('.products'), footer = $('#contact');
+  const products = $('.products'), footer = $('#site-footer');
   const band = $('.band'), bandAnim = reduceMotion ? null : $('#band-track').getAnimations()[0];
   const progressBtn = $('#progress-cookie'), progressTip = $('#progress-tip');
   const bites = $$('.bite', progressBtn);
@@ -1485,7 +1951,7 @@
     trayCookies.forEach(t => { t.style.setProperty('--c', c); t.style.setProperty('--e', e); });
     ovenTemp.textContent = Math.round(20 + bake * 160) + '°C';
     const done = bake >= .999;
-    ovenStatus.textContent = done ? 'Ready!' : bake > 0.02 ? `Baking… ${Math.round(bake * 100)}%` : 'Scroll to bake';
+    ovenStatus.textContent = done ? t('oven.ready') : bake > 0.02 ? t('oven.baking').replace('{p}', Math.round(bake * 100)) : t('oven.idle');
     if (done !== wasDone) { oven.classList.toggle('is-done', done); wasDone = done; }
 
     // Products: decorative cookies spin
@@ -1501,7 +1967,7 @@
     const p = max > 0 ? y / max : 0;
     progressBtn.classList.toggle('is-visible', y > vh * .6);
     bites.forEach((b, i) => b.classList.toggle('on', p > (i + 1) / (bites.length + 1)));
-    progressTip.textContent = p > .97 ? 'All gone! Back to top' : `Back to top · ${Math.round(p * 100)}% eaten`;
+    progressTip.textContent = p > .97 ? t('top.done') : t('top.progress').replace('{p}', Math.round(p * 100));
 
     if (Math.abs(vel) > .05) requestAnimationFrame(onScrollFrame);
     else { ticking = false; if (bandAnim) { bandAnim.playbackRate = 1; band.style.setProperty('--skew', '0deg'); } }
@@ -1510,6 +1976,296 @@
   addEventListener('scroll', kick, { passive: true });
   addEventListener('resize', kick);
   kick();
+
+  /* ------------------------------------------------------------
+     Shop settings: fill these in to go live
+     ------------------------------------------------------------ */
+  const SHOP_URL = '';       // checkout page of the online shop, e.g. 'https://shop.example.com/cart'
+  const FORM_ENDPOINT = '';  // where the contact form posts JSON, e.g. 'https://formspree.io/f/abcdwxyz'
+  // Example prices in euros: replace them with the real ones.
+  const PRODUCTS = {
+    quelitas: { name: 'Quelitas', price: 2.50, n: 1, chips: ['chip.oil', 'chip.mallorca', 'chip.crunchy'] },
+    quelitos: { name: 'Quelitos', price: 2.95, n: 2, chips: ['chip.choc', 'chip.mallorca', 'chip.kids'] },
+    merienda: { name: 'Quely Merienda', price: 1.95, n: 3, chips: ['chip.fuet', 'chip.go', 'chip.snack'] },
+  };
+  const money = v => new Intl.NumberFormat(lang === 'es' ? 'es-ES' : 'en-IE', { style: 'currency', currency: 'EUR' }).format(v);
+  const productCard = id => $(`.product[data-id="${id}"]`);
+  const bagOf = id => {
+    const svg = productCard(id).querySelector('.bag').cloneNode(true);
+    svg.removeAttribute('role'); svg.removeAttribute('aria-label'); svg.removeAttribute('data-i18n-aria');
+    svg.setAttribute('aria-hidden', 'true');
+    return svg;
+  };
+
+  /* ---------- Basket state (kept in this browser) ---------- */
+  let basket = {};
+  try { basket = JSON.parse(store.get('quely-basket') || '{}') || {}; } catch (_) { basket = {}; }
+  for (const k of Object.keys(basket)) if (!PRODUCTS[k] || !(basket[k] > 0)) delete basket[k];
+  const saveBasket = () => store.set('quely-basket', JSON.stringify(basket));
+  const count = () => Object.values(basket).reduce((a, b) => a + b, 0);
+
+  const basketDlg = $('#basket'), pDlg = $('#pdialog');
+  const badge = $('#basket-count'), list = $('#basket-list'), empty = $('#basket-empty'), moreList = $('#more-list');
+  const subtotalEl = $('#basket-subtotal'), checkoutBtn = $('#checkout'), note = $('#basket-note');
+  let shown = new Set(), noteWarn = false;
+
+  function renderBadge(bump) {
+    const n = count();
+    badge.hidden = n === 0;
+    badge.textContent = n;
+    if (bump && !reduceMotion) { badge.classList.remove('bump'); void badge.offsetWidth; badge.classList.add('bump'); }
+  }
+
+  function renderBasket() {
+    list.innerHTML = '';
+    let total = 0;
+    const now = new Set();
+    for (const [id, q] of Object.entries(basket)) {
+      const pr = PRODUCTS[id];
+      total += pr.price * q;
+      now.add(id);
+      const li = document.createElement('li');
+      li.className = 'basket-item' + (shown.has(id) ? '' : ' is-new');
+      li.dataset.id = id;
+      li.innerHTML = `
+        <span class="thumb"></span>
+        <div><span class="item-name">${pr.name}</span><span class="item-meta">${t('basket.each').replace('{p}', money(pr.price))}</span></div>
+        <div class="item-side">
+          <div class="qty qty--sm">
+            <button type="button" data-q="-1" aria-label="${t('qty.less')}">−</button>
+            <output aria-live="polite">${q}</output>
+            <button type="button" data-q="1" aria-label="${t('qty.more')}">+</button>
+          </div>
+          <button type="button" class="remove">${t('basket.remove')}</button>
+        </div>`;
+      li.querySelector('.thumb').append(bagOf(id));
+      list.append(li);
+    }
+    shown = now;
+    empty.hidden = count() > 0;
+    subtotalEl.textContent = money(total);
+    checkoutBtn.disabled = count() === 0;
+    if (!count()) noteWarn = false;
+    note.textContent = t(noteWarn ? 'basket.demo' : 'basket.ship');
+    note.classList.toggle('is-warn', noteWarn);
+
+    moreList.innerHTML = '';
+    for (const [id, pr] of Object.entries(PRODUCTS)) {
+      const li = document.createElement('li');
+      li.className = 'more-item';
+      li.innerHTML = `
+        <span class="thumb"></span>
+        <div><span class="item-name">${pr.name}</span><span class="item-meta">${money(pr.price)}</span></div>
+        <button type="button" class="add-mini" data-add="${id}">+ ${t('basket.add')}</button>`;
+      li.querySelector('.thumb').append(bagOf(id));
+      moreList.append(li);
+    }
+  }
+
+  list.addEventListener('click', e => {
+    const li = e.target.closest('.basket-item');
+    if (!li) return;
+    const id = li.dataset.id;
+    let focusSel = null;
+    if (e.target.closest('.remove')) {
+      delete basket[id];
+    } else {
+      const b = e.target.closest('[data-q]');
+      if (!b) return;
+      basket[id] = (basket[id] || 0) + +b.dataset.q;
+      if (basket[id] <= 0) delete basket[id];
+      else { basket[id] = Math.min(99, basket[id]); focusSel = `[data-id="${id}"] [data-q="${b.dataset.q}"]`; }
+    }
+    noteWarn = false;
+    saveBasket(); renderBasket(); renderBadge(false);
+    // keep keyboard focus where it was
+    (focusSel && list.querySelector(focusSel) || $('.close-btn', basketDlg)).focus();
+  });
+  moreList.addEventListener('click', e => {
+    const b = e.target.closest('[data-add]');
+    if (b) { addToBasket(b.dataset.add, 1, null); b.focus(); }
+  });
+
+  function addToBasket(id, qty, fromRect) {
+    basket[id] = Math.min(99, (basket[id] || 0) + qty);
+    noteWarn = false;
+    saveBasket(); renderBasket();
+    const target = $('#basket-btn').getBoundingClientRect();
+    if (fromRect && !reduceMotion && !basketDlg.open) flyCookie(fromRect, target, () => renderBadge(true));
+    else renderBadge(true);
+    if (!basketDlg.open) showToast(t('added').replace('{name}', PRODUCTS[id].name));
+  }
+
+  function flyCookie(a, b, done) {
+    const el = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    el.setAttribute('class', 'fly');
+    el.setAttribute('viewBox', '-20 -20 40 40');
+    el.innerHTML = '<use href="#mini-cookie" x="-20" y="-20" width="40" height="40"/>';
+    document.body.append(el);
+    const x0 = a.left + a.width / 2 - 18, y0 = a.top + a.height / 2 - 18;
+    const x1 = b.left + b.width / 2 - 18, y1 = b.top + b.height / 2 - 18;
+    const mx = (x0 + x1) / 2, my = Math.min(y0, y1) - 140;
+    const anim = el.animate([
+      { transform: `translate(${x0}px, ${y0}px) scale(.5) rotate(0deg)`, opacity: 0 },
+      { transform: `translate(${mx}px, ${my}px) scale(1.4) rotate(220deg)`, opacity: 1, offset: .45 },
+      { transform: `translate(${x1}px, ${y1}px) scale(.45) rotate(480deg)`, opacity: 1 },
+    ], { duration: 850, easing: 'cubic-bezier(.45, 0, .55, 1)' });
+    anim.onfinish = () => { el.remove(); done(); crunch(false); };
+  }
+
+  const toastEl = $('#toast'), toastText = $('#toast-text');
+  let toastTimer;
+  function showToast(msg) {
+    toastText.textContent = msg;
+    toastEl.classList.add('is-on');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toastEl.classList.remove('is-on'), 3400);
+  }
+
+  function openBasket() {
+    if (pDlg.open) pDlg.close();
+    toastEl.classList.remove('is-on');
+    toggle.setAttribute('aria-expanded', 'false'); links.classList.remove('is-open');
+    renderBasket();
+    if (!basketDlg.open) basketDlg.showModal();
+  }
+
+  checkoutBtn.addEventListener('click', () => {
+    if (!count()) return;
+    if (SHOP_URL) { location.href = SHOP_URL; return; }
+    noteWarn = true;
+    renderBasket();
+  });
+
+  /* ---------- Product detail ---------- */
+  let pdId = null, pdQty = 1;
+  const pdQtyEl = $('#pd-qty');
+  function fillProduct() {
+    const pr = PRODUCTS[pdId];
+    const stage = $('#pd-stage');
+    stage.innerHTML = '';
+    stage.append(bagOf(pdId));
+    stage.style.setProperty('--halo', productCard(pdId).style.getPropertyValue('--halo'));
+    $('#pd-tag').textContent = t(`p${pr.n}.tag`);
+    $('#pd-name').textContent = pr.name;
+    $('#pd-desc').textContent = t(`p${pr.n}.long`);
+    $('#pd-chips').innerHTML = pr.chips.map(c => `<li>${t(c)}</li>`).join('');
+    $('#pd-price').textContent = money(pr.price);
+    pdQtyEl.textContent = pdQty;
+  }
+  function openProduct(id) {
+    if (!PRODUCTS[id]) return;
+    pdId = id; pdQty = 1;
+    fillProduct();
+    pDlg.showModal();
+  }
+  pDlg.addEventListener('click', e => {
+    const s = e.target.closest('[data-step]');
+    if (s) { pdQty = clamp(pdQty + +s.dataset.step, 1, 99); pdQtyEl.textContent = pdQty; }
+  });
+  $('#pd-add').addEventListener('click', e => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    pDlg.close();
+    addToBasket(pdId, pdQty, rect);
+  });
+
+  /* ---------- Global clicks ---------- */
+  document.addEventListener('click', e => {
+    const open = e.target.closest('[data-open-basket]');
+    if (open) { e.preventDefault(); openBasket(); return; }
+    const close = e.target.closest('[data-close]');
+    if (close) { close.closest('dialog').close(); return; }
+    const view = e.target.closest('[data-product]');
+    if (view) { openProduct(view.dataset.product); return; }
+    const faqLink = e.target.closest('a[href^="#faq-"]');
+    if (faqLink) { const d = document.getElementById(faqLink.getAttribute('href').slice(1)); if (d) d.open = true; }
+  });
+  // click on the dark backdrop closes the dialog
+  [basketDlg, pDlg].forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+
+  /* ---------- Contact form ---------- */
+  const form = $('#contact-form'), sendBtn = $('#f-send');
+  const fields = { name: $('#f-name'), email: $('#f-email'), message: $('#f-msg') };
+  const errKey = { name: 'e.name', email: 'e.email', message: 'e.msg' };
+  let formDone = null;
+
+  function validate(only) {
+    let ok = true, first = null;
+    for (const [k, el] of Object.entries(fields)) {
+      if (only && only !== k) continue;
+      const v = el.value.trim();
+      const bad = !v || (k === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v));
+      el.closest('.field').classList.toggle('is-invalid', bad);
+      el.setAttribute('aria-invalid', bad);
+      el.setAttribute('aria-describedby', el.id + '-err');
+      $('#' + el.id + '-err').textContent = bad ? t(errKey[k]) : '';
+      if (bad) { ok = false; first = first || el; }
+    }
+    return { ok, first };
+  }
+  Object.entries(fields).forEach(([k, el]) => {
+    el.addEventListener('blur', () => { if (el.value.trim()) validate(k); });
+    el.addEventListener('input', () => { if (el.closest('.is-invalid')) validate(k); });
+  });
+
+  function renderFormDone() {
+    if (!formDone) return;
+    $('#form-done-title').textContent = t('f.ok').replace('{name}', formDone.name);
+    $('#form-done-note').textContent = t(formDone.sent ? 'f.okNote' : 'f.demo');
+  }
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const { ok, first } = validate();
+    if (!ok) { first.focus(); return; }
+    const label = sendBtn.querySelector('span');
+    sendBtn.disabled = true; label.textContent = t('f.sending');
+    let sent = false;
+    if (FORM_ENDPOINT) {
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ name: fields.name.value.trim(), email: fields.email.value.trim(), message: fields.message.value.trim() }),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        sent = true;
+      } catch (_) {
+        sendBtn.disabled = false; label.textContent = t('f.send');
+        $('#f-msg-err').textContent = t('f.fail');
+        return;
+      }
+    }
+    formDone = { name: fields.name.value.trim().split(/\s+/)[0], sent };
+    renderFormDone();
+    form.hidden = true;
+    $('#form-done').hidden = false;
+  });
+
+  /* ---------- Language switch ---------- */
+  function applyLang(next) {
+    lang = next;
+    store.set('quely-lang', lang);
+    document.documentElement.lang = lang;
+    document.title = t('meta.title');
+    $('meta[name="description"]').setAttribute('content', t('meta.desc'));
+    $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    $$('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+    $$('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', t(el.dataset.i18nAria)));
+    $$('[data-i18n-ph]').forEach(el => el.setAttribute('placeholder', t(el.dataset.i18nPh)));
+    toggle.setAttribute('aria-label', t(toggle.getAttribute('aria-expanded') === 'true' ? 'menu.close' : 'menu.open'));
+    if (sendBtn.disabled && !formDone) sendBtn.querySelector('span').textContent = t('f.sending');
+    $$('.field.is-invalid').forEach(f => validate(Object.keys(fields).find(k => fields[k].closest('.field') === f)));
+    renderHint();
+    renderBasket();
+    if (pDlg.open) fillProduct();
+    renderFormDone();
+    kick();
+  }
+  $('#lang-btn').addEventListener('click', () => applyLang(lang === 'en' ? 'es' : 'en'));
+
+  applyLang(lang);
+  renderBadge(false);
 })();
 </script>
 </body>

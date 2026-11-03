@@ -1058,6 +1058,83 @@
   .game-best.is-record { color: #2F7A3E; animation: bump .6s var(--ease-spring); }
 
   /* =========================================================
+     The Quely wheel
+     ========================================================= */
+  .wheel-sec {
+    position: relative; padding: clamp(80px, 10vw, 130px) 0; color: var(--cream); overflow: hidden;
+    background:
+      radial-gradient(800px 520px at 75% 50%, rgba(227, 164, 64, .22), transparent 60%),
+      linear-gradient(160deg, #3A120B, #1E0A06);
+  }
+  .wheel-sec .wrap { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .wheel-sec .eyebrow { color: var(--gold); }
+  .wheel-copy h2 { margin: 12px 0 16px; }
+  .wheel-copy > p { margin: 0 0 20px; max-width: 44ch; color: #E2CBB0; font-size: 1.04rem; }
+  .wheel-legend { display: grid; gap: 8px; margin: 0 0 22px; padding: 0; list-style: none; }
+  .wheel-legend li { display: flex; align-items: center; gap: 10px; font-size: .94rem; }
+  .wheel-legend b { display: grid; place-items: center; flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; font-size: .85rem; }
+  .wheel-legend .is-good b { background: #2F7A3E; }
+  .wheel-legend .is-bad b { background: var(--red); }
+  .accept {
+    position: relative; display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+    padding: 14px 16px; border-radius: 14px; cursor: pointer; font-weight: 600;
+    background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .12);
+  }
+  .accept input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+  .accept .box { display: grid; place-items: center; flex-shrink: 0; width: 24px; height: 24px; border: 2px solid var(--gold); border-radius: 7px; transition: background-color .2s; }
+  .accept .box::after { content: ""; width: 12px; height: 7px; margin-top: -3px; border: 3px solid #2A1A11; border-top: 0; border-right: 0; transform: rotate(-45deg) scale(0); transition: transform .3s var(--ease-spring); }
+  .accept input:checked + .box { background: var(--gold); }
+  .accept input:checked + .box::after { transform: rotate(-45deg) scale(1); }
+  .accept input:focus-visible + .box { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .accept.is-nudge { animation: shake .4s; box-shadow: inset 0 0 0 2px var(--gold); }
+  .wheel-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+  .wheel-left { font-size: .88rem; font-weight: 600; color: #E2CBB0; }
+  .wheel-result { margin-top: 22px; padding: 18px 20px; border-radius: 18px; animation: dlg-in .5s var(--ease-spring); }
+  .wheel-result[hidden] { display: none; }
+  .wheel-result.is-good { background: #E9F6EA; color: #1F4D2A; }
+  .wheel-result.is-bad { background: #FBE3DF; color: var(--red-deep); }
+  .wheel-result strong { display: block; margin-bottom: 4px; font-family: var(--font-display); font-size: 1.6rem; line-height: 1.1; }
+  .wheel-result p { margin: 0 0 4px; }
+  .wheel-result .link-plain { padding-left: 0; color: inherit; }
+  .wheel-effects { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
+  .eff-title { width: 100%; font-size: .74rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+  .eff { padding: .35em .8em; border-radius: 999px; font-size: .8rem; font-weight: 700; }
+  .eff--good { background: rgba(123, 216, 143, .18); color: #A8EBB6; }
+  .eff--bad { background: rgba(255, 90, 70, .2); color: #FFB3A6; }
+  .wheel-stage { display: grid; place-items: center; }
+  .wheel-svg { width: min(470px, 100%); height: auto; overflow: visible; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, .5)); }
+  .wheel-svg .segs { transition: filter .4s; }
+  .wheel-svg.is-locked .segs { filter: grayscale(.75) brightness(.6); }
+  .wheel-svg .seg-label { font-family: var(--font-body); font-size: 15px; font-weight: 800; text-anchor: middle; }
+  .wheel-svg .burnt-ico { filter: brightness(.3) saturate(.5); }
+  .wheel-svg .seg.is-win { animation: win .5s ease-in-out 5; }
+  @keyframes win { 50% { opacity: .5; } }
+  .wheel-svg .lights circle { fill: #FFE3A0; animation: lights 1s steps(1) infinite; }
+  .wheel-svg .lights circle:nth-child(2n) { animation-delay: -.5s; }
+  .wheel-svg.is-spinning .lights circle { animation-duration: .24s; }
+  @keyframes lights { 50% { fill: #7A4A20; } }
+  .wheel-svg .hub { cursor: pointer; }
+  .wheel-svg .hub:focus { outline: none; }
+  .wheel-svg .hub:focus-visible .hub-disc { stroke: var(--gold); }
+  .wheel-svg .hub-disc { transform-box: fill-box; transform-origin: center; transition: transform .3s var(--ease-spring); }
+  .wheel-svg .hub:hover .hub-disc { transform: scale(1.07); }
+  .wheel-svg .pointer { transform-box: fill-box; transform-origin: 50% 0%; filter: drop-shadow(0 3px 3px rgba(0, 0, 0, .45)); }
+  .adjust { display: grid; gap: 4px; margin-bottom: 8px; }
+  .adjust:empty { display: none; }
+  .adjust-row { display: flex; justify-content: space-between; font-size: .88rem; font-weight: 600; }
+  .adjust-row.is-good { color: #2F7A3E; }
+  .adjust-row.is-bad { color: var(--red-deep); }
+  .tag-2x1 { margin-left: 6px; padding: .1em .5em; border-radius: 6px; background: #E9F6EA; color: #2F7A3E; font-size: .72rem; font-weight: 800; }
+  .free-tag { font-family: var(--font-display); font-weight: 800; color: #2F7A3E; }
+  @media (max-width: 860px) {
+    .wheel-sec .wrap { grid-template-columns: 1fr; gap: 0; }
+    .wheel-copy { display: contents; }
+    .wheel-copy > .eyebrow, .wheel-copy > h2, .wheel-copy > p, .wheel-legend { order: 1; }
+    .wheel-stage { order: 2; margin: 0 0 26px; }
+    .accept, .wheel-actions, .wheel-result, .wheel-effects { order: 3; }
+  }
+
+  /* =========================================================
      Scroll reveal
      ========================================================= */
   .js .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s var(--ease-out), transform .9s var(--ease-out); transition-delay: var(--d, 0s); }
@@ -1564,6 +1641,46 @@
     </div>
   </section>
 
+  <!-- ============ WHEEL ============ -->
+  <section class="wheel-sec" id="wheel" aria-labelledby="wheel-title">
+    <div class="wrap">
+      <div class="wheel-copy">
+        <span class="eyebrow reveal" data-i18n="wheel.eyebrow">Only for the brave</span>
+        <h2 id="wheel-title" class="reveal" style="--d:.05s" data-i18n="wheel.title">The Quely wheel</h2>
+        <p class="reveal" style="--d:.1s" data-i18n="wheel.text">Spin it and see what you get: coupons, free products… or punishments like paying double. Only play if you dare!</p>
+        <ul class="wheel-legend reveal" style="--d:.15s">
+          <li class="is-good"><b aria-hidden="true">✓</b><span data-i18n="wheel.goodList">Coupons, free products, 2-for-1, extra spins</span></li>
+          <li class="is-bad"><b aria-hidden="true">✗</b><span data-i18n="wheel.badList">Paying double, losing your discounts, an empty basket…</span></li>
+        </ul>
+        <label class="accept reveal" style="--d:.2s" id="wheel-accept-label"><input type="checkbox" id="wheel-accept"><span class="box" aria-hidden="true"></span><span data-i18n="wheel.accept">I know something bad might happen. I'm in!</span></label>
+        <div class="wheel-actions reveal" style="--d:.25s">
+          <button type="button" class="btn" id="wheel-spin" disabled><span>Spin the wheel</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
+          <span class="wheel-left" id="wheel-left" aria-live="polite"></span>
+        </div>
+        <div class="wheel-result" id="wheel-result" hidden aria-live="polite">
+          <strong id="wheel-result-title"></strong>
+          <p id="wheel-result-text"></p>
+          <button type="button" class="link-plain" data-open-basket data-i18n="toast.view">View basket</button>
+        </div>
+        <div class="wheel-effects" id="wheel-effects"></div>
+      </div>
+      <div class="wheel-stage reveal reveal--pop">
+        <svg class="wheel-svg" id="wheel-svg" viewBox="-232 -244 464 476" role="img" data-i18n-aria="wheel.aria" aria-label="Prize wheel">
+          <circle r="224" fill="#1E0D07" stroke="#E3A440" stroke-width="5"/>
+          <g class="lights"><circle cx="211.0" cy="0.0" r="4.5"/><circle cx="198.3" cy="72.2" r="4.5"/><circle cx="161.6" cy="135.6" r="4.5"/><circle cx="105.5" cy="182.7" r="4.5"/><circle cx="36.6" cy="207.8" r="4.5"/><circle cx="-36.6" cy="207.8" r="4.5"/><circle cx="-105.5" cy="182.7" r="4.5"/><circle cx="-161.6" cy="135.6" r="4.5"/><circle cx="-198.3" cy="72.2" r="4.5"/><circle cx="-211.0" cy="0.0" r="4.5"/><circle cx="-198.3" cy="-72.2" r="4.5"/><circle cx="-161.6" cy="-135.6" r="4.5"/><circle cx="-105.5" cy="-182.7" r="4.5"/><circle cx="-36.6" cy="-207.8" r="4.5"/><circle cx="36.6" cy="-207.8" r="4.5"/><circle cx="105.5" cy="-182.7" r="4.5"/><circle cx="161.6" cy="-135.6" r="4.5"/><circle cx="198.3" cy="-72.2" r="4.5"/></g>
+          <g id="wheel-rot"></g>
+          <circle r="201" fill="none" stroke="#E3A440" stroke-width="3"/>
+          <g class="hub" id="wheel-hub" role="button" tabindex="0" data-i18n-aria="wheel.spin" aria-label="Spin the wheel">
+            <circle class="hub-disc" r="40" fill="#FFF8EC" stroke="#D7261E" stroke-width="6"/>
+            <text y="2" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="900" font-size="20" fill="#D7261E">Quely</text>
+            <text y="20" text-anchor="middle" font-family="Instrument Sans, Arial, sans-serif" font-weight="800" font-size="9" letter-spacing="1.5" fill="#6D5545" data-i18n="wheel.hub">SPIN</text>
+          </g>
+          <path class="pointer" id="wheel-pointer" d="M-18 -242 L18 -242 L0 -196 Z" fill="#D7261E" stroke="#FFFFFF" stroke-width="4" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ FAQ ============ -->
   <section class="faq" id="faq" aria-labelledby="faq-title">
     <div class="wrap">
@@ -1711,8 +1828,8 @@
       </section>
     </div>
     <footer class="drawer-foot">
-      <div class="subtotal discount-row" id="discount-row" hidden><span data-i18n="basket.discount">Code QUELY1853 (−10%)</span><span id="discount-amount"></span></div>
-      <div class="subtotal"><span data-i18n="basket.subtotal">Subtotal</span><strong id="basket-subtotal">0,00 €</strong></div>
+      <div class="adjust" id="basket-adjust"></div>
+      <div class="subtotal"><span data-i18n="basket.subtotal">Total</span><strong id="basket-subtotal">0,00 €</strong></div>
       <button class="btn btn--block" type="button" id="checkout"><span data-i18n="basket.checkout">Checkout</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
       <p class="note" id="basket-note" aria-live="polite"></p>
     </footer>
@@ -1770,6 +1887,25 @@
       'about.text': 'For over 170 years, Quely has made cookies and snacks on the island, with simple recipes and local ingredients such as olive oil. Three generations of know-how in every bite.',
       'stat.1': 'Our beginnings', 'stat.2': 'Natural olive oil', 'stat.3': 'Made on the island',
       'about.btn': 'Our story',
+      'wheel.eyebrow': 'Only for the brave', 'wheel.title': 'The Quely wheel',
+      'wheel.text': 'Spin it and see what you get: coupons, free products… or punishments like paying double. Only play if you dare!',
+      'wheel.goodList': 'Coupons, free products, 2-for-1, extra spins', 'wheel.badList': 'Paying double, losing your discounts, an empty basket…',
+      'wheel.accept': "I know something bad might happen. I'm in!", 'wheel.spin': 'Spin the wheel', 'wheel.spinning': 'Spinning…',
+      'wheel.left': 'Spins left: {n}', 'wheel.none': 'No spins left. Reload the page to play again.', 'wheel.active': 'Active effects',
+      'wheel.aria': 'Prize wheel', 'wheel.hub': 'SPIN',
+      'w.coupon': 'Coupon|−15%', 'w.double': 'Pay|x2', 'w.free': 'Free|Quelitas', 'w.burnt': 'Burnt|cookie',
+      'w.twoforone': '2-for-1|Quelitos', 'w.lose': 'Bye-bye|discounts', 'w.extra': 'Extra|spin', 'w.drop': 'Basket|dropped!',
+      'wr.coupon.t': '15% off coupon!', 'wr.coupon.d': 'A 15% discount has been added to your basket.',
+      'wr.double.t': 'You pay double!', 'wr.double.d': 'Bad luck: until you reload the page, your basket costs twice as much. Maybe another spin will make up for it…',
+      'wr.free.t': 'Free Quelitas!', 'wr.free.d': "We've put a free pack of Quelitas in your basket.",
+      'wr.burnt.t': 'Burnt cookie', 'wr.burnt.d': "You got a burnt cookie. Nothing happens… but you don't win anything either.",
+      'wr.twoforone.t': '2-for-1 on Quelitos!', 'wr.twoforone.d': 'For every two packs of Quelitos, you only pay for one.',
+      'wr.lose.t': 'Bye-bye discounts', 'wr.lose.d': 'All your discounts and coupons have been removed.',
+      'wr.extra.t': 'Extra spin!', 'wr.extra.d': 'You get one more spin. Go again!',
+      'wr.drop.t': 'You dropped your basket!', 'wr.drop.d': "Oops… your basket is empty now. You'll have to fill it up again.",
+      'eff.coupon': '−15% coupon', 'eff.promo': 'Code QUELY1853 −10%', 'eff.2x1': '2-for-1 Quelitos', 'eff.free': 'Free Quelitas ×{n}', 'eff.double': 'Paying x2',
+      'adj.2x1': '2-for-1 Quelitos', 'adj.double': 'Pay x2 (wheel)', 'adj.disc': 'Discounts (−{p}%)',
+      'basket.free': 'Gift from the wheel', 'basket.freeTag': 'Free',
       'quiz.eyebrow': 'Quick test', 'quiz.title': 'Which Quely are you?', 'quiz.sub': 'Three questions, ten seconds, one perfect match.',
       'quiz.count': 'Question {n} of 3', 'quiz.your': 'Your match', 'quiz.is': "You're {name}!", 'quiz.again': 'Take the test again',
       'quiz.q1': 'When do you fancy a Quely?', 'quiz.q1a': 'With my morning coffee', 'quiz.q1b': 'For an afternoon snack', 'quiz.q1c': "Any time: it's a treat!",
@@ -1833,7 +1969,7 @@
       'add': 'Add to basket', 'added': '{name} added to your basket', 'toast.view': 'View basket',
       'basket.title': 'Your basket', 'basket.empty': 'Your basket is empty. Time for a snack?',
       'basket.more': 'Add some cookies', 'basket.add': 'Add', 'basket.remove': 'Remove', 'basket.each': '{p} each',
-      'basket.subtotal': 'Subtotal', 'basket.checkout': 'Checkout',
+      'basket.subtotal': 'Total', 'basket.checkout': 'Checkout',
       'basket.ship': 'Shipping is calculated at checkout.',
       'basket.demo': "Demo mode: the online shop isn't connected yet, so no order has been placed.",
     },
@@ -1872,6 +2008,25 @@
       'about.text': 'Desde hace más de 170 años, Quely elabora galletas y snacks en la isla, con recetas sencillas e ingredientes locales como el aceite de oliva. Tres generaciones de saber hacer en cada bocado.',
       'stat.1': 'Nuestros inicios', 'stat.2': 'Aceite de oliva natural', 'stat.3': 'Hecho en la isla',
       'about.btn': 'Nuestra historia',
+      'wheel.eyebrow': 'Solo para valientes', 'wheel.title': 'La ruleta Quely',
+      'wheel.text': 'Gírala y descubre qué te toca: cupones, productos gratis… o castigos como pagar el doble. ¡Juega solo si te atreves!',
+      'wheel.goodList': 'Cupones, productos gratis, 2x1, tiradas extra', 'wheel.badList': 'Pagar el doble, perder tus descuentos, quedarte sin cesta…',
+      'wheel.accept': 'Sé que me puede tocar algo malo. ¡Me la juego!', 'wheel.spin': 'Girar la ruleta', 'wheel.spinning': 'Girando…',
+      'wheel.left': 'Tiradas: {n}', 'wheel.none': 'No te quedan tiradas. Recarga la página para volver a jugar.', 'wheel.active': 'Efectos activos',
+      'wheel.aria': 'Ruleta de premios', 'wheel.hub': 'GIRAR',
+      'w.coupon': 'Cupón|−15 %', 'w.double': 'Pagas|x2', 'w.free': 'Quelitas|gratis', 'w.burnt': 'Galleta|quemada',
+      'w.twoforone': '2x1|Quelitos', 'w.lose': 'Adiós|descuentos', 'w.extra': 'Tirada|extra', 'w.drop': '¡Cesta al|suelo!',
+      'wr.coupon.t': '¡Cupón del 15 %!', 'wr.coupon.d': 'Se ha aplicado un 15 % de descuento a tu cesta.',
+      'wr.double.t': '¡Pagas el doble!', 'wr.double.d': 'Mala suerte: hasta que recargues la página, tu cesta cuesta el doble. A lo mejor otra tirada lo compensa…',
+      'wr.free.t': '¡Quelitas gratis!', 'wr.free.d': 'Te hemos metido un paquete de Quelitas de regalo en la cesta.',
+      'wr.burnt.t': 'Galleta quemada', 'wr.burnt.d': 'Te ha tocado una galleta quemada. No pasa nada… pero tampoco ganas nada.',
+      'wr.twoforone.t': '¡2x1 en Quelitos!', 'wr.twoforone.d': 'Por cada dos paquetes de Quelitos, pagas solo uno.',
+      'wr.lose.t': 'Adiós descuentos', 'wr.lose.d': 'Se han borrado todos tus descuentos y cupones.',
+      'wr.extra.t': '¡Tirada extra!', 'wr.extra.d': 'Tienes una tirada más. ¡Vuelve a girar!',
+      'wr.drop.t': '¡Se te ha caído la cesta!', 'wr.drop.d': 'Ups… tu cesta se ha vaciado. Tendrás que volver a llenarla.',
+      'eff.coupon': 'Cupón −15 %', 'eff.promo': 'Código QUELY1853 −10 %', 'eff.2x1': '2x1 en Quelitos', 'eff.free': 'Quelitas gratis ×{n}', 'eff.double': 'Pagas x2',
+      'adj.2x1': '2x1 Quelitos', 'adj.double': 'Pagas x2 (ruleta)', 'adj.disc': 'Descuentos (−{p} %)',
+      'basket.free': 'Regalo de la ruleta', 'basket.freeTag': 'Gratis',
       'quiz.eyebrow': 'Test rápido', 'quiz.title': '¿Qué Quely eres?', 'quiz.sub': 'Tres preguntas, diez segundos y tu galleta ideal.',
       'quiz.count': 'Pregunta {n} de 3', 'quiz.your': 'Tu resultado', 'quiz.is': '¡Eres {name}!', 'quiz.again': 'Repetir el test',
       'quiz.q1': '¿Cuándo te apetece una Quely?', 'quiz.q1a': 'Con el café de la mañana', 'quiz.q1b': 'Para merendar', 'quiz.q1c': 'A cualquier hora: ¡es un capricho!',
@@ -1935,7 +2090,7 @@
       'add': 'Añadir a la cesta', 'added': '{name} añadido a tu cesta', 'toast.view': 'Ver cesta',
       'basket.title': 'Tu cesta', 'basket.empty': 'Tu cesta está vacía. ¿Una merienda?',
       'basket.more': 'Añade galletas', 'basket.add': 'Añadir', 'basket.remove': 'Quitar', 'basket.each': '{p} c/u',
-      'basket.subtotal': 'Subtotal', 'basket.checkout': 'Finalizar compra',
+      'basket.subtotal': 'Total', 'basket.checkout': 'Finalizar compra',
       'basket.ship': 'El envío se calcula al finalizar la compra.',
       'basket.demo': 'Modo demo: la tienda online aún no está conectada, así que no se ha hecho ningún pedido.',
     },
@@ -2559,7 +2714,7 @@
   let shown = new Set(), noteWarn = false;
 
   function renderBadge(bump) {
-    const n = count();
+    const n = count() + wheel.free;
     badge.hidden = n === 0;
     badge.textContent = n;
     if (bump && !reduceMotion) { badge.classList.remove('bump'); void badge.offsetWidth; badge.classList.add('bump'); }
@@ -2576,9 +2731,10 @@
       const li = document.createElement('li');
       li.className = 'basket-item' + (shown.has(id) ? '' : ' is-new');
       li.dataset.id = id;
+      const tag = id === 'quelitos' && wheel.twoForOne ? '<span class="tag-2x1">2x1</span>' : '';
       li.innerHTML = `
         <span class="thumb"></span>
-        <div><span class="item-name">${pr.name}</span><span class="item-meta">${t('basket.each').replace('{p}', money(pr.price))}</span></div>
+        <div><span class="item-name">${pr.name}${tag}</span><span class="item-meta">${t('basket.each').replace('{p}', money(pr.price))}</span></div>
         <div class="item-side">
           <div class="qty qty--sm">
             <button type="button" data-q="-1" aria-label="${t('qty.less')}">−</button>
@@ -2590,14 +2746,40 @@
       li.querySelector('.thumb').append(bagOf(id));
       list.append(li);
     }
+    if (wheel.free) {
+      const li = document.createElement('li');
+      li.className = 'basket-item' + (shown.has('free') ? '' : ' is-new');
+      li.dataset.id = 'free';
+      now.add('free');
+      li.innerHTML = `
+        <span class="thumb"></span>
+        <div><span class="item-name">Quelitas × ${wheel.free}</span><span class="item-meta">${t('basket.free')}</span></div>
+        <div class="item-side"><strong class="free-tag">${t('basket.freeTag')}</strong><button type="button" class="remove">${t('basket.remove')}</button></div>`;
+      li.querySelector('.thumb').append(bagOf('quelitas'));
+      list.append(li);
+    }
     shown = now;
-    empty.hidden = count() > 0;
-    const disc = promo && total ? Math.round(total * 10) / 100 : 0;
-    $('#discount-row').hidden = !disc;
-    $('#discount-amount').textContent = '−' + money(disc);
-    subtotalEl.textContent = money(total - disc);
-    checkoutBtn.disabled = count() === 0;
-    if (!count()) noteWarn = false;
+    const items = count() + wheel.free;
+    empty.hidden = items > 0;
+
+    // price adjustments: 2x1, pay double, discounts
+    const rows = [];
+    let sub = total;
+    if (wheel.twoForOne && (basket.quelitos || 0) >= 2) {
+      const off = PRODUCTS.quelitos.price * Math.floor(basket.quelitos / 2);
+      rows.push([t('adj.2x1'), -off]); sub -= off;
+    }
+    if (wheel.double && sub > 0) { rows.push([t('adj.double'), sub]); sub *= 2; }
+    const pct = (promo ? 10 : 0) + (wheel.coupon ? 15 : 0);
+    if (pct && sub > 0) {
+      const off = Math.round(sub * pct) / 100;
+      rows.push([t('adj.disc').replace('{p}', pct), -off]); sub -= off;
+    }
+    $('#basket-adjust').innerHTML = rows.map(([label, v]) =>
+      `<div class="adjust-row ${v < 0 ? 'is-good' : 'is-bad'}"><span>${label}</span><span>${v < 0 ? '−' : '+'}${money(Math.abs(v))}</span></div>`).join('');
+    subtotalEl.textContent = money(sub);
+    checkoutBtn.disabled = items === 0;
+    if (!items) noteWarn = false;
     note.textContent = t(noteWarn ? 'basket.demo' : 'basket.ship');
     note.classList.toggle('is-warn', noteWarn);
 
@@ -2619,7 +2801,10 @@
     if (!li) return;
     const id = li.dataset.id;
     let focusSel = null;
-    if (e.target.closest('.remove')) {
+    if (id === 'free') {
+      if (!e.target.closest('.remove')) return;
+      wheel.free = 0;
+    } else if (e.target.closest('.remove')) {
       delete basket[id];
     } else {
       const b = e.target.closest('[data-q]');
@@ -2683,7 +2868,7 @@
   }
 
   checkoutBtn.addEventListener('click', () => {
-    if (!count()) return;
+    if (!count() && !wheel.free) return;
     if (SHOP_URL) { location.href = SHOP_URL; return; }
     noteWarn = true;
     renderBasket();
@@ -2982,7 +3167,7 @@
   applyBtn.addEventListener('click', () => {
     promo = true;
     store.set('quely-promo', '1');
-    renderPromoBtn(); renderBasket();
+    renderPromoBtn(); renderBasket(); renderWheelUI();
     showToast(t('scratch.applied'));
   });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (!touched && !scratched) drawFlour(); });
@@ -3244,6 +3429,149 @@
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(gameDraw);
   gameResize();
 
+  /* ---------- The Quely wheel: prizes… and punishments ---------- */
+  // effects last until the page is reloaded
+  const WHEEL = [
+    { id: 'coupon', good: true, color: '#D7261E', ink: '#FFFFFF' },
+    { id: 'double', good: false, color: '#2A1A11', ink: '#FFB9A0' },
+    { id: 'free', good: true, color: '#E3A440', ink: '#2A1A11' },
+    { id: 'burnt', good: false, color: '#4A2C1B', ink: '#F6E7D2' },
+    { id: 'twoforone', good: true, color: '#D7261E', ink: '#FFFFFF' },
+    { id: 'lose', good: false, color: '#2A1A11', ink: '#FFB9A0' },
+    { id: 'extra', good: true, color: '#E3A440', ink: '#2A1A11' },
+    { id: 'drop', good: false, color: '#4A2C1B', ink: '#F6E7D2' },
+  ];
+  const SEG = 360 / WHEEL.length;
+  const wheelSvg = $('#wheel-svg'), wheelRot = $('#wheel-rot'), wheelBtn = $('#wheel-spin'), wheelAccept = $('#wheel-accept');
+  const wheelResultEl = $('#wheel-result'), wheelEffectsEl = $('#wheel-effects'), wheelLeftEl = $('#wheel-left');
+  const wheelPointer = $('#wheel-pointer'), acceptLabel = $('#wheel-accept-label');
+  let wheel = { coupon: false, double: false, twoForOne: false, free: 0 };
+  let spinsLeft = 3, spinning = false, wheelAngle = 0, lastWheel = null;
+
+  function buildWheel() {
+    const R = 200;
+    let segs = '', labels = '';
+    WHEEL.forEach((s, i) => {
+      const c = i * SEG - 90, a0 = (c - SEG / 2) * Math.PI / 180, a1 = (c + SEG / 2) * Math.PI / 180;
+      segs += `<path class="seg" data-i="${i}" d="M0 0L${(R * Math.cos(a0)).toFixed(2)} ${(R * Math.sin(a0)).toFixed(2)}A${R} ${R} 0 0 1 ${(R * Math.cos(a1)).toFixed(2)} ${(R * Math.sin(a1)).toFixed(2)}Z" fill="${s.color}" stroke="#FFE3A0" stroke-opacity=".45" stroke-width="2"/>`;
+      const [l1, l2] = t('w.' + s.id).split('|');
+      labels += `<g transform="rotate(${i * SEG})">
+        <use href="#mini-cookie" x="-14" y="${-R * .92}" width="28" height="28"${s.good ? '' : ' class="burnt-ico"'}/>
+        <text class="seg-label" fill="${s.ink}" y="${-R * .58}">${l2 ? `<tspan x="0" dy="-.25em">${l1}</tspan><tspan x="0" dy="1.15em">${l2}</tspan>` : l1}</text>
+      </g>`;
+    });
+    wheelRot.innerHTML = `<g class="segs">${segs}</g>${labels}`;
+    if (lastWheel && !spinning) {
+      const seg = $(`.seg[data-i="${WHEEL.findIndex(x => x.id === lastWheel)}"]`, wheelRot);
+      if (seg) seg.classList.add('is-win');
+    }
+  }
+
+  function renderWheelUI() {
+    wheelBtn.disabled = spinning || !spinsLeft || !wheelAccept.checked;
+    wheelBtn.querySelector('span').textContent = t(spinning ? 'wheel.spinning' : 'wheel.spin');
+    wheelLeftEl.textContent = spinsLeft ? t('wheel.left').replace('{n}', spinsLeft) : t('wheel.none');
+    wheelSvg.classList.toggle('is-locked', !wheelAccept.checked);
+    wheelSvg.classList.toggle('is-spinning', spinning);
+    if (lastWheel) {
+      $('#wheel-result-title').textContent = t('wr.' + lastWheel + '.t');
+      $('#wheel-result-text').textContent = t('wr.' + lastWheel + '.d');
+    }
+    const chips = [];
+    if (wheel.coupon) chips.push(['good', t('eff.coupon')]);
+    if (promo) chips.push(['good', t('eff.promo')]);
+    if (wheel.twoForOne) chips.push(['good', t('eff.2x1')]);
+    if (wheel.free) chips.push(['good', t('eff.free').replace('{n}', wheel.free)]);
+    if (wheel.double) chips.push(['bad', t('eff.double')]);
+    wheelEffectsEl.innerHTML = chips.length
+      ? `<span class="eff-title">${t('wheel.active')}</span>` + chips.map(([k, l]) => `<span class="eff eff--${k}">${l}</span>`).join('')
+      : '';
+  }
+
+  function wheelTick() {
+    if (!soundOn) return;
+    try {
+      audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+      const o = audio.createOscillator(), g = audio.createGain(), now = audio.currentTime;
+      o.type = 'square'; o.frequency.value = 1500;
+      g.gain.setValueAtTime(.04, now); g.gain.exponentialRampToValueAtTime(.0001, now + .04);
+      o.connect(g).connect(audio.destination); o.start(now); o.stop(now + .05);
+    } catch (_) { /* no audio */ }
+  }
+
+  function applyEffect(id) {
+    switch (id) {
+      case 'coupon': wheel.coupon = true; break;
+      case 'double': wheel.double = true; break;
+      case 'free': wheel.free++; break;
+      case 'twoforone': wheel.twoForOne = true; break;
+      case 'lose':
+        wheel.coupon = false; wheel.twoForOne = false;
+        promo = false; store.set('quely-promo', '0'); renderPromoBtn();
+        break;
+      case 'extra': spinsLeft++; break;
+      case 'drop': basket = {}; wheel.free = 0; saveBasket(); break;
+    }
+    renderBasket();
+    renderBadge(id === 'free');
+  }
+
+  function finishSpin(i) {
+    spinning = false;
+    const s = WHEEL[i];
+    lastWheel = s.id;
+    applyEffect(s.id);
+    $$('.seg', wheelRot).forEach(p => p.classList.toggle('is-win', +p.dataset.i === i));
+    wheelResultEl.className = 'wheel-result ' + (s.good ? 'is-good' : 'is-bad');
+    wheelResultEl.hidden = false;
+    renderWheelUI();
+    if (s.good) { burst(wheelSvg.getBoundingClientRect(), 26); crunch(true); }
+    else if (!reduceMotion) {
+      wheelSvg.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-12px)' }, { transform: 'translateX(12px)' }, { transform: 'translateX(-8px)' }, { transform: 'translateX(0)' }], { duration: 450 });
+    }
+  }
+
+  function spin() {
+    if (spinning || !spinsLeft || !wheelAccept.checked) return;
+    spinning = true;
+    spinsLeft--;
+    wheelResultEl.hidden = true;
+    $$('.seg', wheelRot).forEach(p => p.classList.remove('is-win'));
+    renderWheelUI();
+    const pick = Math.floor(Math.random() * WHEEL.length);
+    const current = ((wheelAngle % 360) + 360) % 360;
+    const target = wheelAngle + (360 - current) + 360 * 5 + (360 - pick * SEG) % 360 + (Math.random() - .5) * SEG * .7;
+    const start = wheelAngle, dur = reduceMotion ? 400 : 5200, t0 = performance.now();
+    let lastSeg = Math.floor((start + SEG / 2) / SEG);
+    (function frame(now) {
+      const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 4);
+      wheelAngle = start + (target - start) * e;
+      wheelRot.setAttribute('transform', `rotate(${wheelAngle.toFixed(2)})`);
+      const seg = Math.floor((wheelAngle + SEG / 2) / SEG);
+      if (seg !== lastSeg) {
+        lastSeg = seg;
+        wheelTick();
+        if (!reduceMotion) wheelPointer.animate([{ transform: 'rotate(-22deg)' }, { transform: 'rotate(0deg)' }], { duration: 140, easing: 'ease-out' });
+      }
+      if (k < 1) requestAnimationFrame(frame);
+      else finishSpin(pick);
+    })(t0);
+  }
+
+  function trySpin() {
+    if (!wheelAccept.checked) {
+      acceptLabel.classList.remove('is-nudge'); void acceptLabel.offsetWidth; acceptLabel.classList.add('is-nudge');
+      wheelAccept.focus();
+      return;
+    }
+    spin();
+  }
+  wheelBtn.addEventListener('click', spin);
+  $('#wheel-hub').addEventListener('click', trySpin);
+  $('#wheel-hub').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trySpin(); } });
+  wheelAccept.addEventListener('change', renderWheelUI);
+  acceptLabel.addEventListener('animationend', () => acceptLabel.classList.remove('is-nudge'));
+
   /* ---------- Language switch ---------- */
   function applyLang(next) {
     lang = next;
@@ -3266,6 +3594,8 @@
     renderQuiz(false);
     renderPromoBtn();
     renderOven();
+    buildWheel();
+    renderWheelUI();
     renderGameText();
     if (!touched && !scratched) drawFlour();
     kick();

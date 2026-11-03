@@ -11,6 +11,11 @@ Landing page de ejemplo para una escuela de surf ficticia en Somo (Cantabria). E
 - **Test "¿Qué Quely eres?"**: tres preguntas con barra de progreso. Al terminar sale el producto que te corresponde con una explosión de galletas, y se puede añadir a la cesta desde ahí.
 - **Rasca la harina**: la foto del obrador está cubierta de harina. Al rascar con el ratón o el dedo (el cursor es una galleta) cae harina y aparece un código de descuento del 10 % (QUELY1853, de demostración) que se aplica a la cesta con un botón. También se puede descubrir sin rascar.
 - **Minijuego "¡Atrapa las galletas!"**: se mueve un bol con el ratón, el dedo o las flechas del teclado. Quelita +1 punto, Quelito +3, y las galletas quemadas quitan una vida (hay 3). Cada vez caen más rápido y más quemadas. Guarda el récord en el navegador. Se pausa solo si dejas de verlo.
+- **La ruleta Quely** (solo para valientes): para girarla hay que marcar "Sé que me puede tocar algo malo. ¡Me la juego!". Hay 3 tiradas por visita y 8 casillas:
+  - Buenas: cupón −15 %, Quelitas gratis (se añade un paquete de regalo a la cesta), 2x1 en Quelitos y tirada extra.
+  - Malas: pagas x2 (la cesta cuesta el doble), adiós descuentos (se borran cupones, 2x1 y el código de "Rasca la harina"), galleta quemada (no pasa nada) y cesta al suelo (se vacía la cesta).
+  - Todo se aplica de verdad en la cesta, con una línea por cada efecto. Los efectos duran hasta que recargas la página.
+  - Suena un clic en cada casilla y la flecha se mueve al pasar. Si ganas, salen galletas volando. Si pierdes, la ruleta tiembla.
 - **Preguntas frecuentes** desplegables.
 - **Formulario de reserva**. Es una demostración: no envía datos a ningún sitio.
 
@@ -54,7 +59,7 @@ Web de una sola página hecha a partir del wireframe "MacBook Air" de Figma. Abr
 
 ## Secciones
 
-Portada · franja animada · Sobre nosotros · La isla · Productos · Test "¿Qué Quely eres?" · Opiniones · Rasca la harina · Minijuego · Preguntas frecuentes · Contacto · Pie.
+Portada · franja animada · Sobre nosotros · La isla · Productos · Test "¿Qué Quely eres?" · Opiniones · Rasca la harina · Minijuego · Ruleta · Preguntas frecuentes · Contacto · Pie.
 
 ## Qué se puede hacer
 
@@ -65,6 +70,11 @@ Portada · franja animada · Sobre nosotros · La isla · Productos · Test "¿Q
 - **Test "¿Qué Quely eres?"**: tres preguntas con barra de progreso. Al terminar sale el producto que te corresponde con una explosión de galletas, y se puede añadir a la cesta desde ahí.
 - **Rasca la harina**: la foto del obrador está cubierta de harina. Al rascar con el ratón o el dedo (el cursor es una galleta) cae harina y aparece un código de descuento del 10 % (QUELY1853, de demostración) que se aplica a la cesta con un botón. También se puede descubrir sin rascar.
 - **Minijuego "¡Atrapa las galletas!"**: se mueve un bol con el ratón, el dedo o las flechas del teclado. Quelita +1 punto, Quelito +3, y las galletas quemadas quitan una vida (hay 3). Cada vez caen más rápido y más quemadas. Guarda el récord en el navegador. Se pausa solo si dejas de verlo.
+- **La ruleta Quely** (solo para valientes): para girarla hay que marcar "Sé que me puede tocar algo malo. ¡Me la juego!". Hay 3 tiradas por visita y 8 casillas:
+  - Buenas: cupón −15 %, Quelitas gratis (se añade un paquete de regalo a la cesta), 2x1 en Quelitos y tirada extra.
+  - Malas: pagas x2 (la cesta cuesta el doble), adiós descuentos (se borran cupones, 2x1 y el código de "Rasca la harina"), galleta quemada (no pasa nada) y cesta al suelo (se vacía la cesta).
+  - Todo se aplica de verdad en la cesta, con una línea por cada efecto. Los efectos duran hasta que recargas la página.
+  - Suena un clic en cada casilla y la flecha se mueve al pasar. Si ganas, salen galletas volando. Si pierdes, la ruleta tiembla.
 - **Preguntas frecuentes** desplegables. "Envíos" y "Devoluciones" del pie abren la pregunta que toca.
 
 ## Animaciones

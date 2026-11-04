@@ -126,7 +126,13 @@ Portada · franja animada · Sobre nosotros · La isla · Productos · Test "¿Q
 - **Horno interactivo**: al pulsar "Encender el horno" sube la temperatura y corre el tiempo. Las galletas pasan de masa cruda (brillante, irregular y con burbujas) a hinchadas, redondas y doradas. Un medidor muestra si van crudas, perfectas o quemadas, y el botón se pone verde y late cuando están en su punto. Si te pasas, se oscurecen y echan humo. Al sacarlas sale el resultado, y se cuentan las tandas perfectas. Las de los bordes de la bandeja se hacen un poco antes que las del centro.
 - **Cifras** que cuentan solas, **tarjetas en 3D** que siguen al ratón y **galleta "volver arriba"** que se va comiendo según lees.
 - **Logo gigante** del pie que se llena de rojo.
-- **La isla**: una ilustración de Mallorca a todo el ancho, con mar, barcos, olivos que se mueven con el viento y un molino que gira más rápido si lo pulsas. El sol es una galleta gigante que se va poniendo detrás de las montañas según bajas.
+- **La isla: "Del campo a tu galleta"**: la ilustración de Mallorca ahora es una búsqueda de ingredientes que cuenta cómo se hace una Quelita.
+  - Hay cuatro puntos que brillan: en el olivo (aceite de oliva), junto al molino (harina), en el mar (una pizca de sal) y en un obrador con chimenea (el horno). Cada uno abre una tarjeta que explica ese ingrediente.
+  - La tarjeta "Tu receta" va marcando lo encontrado (0 de 4) con una barra de progreso.
+  - Con los cuatro, se hornea la Quelita y se consigue un **diploma de maestro galletero con tu nombre y la fecha**, que se puede **descargar como imagen PNG**.
+  - Secreto: Galleta, la gata, duerme en el tejado del obrador.
+  - En el móvil, la isla se recorre deslizando el dedo.
+  - Siguen el sol-galleta que se pone al bajar, los barcos, los olivos que se mueven con el viento y el molino que gira al pulsarlo.
 - **Retratos ilustrados** en las opiniones (parpadean de vez en cuando) e **iconos dibujados** en "Nuestra historia".
 
 Con "reducir movimiento" activado en el dispositivo, todo se ve completo y sin animar.

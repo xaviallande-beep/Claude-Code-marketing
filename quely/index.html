@@ -1361,6 +1361,99 @@
   }
 
   /* =========================================================
+     The island: ingredient hunt + diploma
+     ========================================================= */
+  .island-pan { position: relative; }
+  .island-inner { position: relative; }
+  .island-art .spot { cursor: pointer; }
+  .island-art .spot:focus { outline: none; }
+  .spot-ring { fill: rgba(255, 255, 255, .35); stroke: #FFFFFF; stroke-width: 2; transform-box: fill-box; transform-origin: center; animation: spot-pulse 1.8s ease-out infinite; }
+  @keyframes spot-pulse { 0% { transform: scale(.6); opacity: 1; } 100% { transform: scale(1.7); opacity: 0; } }
+  .spot-dot { fill: var(--red); stroke: #FFFFFF; stroke-width: 3; transform-box: fill-box; transform-origin: center; transition: transform .3s var(--ease-spring), fill .3s; }
+  .spot:hover .spot-dot, .spot:focus-visible .spot-dot { transform: scale(1.18); }
+  .spot:focus-visible .spot-dot { stroke: var(--gold); }
+  .spot-q { fill: #FFFFFF; font: 800 16px "Instrument Sans", Arial, sans-serif; text-anchor: middle; pointer-events: none; }
+  .spot-ok { display: none; fill: none; stroke: #FFFFFF; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+  .spot.is-found .spot-dot { fill: #2F7A3E; }
+  .spot.is-found .spot-q { display: none; }
+  .spot.is-found .spot-ok { display: inline; }
+  .spot.is-found .spot-ring { animation: none; opacity: 0; }
+  .chimney-smoke circle { opacity: 0; transform-box: fill-box; transform-origin: center; animation: chimney 3s ease-out infinite; }
+  .chimney-smoke circle:nth-child(2) { animation-delay: -1s; }
+  .chimney-smoke circle:nth-child(3) { animation-delay: -2s; }
+  @keyframes chimney { 0% { opacity: .8; transform: translate(0, 8px) scale(.5); } 100% { opacity: 0; transform: translate(10px, -26px) scale(1.4); } }
+  .roof-cat { cursor: pointer; }
+  .roof-cat:focus { outline: none; }
+  .roof-cat:focus-visible ellipse { stroke: var(--red); stroke-width: 2; }
+  .roof-z { animation: zzz 2.6s ease-in-out infinite; }
+  .spot-card {
+    position: absolute; z-index: 5; width: min(290px, calc(100vw - 32px));
+    padding: 18px 18px 16px; border-radius: 20px;
+    background: var(--white); color: var(--ink); box-shadow: var(--shadow-2), 0 0 0 2px var(--sand-2);
+    animation: bubble-in .45s var(--ease-spring);
+  }
+  .spot-card[hidden] { display: none; }
+  .spot-card strong { display: block; margin: 6px 0 4px; font-family: var(--font-display); font-size: 1.35rem; line-height: 1.15; }
+  .spot-card p { margin: 0; font-size: .9rem; color: var(--muted); }
+  .spot-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--sand); }
+  .spot-icon svg { width: 32px; height: 32px; }
+  .spot-new { position: absolute; top: 18px; right: 52px; padding: .25em .7em; border-radius: 999px; background: #E9F6EA; color: #2F7A3E; font-size: .72rem; font-weight: 800; }
+  .spot-new[hidden] { display: none; }
+  .spot-close { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 50%; background: var(--sand); color: var(--ink); cursor: pointer; }
+  .spot-close svg { width: 14px; height: 14px; }
+  .recipe-wrap { position: relative; padding: 0 0 80px; background: #B88A45; }
+  .pan-hint { display: none; margin: 0; padding: 10px 0 14px; text-align: center; font-size: .85rem; font-weight: 700; color: var(--brown); }
+  .recipe {
+    display: grid; grid-template-columns: minmax(180px, 230px) 1fr minmax(240px, 330px); gap: 24px; align-items: center;
+    padding: clamp(18px, 3vw, 28px); border-radius: 24px; background: var(--cream); box-shadow: var(--shadow-2);
+  }
+  .recipe-head { display: grid; gap: 6px; }
+  .recipe-count { font-family: var(--font-display); font-size: 1.35rem; }
+  .recipe-bar { height: 8px; border-radius: 8px; background: var(--sand-2); overflow: hidden; }
+  .recipe-bar i { display: block; height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--gold), #2F7A3E); transition: width .6s var(--ease-out); }
+  .recipe-secret { justify-self: start; padding: .2em .7em; border-radius: 999px; background: #FBE3DF; color: var(--red-deep); font-size: .74rem; font-weight: 800; }
+  .recipe-secret[hidden] { display: none; }
+  .recipe-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 0; padding: 0; list-style: none; }
+  .recipe-slots li { display: grid; justify-items: center; gap: 6px; font-size: .8rem; font-weight: 700; color: var(--muted); text-align: center; }
+  .slot-ico {
+    display: grid; place-items: center; width: 58px; height: 58px; border-radius: 18px;
+    border: 2px dashed var(--line); background: var(--sand);
+    transition: background-color .3s, border-color .3s, transform .5s var(--ease-spring);
+  }
+  .slot-ico svg { width: 34px; height: 34px; filter: grayscale(1); opacity: .3; transition: filter .4s, opacity .4s; }
+  .recipe-slots li.is-found { color: var(--ink); }
+  .recipe-slots li.is-found .slot-ico { border-style: solid; border-color: #9FD7AA; background: var(--white); transform: rotate(-4deg); animation: bump .6s var(--ease-spring); }
+  .recipe-slots li.is-found svg { filter: none; opacity: 1; }
+  .recipe-action { display: grid; gap: 10px; justify-items: start; }
+  .rec-hint { margin: 0; font-size: .92rem; color: var(--muted); }
+  .rec-hint--ok { font-weight: 700; color: #2F7A3E; }
+  .recipe-action .btn svg { width: 1.3em; height: 1.3em; }
+  .rec-form { display: flex; flex-wrap: wrap; gap: 8px; width: 100%; }
+  .rec-form input { flex: 1 1 140px; min-width: 0; padding: .65em 1em; border: 1.5px solid var(--line); border-radius: 999px; background: var(--white); color: var(--ink); font: inherit; }
+  .rec-form input:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 4px rgba(215, 38, 30, .14); }
+  .rec-form input[aria-invalid="true"] { border-color: var(--red); animation: shake .4s; }
+  .recipe-action .link-plain { padding: 0; font-size: .85rem; }
+  .cert-card h2 { margin: 0 50px 16px 0; font-size: clamp(1.5rem, 3.4vw, 2.1rem); }
+  .cert-card img { display: block; width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow-1); }
+  .cert-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 18px; }
+  .cert-actions .btn svg { width: 1.2em; height: 1.2em; }
+  .cert-actions .btn:hover svg { transform: translateY(2px); }
+  .cert-tip { font-size: .85rem; color: var(--muted); }
+  .cert-dlg { width: min(860px, calc(100% - 32px)); }
+  @media (max-width: 960px) {
+    .recipe { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 760px) {
+    .island-pan { overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; margin-top: -40px; }
+    .island-pan::-webkit-scrollbar { display: none; }
+    .island-inner { width: 1080px; }
+    .island-art { width: 1080px; height: 440px; margin-top: 0; }
+    .pan-hint { display: block; }
+    .recipe-slots { gap: 6px; }
+    .slot-ico { width: 52px; height: 52px; }
+  }
+
+  /* =========================================================
      Scroll reveal
      ========================================================= */
   .js .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s var(--ease-out), transform .9s var(--ease-out); transition-delay: var(--d, 0s); }
@@ -1633,11 +1726,12 @@
     <div class="wrap">
       <header class="section-head">
         <span class="eyebrow reveal" data-i18n="island.eyebrow">The island</span>
-        <h2 id="island-title" class="reveal" style="--d:.05s" data-i18n="island.title">Baked on the island, by the sea</h2>
-        <p class="reveal" style="--d:.1s" data-i18n="island.text">Olive trees, sea breeze and the same way of baking since 1853.</p>
-        <span class="pill island-tip reveal" style="--d:.15s" data-i18n="island.tip">Psst… give the windmill a push</span>
+        <h2 id="island-title" class="reveal" style="--d:.05s" data-i18n="island.title">From the field to your cookie</h2>
+        <p class="reveal" style="--d:.1s" data-i18n="island.text">A Quelita starts long before the oven. Explore the island and find the ingredients of our simple recipe.</p>
+        <span class="pill island-tip reveal" style="--d:.15s" data-i18n="island.tip">Tap the glowing dots ✨</span>
       </header>
     </div>
+    <div class="island-pan" id="island-pan"><div class="island-inner" id="island-inner">
     <svg class="island-art" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMax slice" role="group" data-i18n-aria="island.img" aria-label="Illustration of Mallorca: a windmill, olive trees and the sea, with a cookie for a sun">
       <defs>
         <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1">
@@ -1716,6 +1810,7 @@
         <path d="M0 430C150 400 300 394 420 404C520 412 600 430 660 470C700 500 722 530 732 560H0Z" fill="#C9A15E"/>
         <path d="M0 450C160 424 320 420 450 432C540 440 600 462 640 500" stroke="#B38A47" stroke-width="3" fill="none" stroke-dasharray="2 10" stroke-linecap="round"/>
         <use class="tree-a" href="#olive" x="268" y="300" width="120" height="115"/>
+        <g class="spot" data-spot="oil" transform="translate(330 296)" role="button" tabindex="0" aria-label="Discover an ingredient"><circle class="spot-ring" r="24"/><circle class="spot-dot" r="14"/><text class="spot-q" y="5.5">?</text><path class="spot-ok" d="M-6 0l4 4 8-9"/></g>
         <g class="mill" id="mill" role="button" tabindex="0" data-i18n-aria="island.mill" aria-label="Spin the windmill">
           <path class="tower" d="M518 424L528 334H556L566 424Z" fill="#EFE2CB" stroke="#D9C6A2" stroke-width="1.5"/>
           <path d="M530 360h24M528 390h28" stroke="#D9C6A2" stroke-width="2"/>
@@ -1727,14 +1822,41 @@
             <circle r="5" fill="#6B4A2E"/>
           </g>
         </g>
+        <g class="spot" data-spot="flour" transform="translate(604 384)" role="button" tabindex="0" aria-label="Discover an ingredient"><circle class="spot-ring" r="24"/><circle class="spot-dot" r="14"/><text class="spot-q" y="5.5">?</text><path class="spot-ok" d="M-6 0l4 4 8-9"/></g>
       </g>
 
       <!-- headland (right) -->
       <g class="layer" style="--d:12">
         <path d="M1440 402C1300 396 1180 414 1080 450C1000 478 962 520 944 560H1440Z" fill="#C9A15E"/>
-        <use class="tree-c" href="#olive" x="1140" y="318" width="120" height="115"/>
-        <use href="#olive" x="1312" y="306" width="96" height="92"/>
+        <use class="tree-c" href="#olive" x="1262" y="300" width="120" height="115"/>
+        <g class="bakery">
+          <path d="M1074 452C1100 432 1196 428 1226 444V470H1074Z" fill="#C9A15E"/>
+          <rect x="1096" y="384" width="96" height="58" fill="#EFE2CB" stroke="#D9C6A2" stroke-width="1.5"/>
+          <path d="M1098 398h92M1098 412h92M1098 426h92" stroke="#E2D2B4" stroke-width="1"/>
+          <rect x="1168" y="348" width="11" height="28" fill="#D9C6A2"/>
+          <g class="chimney-smoke" fill="#FFFFFF"><circle cx="1174" cy="340" r="6"/><circle cx="1178" cy="330" r="8"/><circle cx="1171" cy="318" r="10"/></g>
+          <path d="M1086 389L1144 355L1202 389Z" fill="#C8643C" stroke="#A84E2C" stroke-width="2" stroke-linejoin="round"/>
+          <rect x="1106" y="402" width="16" height="18" rx="2" fill="#3F7D4E"/><rect x="1166" y="402" width="16" height="18" rx="2" fill="#3F7D4E"/>
+          <path d="M1114 402v18M1174 402v18" stroke="#2E5E3A" stroke-width="1.5"/>
+          <path d="M1132 442v-18a12 12 0 0 1 24 0v18z" fill="#8C5A35"/>
+          <rect x="1126" y="391" width="36" height="11" rx="5.5" fill="#D7261E"/>
+          <text x="1144" y="399.5" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="900" font-size="8" fill="#FFFFFF">Quely</text>
+          <g class="roof-cat" role="button" tabindex="0" data-i18n-aria="spot.cat.aria" aria-label="Someone is sleeping on the roof">
+            <g transform="translate(1110 372) rotate(-30)">
+              <path d="M-12 -2q-8 5-3 10" stroke="#E08E45" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+              <ellipse cx="0" cy="-5" rx="12" ry="6.5" fill="#E8A15A"/>
+              <circle cx="10" cy="-8" r="5.8" fill="#E8A15A"/>
+              <path d="M6.5-12l1.5-5.5 3.2 4.2zM12-12.5l2.6-5 1.6 5.6z" fill="#E8A15A"/>
+              <path d="M7.5-8.5q1.4 1.2 2.8 0M11.5-8.5q1.4 1.2 2.8 0" stroke="#2A1A11" stroke-width=".9" fill="none" stroke-linecap="round"/>
+              <path d="M-4-10q2-2 4 0M-9-8q2-2 4 0" stroke="#C46F2C" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            </g>
+            <text class="roof-z" x="1124" y="350" font-family="Fraunces, Georgia, serif" font-weight="800" font-size="11" fill="#6D5545">z</text>
+          </g>
+        </g>
+        <g class="spot" data-spot="oven" transform="translate(1144 326)" role="button" tabindex="0" aria-label="Discover an ingredient"><circle class="spot-ring" r="24"/><circle class="spot-dot" r="14"/><text class="spot-q" y="5.5">?</text><path class="spot-ok" d="M-6 0l4 4 8-9"/></g>
       </g>
+
+      <g class="spot" data-spot="salt" transform="translate(700 420)" role="button" tabindex="0" aria-label="Discover an ingredient"><circle class="spot-ring" r="24"/><circle class="spot-dot" r="14"/><text class="spot-q" y="5.5">?</text><path class="spot-ok" d="M-6 0l4 4 8-9"/></g>
 
       <!-- foreground -->
       <path d="M0 560V512C220 488 420 486 620 500C820 514 1000 520 1200 506C1320 498 1400 494 1440 492V560Z" fill="#B88A45"/>
@@ -1746,6 +1868,30 @@
         <path d="M1280 530l-5-12M1285 530v-14M1290 530l5-11"/>
       </g>
     </svg>
+    <div class="spot-card" id="spot-card" hidden aria-live="polite">
+      <button type="button" class="spot-close" data-spot-close data-i18n-aria="close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+      <span class="spot-icon" id="spot-icon"></span>
+      <span class="spot-new" id="spot-new"></span>
+      <strong id="spot-title"></strong>
+      <p id="spot-text"></p>
+    </div>
+    </div></div>
+    <template id="ico-oil"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2h4v3l1.5 2.5V20a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2V7.5L10 5z" fill="#9AA65E" stroke="#5E6B2E" stroke-width="1.4" stroke-linejoin="round"/><path d="M8.5 12h7v5h-7z" fill="#FFF3DF"/><ellipse cx="12" cy="14.5" rx="1.6" ry="2" fill="#6F7E3E"/></svg></template><template id="ico-flour"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6c-2 3-3 7-2 12 .3 2 2 4 4 4h6c2 0 3.7-2 4-4 1-5 0-9-2-12z" fill="#F3E6CC" stroke="#B9A27A" stroke-width="1.4"/><path d="M7 6h10l-1-3H8z" fill="#E3D3B2" stroke="#B9A27A" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 10v8M12 12l-2.5-2M12 12l2.5-2M12 15l-2.5-2M12 15l2.5-2" stroke="#C47A2C" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg></template><template id="ico-salt"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 9h8l1 11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z" fill="#FFFFFF" stroke="#4E9FB2" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 9a4 4 0 0 1 8 0z" fill="#6CBCCB" stroke="#4E9FB2" stroke-width="1.4"/><g fill="#2C7C93"><circle cx="10.5" cy="6.8" r=".8"/><circle cx="13.5" cy="6.8" r=".8"/><circle cx="12" cy="5.4" r=".8"/></g></svg></template><template id="ico-oven"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v10H3z" fill="#EFE2CB" stroke="#C8643C" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 9.5c1.6 2.2 3.5 3.6 3.5 6.3a3.5 3.5 0 0 1-7 0c0-1.5.7-2.5 1.4-3.2.2 1.3.8 2 1.6 2.3-.3-2.2-.2-3.9.5-5.4z" fill="#FF8A2A"/></svg></template>
+    <div class="recipe-wrap">
+      <div class="wrap">
+        <p class="pan-hint" data-i18n="island.pan">← Swipe to explore the island →</p>
+        <div class="recipe" id="recipe">
+          <div class="recipe-head">
+            <span class="eyebrow" data-i18n="rec.title">Your recipe</span>
+            <strong class="recipe-count" id="recipe-count" aria-live="polite">0 of 4 ingredients</strong>
+            <div class="recipe-bar" aria-hidden="true"><i id="recipe-bar"></i></div>
+            <span class="recipe-secret" id="recipe-secret" hidden data-i18n="rec.secret">🐾 Secret found</span>
+          </div>
+          <ul class="recipe-slots"><li data-slot="oil"><span class="slot-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2h4v3l1.5 2.5V20a2 2 0 0 1-2 2h-3a2 2 0 0 1-2-2V7.5L10 5z" fill="#9AA65E" stroke="#5E6B2E" stroke-width="1.4" stroke-linejoin="round"/><path d="M8.5 12h7v5h-7z" fill="#FFF3DF"/><ellipse cx="12" cy="14.5" rx="1.6" ry="2" fill="#6F7E3E"/></svg></span><span class="slot-name" data-i18n="rec.oil">oil</span></li><li data-slot="flour"><span class="slot-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 6c-2 3-3 7-2 12 .3 2 2 4 4 4h6c2 0 3.7-2 4-4 1-5 0-9-2-12z" fill="#F3E6CC" stroke="#B9A27A" stroke-width="1.4"/><path d="M7 6h10l-1-3H8z" fill="#E3D3B2" stroke="#B9A27A" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 10v8M12 12l-2.5-2M12 12l2.5-2M12 15l-2.5-2M12 15l2.5-2" stroke="#C47A2C" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg></span><span class="slot-name" data-i18n="rec.flour">flour</span></li><li data-slot="salt"><span class="slot-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 9h8l1 11a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z" fill="#FFFFFF" stroke="#4E9FB2" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 9a4 4 0 0 1 8 0z" fill="#6CBCCB" stroke="#4E9FB2" stroke-width="1.4"/><g fill="#2C7C93"><circle cx="10.5" cy="6.8" r=".8"/><circle cx="13.5" cy="6.8" r=".8"/><circle cx="12" cy="5.4" r=".8"/></g></svg></span><span class="slot-name" data-i18n="rec.salt">salt</span></li><li data-slot="oven"><span class="slot-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v10H3z" fill="#EFE2CB" stroke="#C8643C" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 9.5c1.6 2.2 3.5 3.6 3.5 6.3a3.5 3.5 0 0 1-7 0c0-1.5.7-2.5 1.4-3.2.2 1.3.8 2 1.6 2.3-.3-2.2-.2-3.9.5-5.4z" fill="#FF8A2A"/></svg></span><span class="slot-name" data-i18n="rec.oven">oven</span></li></ul>
+          <div class="recipe-action" id="recipe-action" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ============ PRODUCTS ============ -->
@@ -2098,6 +2244,19 @@
   </div>
 </div>
 
+<!-- Master baker diploma -->
+<dialog class="pdialog cert-dlg" id="cert" aria-labelledby="cert-title">
+  <div class="legal-card cert-card">
+    <button class="close-btn" type="button" data-close data-i18n-aria="close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+    <h2 id="cert-title" data-i18n="cert.ready">Your diploma is ready!</h2>
+    <img id="cert-img" alt="" width="1200" height="850">
+    <div class="cert-actions">
+      <a class="btn" id="cert-download" href="#" download="diploma-quely.png"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span data-i18n="cert.download">Download diploma (PNG)</span></a>
+      <span class="cert-tip" data-i18n="cert.tip">Print it or send it to whoever you like.</span>
+    </div>
+  </div>
+</dialog>
+
 <!-- Galleta, the bakery cat -->
 <div class="michi" id="michi">
   <button class="michi-cat" id="michi-cat" type="button" data-i18n-aria="cat.aria" aria-label="Galleta, the bakery cat. Click to pet her">
@@ -2267,6 +2426,24 @@
       'about.text': 'For over 170 years, Quely has made cookies and snacks on the island, with simple recipes and local ingredients such as olive oil. Three generations of know-how in every bite.',
       'stat.1': 'Our beginnings', 'stat.2': 'Natural olive oil', 'stat.3': 'Made on the island',
       'about.btn': 'Our story',
+      'island.pan': '← Swipe to explore the island →', 'spot.aria': 'Discover an ingredient',
+      'spot.new': '+1 ingredient', 'spot.secret': 'Secret found!',
+      'spot.oil.t': 'Olive oil', 'spot.oil.d': 'Our cookies are made with 100% natural olive oil. That is why they are so light and crunchy.',
+      'spot.flour.t': 'Flour', 'spot.flour.d': "For centuries, Mallorca's windmills ground the island's grain. Flour is the base of every good cookie.",
+      'spot.salt.t': 'A pinch of salt', 'spot.salt.d': 'Simple recipes with just what they need: a pinch of salt brings out all the flavour.',
+      'spot.oven.t': 'The oven', 'spot.oven.d': "We've been baking on the island since 1853. Three generations of know-how in every batch.",
+      'spot.cat.t': 'Meow!', 'spot.cat.d': "You found me! It's nice and warm up here, right above the oven.", 'spot.cat.aria': 'Someone is sleeping on the roof',
+      'rec.title': 'Your recipe', 'rec.count': '{n} of 4 ingredients', 'rec.oil': 'Olive oil', 'rec.flour': 'Flour', 'rec.salt': 'Salt', 'rec.oven': 'Oven',
+      'rec.hint': 'Click the glowing dots on the island to find each ingredient.', 'rec.hintTouch': 'Swipe across the island and tap the glowing dots.',
+      'rec.ready': 'Recipe complete! Time to bake.', 'rec.bake': 'Bake my Quelita',
+      'rec.baked': 'Fresh out of the oven! You have earned your master baker diploma.',
+      'rec.name': 'Your name', 'rec.ph': 'Write your name', 'rec.need': 'Write your name first', 'rec.cert': 'Create my diploma', 'rec.reset': 'Play again',
+      'rec.secret': '🐾 Secret found',
+      'cert.ready': 'Your diploma is ready!', 'cert.download': 'Download diploma (PNG)', 'cert.tip': 'Print it or send it to whoever you like.',
+      'cert.alt': 'Master cookie baker diploma for {name}', 'cert.title': 'Master Cookie Baker Diploma', 'cert.certify': 'This certifies that',
+      'cert.body1': 'has explored Mallorca and found every ingredient of the Quely recipe:', 'cert.body2': 'olive oil, flour, a pinch of salt and the heat of the oven.',
+      'cert.sign': 'Galleta, the bakery cat', 'cert.date': 'Mallorca, {d}', 'cert.note': 'Academic project · Not an official document',
+      'cat.recipe': 'Recipe complete! Now bake it… and save me one.',
       'menu.title': 'Contents', 'menu.hint': 'Tip: press Esc to close',
       'mn.1': 'Home', 'ms.1': 'Bite the falling cookies',
       'mn.2': 'Our story', 'ms.2': 'Bake your own batch',
@@ -2291,7 +2468,7 @@
       'legal.p2': 'If the site were published for real, this page would explain who processes the data, why, for how long and how to exercise your rights (access, rectification, erasure…), as required by the GDPR.',
       'legal.c0': "We don't use advertising or tracking cookies. We only keep in your browser (local storage) what the site needs to work:",
       'legal.c1': 'Your basket and the discounts you have won.', 'legal.c2': 'Your language and whether you want sound.',
-      'legal.c3': 'Your records in the minigame and the oven.', 'legal.c4': 'Whether cat mode is on, and your answer to the cookie notice.',
+      'legal.c3': 'Your records in the minigame and the oven, and your island recipe.', 'legal.c4': 'Whether cat mode is on, and your answer to the cookie notice.',
       'legal.clear': 'Delete my saved data', 'legal.cleared': 'Done: your data has been deleted. The page will reload.',
       'cb.aria': 'Cookie notice', 'cb.title': 'This site uses cookies… the good kind',
       'cb.text': 'We only keep your basket, language and game records in your browser so everything works. No advertising or tracking.',
@@ -2341,9 +2518,9 @@
       'scratch.apply': 'Apply to my basket', 'scratch.done': 'Applied ✓', 'scratch.applied': 'Code applied: −10% in your basket',
       'scratch.alt': 'Hands picking up freshly baked Quelitas on a wooden table',
       'basket.discount': 'Code QUELY1853 (−10%)',
-      'island.eyebrow': 'The island', 'island.title': 'Baked on the island, by the sea',
-      'island.text': 'Olive trees, sea breeze and the same way of baking since 1853.',
-      'island.tip': 'Psst… give the windmill a push', 'island.mill': 'Spin the windmill',
+      'island.eyebrow': 'The island', 'island.title': 'From the field to your cookie',
+      'island.text': 'A Quelita starts long before the oven. Explore the island and find the ingredients of our simple recipe.',
+      'island.tip': 'Tap the glowing dots ✨', 'island.mill': 'Spin the windmill',
       'island.img': 'Illustration of Mallorca: a windmill, olive trees and the sea, with a cookie for a sun',
       'story.1': 'Simple recipes, kept for generations', 'story.2': 'Local ingredients, like olive oil', 'story.3': 'Three generations of know-how in every bite',
       'products.title': 'Our products', 'products.sub': 'Three ways to enjoy Quely, baked in Mallorca.',
@@ -2428,6 +2605,24 @@
       'about.text': 'Desde hace más de 170 años, Quely elabora galletas y snacks en la isla, con recetas sencillas e ingredientes locales como el aceite de oliva. Tres generaciones de saber hacer en cada bocado.',
       'stat.1': 'Nuestros inicios', 'stat.2': 'Aceite de oliva natural', 'stat.3': 'Hecho en la isla',
       'about.btn': 'Nuestra historia',
+      'island.pan': '← Desliza para explorar la isla →', 'spot.aria': 'Descubrir un ingrediente',
+      'spot.new': '+1 ingrediente', 'spot.secret': '¡Secreto encontrado!',
+      'spot.oil.t': 'Aceite de oliva', 'spot.oil.d': 'Nuestras galletas se hacen con aceite de oliva 100 % natural. Por eso son tan ligeras y crujientes.',
+      'spot.flour.t': 'Harina', 'spot.flour.d': 'Durante siglos, los molinos de viento de Mallorca molieron el grano de la isla. La harina es la base de toda buena galleta.',
+      'spot.salt.t': 'Una pizca de sal', 'spot.salt.d': 'Recetas sencillas, con lo justo: una pizca de sal realza todo el sabor.',
+      'spot.oven.t': 'El horno', 'spot.oven.d': 'Horneamos en la isla desde 1853. Tres generaciones de saber hacer en cada tanda.',
+      'spot.cat.t': '¡Miau!', 'spot.cat.d': '¡Me has encontrado! Aquí arriba, justo encima del horno, se está calentito.', 'spot.cat.aria': 'Alguien duerme en el tejado',
+      'rec.title': 'Tu receta', 'rec.count': '{n} de 4 ingredientes', 'rec.oil': 'Aceite', 'rec.flour': 'Harina', 'rec.salt': 'Sal', 'rec.oven': 'Horno',
+      'rec.hint': 'Pulsa los puntos que brillan en la isla para encontrar cada ingrediente.', 'rec.hintTouch': 'Desliza por la isla y toca los puntos que brillan.',
+      'rec.ready': '¡Receta completa! A hornear.', 'rec.bake': 'Hornear mi Quelita',
+      'rec.baked': '¡Recién salida del horno! Te has ganado tu diploma de maestro galletero.',
+      'rec.name': 'Tu nombre', 'rec.ph': 'Escribe tu nombre', 'rec.need': 'Primero escribe tu nombre', 'rec.cert': 'Crear mi diploma', 'rec.reset': 'Volver a jugar',
+      'rec.secret': '🐾 Secreto encontrado',
+      'cert.ready': '¡Tu diploma está listo!', 'cert.download': 'Descargar diploma (PNG)', 'cert.tip': 'Imprímelo o envíaselo a quien quieras.',
+      'cert.alt': 'Diploma de maestro galletero para {name}', 'cert.title': 'Diploma de Maestro Galletero', 'cert.certify': 'Se certifica que',
+      'cert.body1': 'ha explorado Mallorca y ha encontrado todos los ingredientes de la receta Quely:', 'cert.body2': 'aceite de oliva, harina, una pizca de sal y el calor del horno.',
+      'cert.sign': 'Galleta, la gata del obrador', 'cert.date': 'Mallorca, {d}', 'cert.note': 'Proyecto académico · No es un documento oficial',
+      'cat.recipe': '¡Receta completa! Ahora a hornear… y guárdame una.',
       'menu.title': 'Contenidos', 'menu.hint': 'Truco: pulsa Esc para cerrar',
       'mn.1': 'Inicio', 'ms.1': 'Muerde las galletas que caen',
       'mn.2': 'Nuestra historia', 'ms.2': 'Hornea tu propia tanda',
@@ -2452,7 +2647,7 @@
       'legal.p2': 'Si la web se publicara de verdad, aquí se explicaría quién trata los datos, para qué, durante cuánto tiempo y cómo ejercer tus derechos (acceso, rectificación, supresión…), como exige el RGPD.',
       'legal.c0': 'No usamos cookies de publicidad ni de seguimiento. Solo guardamos en tu navegador (almacenamiento local) lo que la web necesita para funcionar:',
       'legal.c1': 'Tu cesta y los descuentos que hayas conseguido.', 'legal.c2': 'El idioma elegido y si quieres sonido.',
-      'legal.c3': 'Tus récords del minijuego y del horno.', 'legal.c4': 'Si tienes activado el modo gato y tu respuesta al aviso de cookies.',
+      'legal.c3': 'Tus récords del minijuego y del horno, y tu receta de la isla.', 'legal.c4': 'Si tienes activado el modo gato y tu respuesta al aviso de cookies.',
       'legal.clear': 'Borrar mis datos guardados', 'legal.cleared': 'Listo: tus datos se han borrado. La página se recargará.',
       'cb.aria': 'Aviso de cookies', 'cb.title': 'Esta web usa cookies… de las buenas',
       'cb.text': 'Solo guardamos en tu navegador tu cesta, el idioma y tus récords para que todo funcione. Nada de publicidad ni de seguimiento.',
@@ -2502,9 +2697,9 @@
       'scratch.apply': 'Aplicar a mi cesta', 'scratch.done': 'Aplicado ✓', 'scratch.applied': 'Código aplicado: −10 % en tu cesta',
       'scratch.alt': 'Manos cogiendo Quelitas recién hechas sobre una mesa de madera',
       'basket.discount': 'Código QUELY1853 (−10 %)',
-      'island.eyebrow': 'La isla', 'island.title': 'Horneadas en la isla, junto al mar',
-      'island.text': 'Olivos, brisa de mar y la misma forma de hornear desde 1853.',
-      'island.tip': 'Psst… dale un empujón al molino', 'island.mill': 'Girar el molino',
+      'island.eyebrow': 'La isla', 'island.title': 'Del campo a tu galleta',
+      'island.text': 'Una Quelita empieza mucho antes del horno. Explora la isla y encuentra los ingredientes de nuestra receta sencilla.',
+      'island.tip': 'Pulsa los puntos que brillan ✨', 'island.mill': 'Girar el molino',
       'island.img': 'Ilustración de Mallorca: un molino, olivos y el mar, con una galleta como sol',
       'story.1': 'Recetas sencillas, conservadas durante generaciones', 'story.2': 'Ingredientes locales, como el aceite de oliva', 'story.3': 'Tres generaciones de saber hacer en cada bocado',
       'products.title': 'Nuestros productos', 'products.sub': 'Tres formas de disfrutar Quely, horneadas en Mallorca.',
@@ -4207,6 +4402,205 @@
     setTimeout(() => { cookieBanner.hidden = true; if (catWaiting) showCat(); }, reduceMotion ? 0 : 700);
   });
 
+  /* ---------- The island: from the field to your cookie ---------- */
+  const ISLAND_SPOTS = ['oil', 'flour', 'salt', 'oven'];
+  const islandEl = $('#island'), islandPan = $('#island-pan'), islandInner = $('#island-inner');
+  const spotCard = $('#spot-card'), recipe = $('#recipe'), certDlg = $('#cert');
+  let isl = { found: [], baked: false, name: '', secret: false };
+  try { isl = Object.assign(isl, JSON.parse(store.get('quely-island') || '{}')); } catch (_) { /* fresh start */ }
+  isl.found = isl.found.filter(id => ISLAND_SPOTS.includes(id));
+  const saveIsland = () => store.set('quely-island', JSON.stringify(isl));
+  let openSpotId = null;
+  const ICON = id => $(`#ico-${id}`).innerHTML;
+  const escAttr = v => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+
+  function placeSpotCard(target) {
+    const ir = islandInner.getBoundingClientRect(), sr = target.getBoundingClientRect();
+    const w = spotCard.offsetWidth, h = spotCard.offsetHeight;
+    const x = sr.left + sr.width / 2 - ir.left, y = sr.top - ir.top;
+    let top = y - h - 14;
+    if (top < 8) top = sr.bottom - ir.top + 14;
+    spotCard.style.left = clamp(x - w / 2, 8, islandInner.offsetWidth - w - 8) + 'px';
+    spotCard.style.top = top + 'px';
+  }
+
+  function fillSpotCard(id, isNew) {
+    const cat = id === 'cat';
+    $('#spot-icon').innerHTML = cat ? '<svg viewBox="-20 -20 40 40" aria-hidden="true"><use href="#cat-face-cookie" x="-20" y="-20" width="40" height="40"/></svg>' : ICON(id);
+    $('#spot-title').textContent = t(cat ? 'spot.cat.t' : 'spot.' + id + '.t');
+    $('#spot-text').textContent = t(cat ? 'spot.cat.d' : 'spot.' + id + '.d');
+    const badge = $('#spot-new');
+    badge.hidden = !isNew;
+    badge.textContent = cat ? t('spot.secret') : t('spot.new');
+  }
+
+  function openSpot(id, target) {
+    const isNew = id === 'cat' ? !isl.secret : !isl.found.includes(id);
+    if (isNew) {
+      if (id === 'cat') isl.secret = true; else isl.found.push(id);
+      saveIsland();
+      crunch(false);
+      burst(target.getBoundingClientRect(), id === 'cat' ? 10 : 8);
+    }
+    if (id === 'flour') pushMill();
+    if (id === 'cat') meow();
+    openSpotId = id;
+    fillSpotCard(id, isNew);
+    spotCard.hidden = false;
+    spotCard.style.animation = 'none'; void spotCard.offsetWidth; spotCard.style.animation = '';
+    placeSpotCard(target);
+    renderIsland();
+    if (isNew && id !== 'cat' && isl.found.length === ISLAND_SPOTS.length) catReact('cat.recipe');
+  }
+  function closeSpot() { spotCard.hidden = true; openSpotId = null; }
+
+  function renderIsland() {
+    $$('.spot', islandEl).forEach(s => {
+      const f = isl.found.includes(s.dataset.spot);
+      s.classList.toggle('is-found', f);
+      s.setAttribute('aria-label', f ? t('spot.' + s.dataset.spot + '.t') : t('spot.aria'));
+    });
+    const n = isl.found.length;
+    $$('[data-slot]', recipe).forEach(li => li.classList.toggle('is-found', isl.found.includes(li.dataset.slot)));
+    $('#recipe-count').textContent = t('rec.count').replace('{n}', n);
+    $('#recipe-bar').style.width = (n / ISLAND_SPOTS.length * 100) + '%';
+    $('#recipe-secret').hidden = !isl.secret;
+    const action = $('#recipe-action');
+    if (n < ISLAND_SPOTS.length) {
+      action.innerHTML = `<p class="rec-hint">${t(finePointer ? 'rec.hint' : 'rec.hintTouch')}</p>`;
+    } else if (!isl.baked) {
+      action.innerHTML = `<p class="rec-hint rec-hint--ok">${t('rec.ready')}</p><button type="button" class="btn" data-rec-bake>${ICON('oven')}<span>${t('rec.bake')}</span></button>`;
+    } else {
+      action.innerHTML = `
+        <p class="rec-hint rec-hint--ok">${t('rec.baked')}</p>
+        <form class="rec-form" data-rec-form novalidate>
+          <label class="sr-only" for="rec-name">${t('rec.name')}</label>
+          <input id="rec-name" maxlength="40" autocomplete="name" placeholder="${escAttr(t('rec.ph'))}" value="${escAttr(isl.name)}">
+          <button class="btn btn--small" type="submit">${t('rec.cert')}</button>
+        </form>
+        <button type="button" class="link-plain" data-rec-reset>${t('rec.reset')}</button>`;
+    }
+    if (openSpotId && !spotCard.hidden) fillSpotCard(openSpotId, false);
+  }
+
+  function bakeRecipe() {
+    const target = $('#recipe-action').getBoundingClientRect();
+    const tx = target.left + target.width / 2, ty = target.top + target.height / 2;
+    if (!reduceMotion) {
+      $$('.slot-ico', recipe).forEach((ico, i) => {
+        const r = ico.getBoundingClientRect();
+        ico.animate([
+          { transform: 'none', opacity: 1 },
+          { transform: `translate(${tx - (r.left + r.width / 2)}px, ${ty - (r.top + r.height / 2)}px) scale(.3) rotate(220deg)`, opacity: .2 },
+        ], { duration: 650, delay: i * 90, easing: 'cubic-bezier(.5, 0, .75, 0)' });
+      });
+    }
+    setTimeout(() => {
+      isl.baked = true; saveIsland(); renderIsland();
+      burst($('#recipe-action').getBoundingClientRect(), 24);
+      crunch(true);
+      const input = $('#rec-name');
+      if (input) input.focus({ preventScroll: true });
+    }, reduceMotion ? 0 : 1000);
+  }
+
+  function roundRectPath(g, x, y, w, h, r) {
+    g.beginPath(); g.moveTo(x + r, y);
+    g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r);
+    g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath();
+  }
+  async function makeDiploma(name) {
+    if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (_) { /* use fallback fonts */ } }
+    const W = 1200, H = 850, c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    const g = c.getContext('2d');
+    g.fillStyle = '#FFF8EC'; g.fillRect(0, 0, W, H);
+    g.fillStyle = 'rgba(227, 164, 64, .13)';
+    for (let y = 40, row = 0; y < H; y += 80, row++) for (let x = 40 + (row % 2) * 40; x < W; x += 80) { g.beginPath(); g.arc(x, y, 7, 0, Math.PI * 2); g.fill(); }
+    g.strokeStyle = '#D7261E'; g.lineWidth = 14; g.strokeRect(28, 28, W - 56, H - 56);
+    g.strokeStyle = '#E3A440'; g.lineWidth = 3; g.strokeRect(52, 52, W - 104, H - 104);
+    // logo
+    g.save(); g.translate(W / 2, 138); g.rotate(-.06);
+    roundRectPath(g, -110, -42, 220, 84, 42);
+    g.fillStyle = '#D7261E'; g.fill(); g.lineWidth = 6; g.strokeStyle = '#FFFFFF'; g.stroke();
+    g.fillStyle = '#FFFFFF'; g.font = 'italic 900 56px Fraunces, Georgia, serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    g.fillText('Quely', 0, 4);
+    g.restore();
+    g.textAlign = 'center'; g.textBaseline = 'alphabetic';
+    g.fillStyle = '#2A1A11'; g.font = '800 52px Fraunces, Georgia, serif';
+    g.fillText(t('cert.title'), W / 2, 262);
+    g.fillStyle = '#6D5545'; g.font = '500 24px "Instrument Sans", Arial, sans-serif';
+    g.fillText(t('cert.certify'), W / 2, 318);
+    let size = 84;
+    g.font = `italic 900 ${size}px Fraunces, Georgia, serif`;
+    while (g.measureText(name).width > W - 280 && size > 36) { size -= 4; g.font = `italic 900 ${size}px Fraunces, Georgia, serif`; }
+    g.fillStyle = '#D7261E'; g.fillText(name, W / 2, 418);
+    g.strokeStyle = '#E3A440'; g.lineWidth = 3;
+    g.beginPath(); g.moveTo(W / 2 - 300, 446); g.lineTo(W / 2 + 300, 446); g.stroke();
+    g.fillStyle = '#2A1A11'; g.font = '500 24px "Instrument Sans", Arial, sans-serif';
+    g.fillText(t('cert.body1'), W / 2, 500);
+    g.fillText(t('cert.body2'), W / 2, 536);
+    // cookie seal
+    g.drawImage(makeSprite(70, false), 140, 568, 180, 180);
+    // signature
+    g.strokeStyle = '#B9A27A'; g.lineWidth = 2;
+    g.beginPath(); g.moveTo(W - 470, 648); g.lineTo(W - 130, 648); g.stroke();
+    g.fillStyle = '#2A1A11'; g.font = 'italic 700 30px Fraunces, Georgia, serif';
+    g.fillText(t('cert.sign'), W - 300, 688);
+    g.fillStyle = '#6D5545'; g.font = '500 20px "Instrument Sans", Arial, sans-serif';
+    const date = new Date().toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    g.fillText(t('cert.date').replace('{d}', date), W - 300, 722);
+    // paw print
+    g.fillStyle = '#E08E45';
+    g.beginPath(); g.ellipse(W - 300, 612, 15, 12, 0, 0, Math.PI * 2); g.fill();
+    [[-18, -14], [-7, -24], [7, -24], [18, -14]].forEach(([dx, dy]) => { g.beginPath(); g.arc(W - 300 + dx, 612 + dy, 6, 0, Math.PI * 2); g.fill(); });
+    g.fillStyle = 'rgba(109, 85, 69, .7)'; g.font = '500 15px "Instrument Sans", Arial, sans-serif';
+    g.fillText(t('cert.note'), W / 2, H - 74);
+    return c.toDataURL('image/png');
+  }
+
+  islandEl.addEventListener('click', e => {
+    const spot = e.target.closest('.spot');
+    if (spot) { openSpot(spot.dataset.spot, spot); return; }
+    const cat = e.target.closest('.roof-cat');
+    if (cat) { openSpot('cat', cat); return; }
+    if (e.target.closest('[data-spot-close]')) { closeSpot(); return; }
+    if (e.target.closest('[data-rec-bake]')) { bakeRecipe(); return; }
+    if (e.target.closest('[data-rec-reset]')) {
+      isl = { found: [], baked: false, name: isl.name, secret: isl.secret };
+      saveIsland(); closeSpot(); renderIsland();
+      return;
+    }
+    if (!spotCard.hidden && !e.target.closest('#spot-card')) closeSpot();
+  });
+  islandEl.addEventListener('keydown', e => {
+    const el = e.target.closest('.spot, .roof-cat');
+    if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); el.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
+    if (e.key === 'Escape' && !spotCard.hidden) closeSpot();
+  });
+  islandEl.addEventListener('input', e => { if (e.target.id === 'rec-name') { isl.name = e.target.value; saveIsland(); e.target.removeAttribute('aria-invalid'); } });
+  islandEl.addEventListener('submit', async e => {
+    if (!e.target.matches('[data-rec-form]')) return;
+    e.preventDefault();
+    const input = $('#rec-name'), name = input.value.trim().slice(0, 40);
+    if (!name) { input.setAttribute('aria-invalid', 'true'); input.placeholder = t('rec.need'); input.focus(); return; }
+    isl.name = name; saveIsland();
+    const url = await makeDiploma(name);
+    const img = $('#cert-img');
+    img.src = url; img.alt = t('cert.alt').replace('{name}', name);
+    const slug = name.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'quely';
+    const dl = $('#cert-download');
+    dl.href = url; dl.download = `diploma-quely-${slug}.png`;
+    certDlg.showModal();
+    burst(img.getBoundingClientRect(), 20);
+  });
+  certDlg.addEventListener('click', e => { if (e.target === certDlg) certDlg.close(); });
+  new IntersectionObserver(([en]) => { if (!en.isIntersecting) closeSpot(); }).observe(islandEl);
+  // on phones the island is wider than the screen: start in the middle
+  const centerPan = () => { if (islandPan.scrollWidth > islandPan.clientWidth) islandPan.scrollLeft = (islandPan.scrollWidth - islandPan.clientWidth) / 2; };
+  centerPan();
+  renderIsland();
+
   /* ---------- Galleta, the bakery cat (and cat mode) ---------- */
   const michi = $('#michi'), michiBtn = $('#michi-cat'), michiBubble = $('#michi-bubble');
   const michiText = $('#michi-text'), michiActions = $('#michi-actions');
@@ -4453,6 +4847,7 @@
     renderGameText();
     renderNews();
     renderMenuCat();
+    renderIsland();
     if (!touched && !scratched) drawFlour();
     kick();
   }

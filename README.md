@@ -24,6 +24,20 @@ Landing page de ejemplo para una escuela de surf ficticia en Somo (Cantabria). E
   - El ratón se convierte en un puntero láser rojo, y Galleta corre por la pantalla para cazarlo y salta encima cuando lo pilla. En el móvil, se toca la pantalla y corre hacia ese punto.
   - Se queda guardado para la próxima visita.
 - **Preguntas frecuentes** desplegables.
+
+## Detalles de acabado
+
+- **Menú de contenidos** (botón de hamburguesa, siempre visible): se abre con un círculo que crece desde el botón y muestra las 11 secciones numeradas, cada una con una frase. Marca dónde estás. Se cierra con Esc o con la X, y desde ahí también se activa el modo gato.
+- **Pantalla de carga**: una galleta recibe tres mordiscos y aparece la página.
+- **Aviso de cookies**, con su juego de palabras ("de las buenas") y la opción "Solo las necesarias". Es honesto: la web solo guarda en el navegador la cesta, el idioma y los récords.
+- **Información legal** en una ventana con pestañas (aviso legal, privacidad y cookies), con el aviso de que es un proyecto académico y un botón para **borrar los datos guardados**.
+- **Pie completo**: newsletter "Club Quely" con validación, iconos de redes sociales y enlaces legales. Las direcciones reales de las redes se ponen en `SOCIAL`, dentro del código. Mientras estén vacías, al pulsar sale un aviso.
+- **Botón de sonido** en el menú, que silencia toda la web (crujidos, maullidos y ruleta) y recuerda la elección.
+- **Copiar el código** de descuento con un botón.
+- **Olas** entre secciones en lugar de cortes rectos, **color de selección** y **barra de desplazamiento** con los colores de la marca.
+- **Título de la pestaña**: si te vas a otra pestaña, cambia a "🍪 ¡Vuelve, que se enfrían!".
+- **Accesibilidad**: enlace "Saltar al contenido", encabezados en orden, todo usable con teclado y lectores de pantalla. Revisado con la herramienta axe-core sin ningún error.
+- **Para compartir**: metadatos Open Graph (la vista previa en WhatsApp y redes), datos estructurados y un aviso si JavaScript está desactivado.
 - **Formulario de reserva**. Es una demostración: no envía datos a ningún sitio.
 
 La página se adapta al móvil y cambia a colores oscuros si el dispositivo usa el modo oscuro.
@@ -89,7 +103,21 @@ Portada · franja animada · Sobre nosotros · La isla · Productos · Test "¿Q
   - Al logo le salen orejas de gato.
   - El ratón se convierte en un puntero láser rojo, y Galleta corre por la pantalla para cazarlo y salta encima cuando lo pilla. En el móvil, se toca la pantalla y corre hacia ese punto.
   - Se queda guardado para la próxima visita.
-- **Preguntas frecuentes** desplegables. "Envíos" y "Devoluciones" del pie abren la pregunta que toca.
+- **Preguntas frecuentes** desplegables.
+
+## Detalles de acabado
+
+- **Menú de contenidos** (botón de hamburguesa, siempre visible): se abre con un círculo que crece desde el botón y muestra las 11 secciones numeradas, cada una con una frase. Marca dónde estás. Se cierra con Esc o con la X, y desde ahí también se activa el modo gato.
+- **Pantalla de carga**: una galleta recibe tres mordiscos y aparece la página.
+- **Aviso de cookies**, con su juego de palabras ("de las buenas") y la opción "Solo las necesarias". Es honesto: la web solo guarda en el navegador la cesta, el idioma y los récords.
+- **Información legal** en una ventana con pestañas (aviso legal, privacidad y cookies), con el aviso de que es un proyecto académico y un botón para **borrar los datos guardados**.
+- **Pie completo**: newsletter "Club Quely" con validación, iconos de redes sociales y enlaces legales. Las direcciones reales de las redes se ponen en `SOCIAL`, dentro del código. Mientras estén vacías, al pulsar sale un aviso.
+- **Botón de sonido** en el menú, que silencia toda la web (crujidos, maullidos y ruleta) y recuerda la elección.
+- **Copiar el código** de descuento con un botón.
+- **Olas** entre secciones en lugar de cortes rectos, **color de selección** y **barra de desplazamiento** con los colores de la marca.
+- **Título de la pestaña**: si te vas a otra pestaña, cambia a "🍪 ¡Vuelve, que se enfrían!".
+- **Accesibilidad**: enlace "Saltar al contenido", encabezados en orden, todo usable con teclado y lectores de pantalla. Revisado con la herramienta axe-core sin ningún error.
+- **Para compartir**: metadatos Open Graph (la vista previa en WhatsApp y redes), datos estructurados y un aviso si JavaScript está desactivado. "Envíos" y "Devoluciones" del pie abren la pregunta que toca.
 
 ## Animaciones
 

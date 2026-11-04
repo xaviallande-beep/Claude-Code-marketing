@@ -6,6 +6,13 @@
 <title>Quely · Cookies from Mallorca</title>
 <meta name="description" content="Crunchy, light cookies made in Mallorca with 100% natural olive oil. Baking on the island since 1853.">
 <meta name="theme-color" content="#D7261E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Quely · Galletas de Mallorca">
+<meta property="og:description" content="Galletas crujientes y ligeras hechas en Mallorca con aceite de oliva 100% natural. Horneando en la isla desde 1853.">
+<meta property="og:locale" content="es_ES">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Quely · Galletas de Mallorca","inLanguage":["es","en"],"description":"Proyecto académico: web de galletas de Mallorca hechas con aceite de oliva desde 1853.","about":{"@type":"Brand","name":"Quely"}}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23E3A440'/%3E%3Cg fill='%238A4A16'%3E%3Ccircle cx='20' cy='20' r='2'/%3E%3Ccircle cx='20' cy='10' r='2'/%3E%3Ccircle cx='20' cy='30' r='2'/%3E%3Ccircle cx='11' cy='15' r='2'/%3E%3Ccircle cx='29' cy='15' r='2'/%3E%3Ccircle cx='11' cy='25' r='2'/%3E%3Ccircle cx='29' cy='25' r='2'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -147,7 +154,7 @@
   .nav-links a[aria-current="true"]::after { transform: scaleX(1); transform-origin: left; }
   .nav-links { margin-left: auto; }
   .nav-toggle {
-    display: none; width: 44px; height: 44px; border: 0; border-radius: 12px;
+    display: flex; flex-shrink: 0; width: 44px; height: 44px; border: 0; border-radius: 12px;
     background: var(--white); box-shadow: var(--shadow-1); cursor: pointer;
     flex-direction: column; align-items: center; justify-content: center;
   }
@@ -157,19 +164,7 @@
   .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  @media (max-width: 880px) {
-    .nav-toggle { display: flex; }
-    .nav-links {
-      position: absolute; top: calc(100% + 8px); left: var(--gutter); right: var(--gutter);
-      flex-direction: column; align-items: stretch; gap: 0;
-      padding: 10px; border-radius: var(--radius);
-      background: var(--white); box-shadow: var(--shadow-2);
-      opacity: 0; visibility: hidden; transform: translateY(-8px) scale(.98); transform-origin: top;
-      transition: opacity .25s, transform .35s var(--ease-out), visibility 0s .35s;
-    }
-    .nav-links.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity .25s, transform .35s var(--ease-out); }
-    .nav-links a:not(.btn) { padding: .85em 1em; font-size: 1rem; }
-  }
+  @media (max-width: 1080px) { .nav-links { display: none; } }
 
   /* =========================================================
      Hero
@@ -634,7 +629,6 @@
   }
   .footer-top { display: grid; grid-template-columns: 1.4fr repeat(3, 1fr); gap: 32px; padding-bottom: 40px; }
   .footer-brand p { margin: 14px 0 0; font-size: .9rem; max-width: 26ch; }
-  .footer h4 { margin: 0 0 12px; color: var(--cream); font-size: .9rem; letter-spacing: .02em; }
   .footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
   .footer ul a { text-decoration: none; font-size: .9rem; transition: color .2s; }
   .footer ul a:hover { color: var(--gold); }
@@ -707,10 +701,8 @@
   }
   .badge[hidden] { display: none; }
   .badge.bump { animation: bump .5s var(--ease-spring); }
-  @media (max-width: 880px) {
-    .nav-links { margin-left: 0; }
-    .nav-tools { margin-left: auto; gap: 8px; }
-  }
+  @media (max-width: 1080px) { .nav-tools { margin-left: auto; } }
+  @media (max-width: 520px) { .nav-tools { gap: 6px; } }
   @media (max-width: 520px) {
     .basket-btn .label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
     .basket-btn { padding: .7em .9em; }
@@ -1198,6 +1190,177 @@
   @keyframes ear-pop { from { opacity: 0; translate: 0 30%; } }
 
   /* =========================================================
+     Finishing touches
+     ========================================================= */
+  ::selection { background: var(--red); color: var(--white); }
+  html { scrollbar-color: var(--red) var(--sand); }
+  ::-webkit-scrollbar { width: 12px; }
+  ::-webkit-scrollbar-track { background: var(--sand); }
+  ::-webkit-scrollbar-thumb { background: var(--red); border: 3px solid var(--sand); border-radius: 10px; }
+  .skip-link {
+    position: fixed; left: 16px; top: -64px; z-index: 300;
+    padding: .7em 1.1em; border-radius: 10px; background: var(--brown); color: var(--cream);
+    font-weight: 700; text-decoration: none; transition: top .2s;
+  }
+  .skip-link:focus { top: 12px; }
+  .noscript { margin: 0; padding: 12px 16px; background: var(--brown); color: var(--cream); text-align: center; font-weight: 600; }
+
+  /* Waves between sections instead of straight cuts */
+  .products, .quiz, .reviews, .scratch, .game, .wheel-sec, .faq, .contact, .footer {
+    --wave-h: 40px;
+    position: relative; margin-top: calc(var(--wave-h) * -1);
+    -webkit-mask: var(--wave) top / 100% var(--wave-h) no-repeat, linear-gradient(#000 0 0) 0 calc(var(--wave-h) - 1px) / 100% 100% no-repeat;
+            mask: var(--wave) top / 100% var(--wave-h) no-repeat, linear-gradient(#000 0 0) 0 calc(var(--wave-h) - 1px) / 100% 100% no-repeat;
+  }
+  .products, .reviews, .game, .faq, .footer { --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 40V22C240 0 480 0 720 18S1200 36 1440 14V40Z'/%3E%3C/svg%3E"); }
+  .quiz, .scratch, .wheel-sec, .contact { --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40' preserveAspectRatio='none'%3E%3Cpath d='M0 40V12C200 34 460 36 720 16S1180 2 1440 24V40Z'/%3E%3C/svg%3E"); }
+  .reviews, .contact { background: var(--cream); }
+  @media (max-width: 640px) { .products, .quiz, .reviews, .scratch, .game, .wheel-sec, .faq, .contact, .footer { --wave-h: 24px; } }
+
+  /* Preloader */
+  .preloader {
+    position: fixed; inset: 0; z-index: 400; display: grid; place-content: center; justify-items: center; gap: 18px;
+    background: var(--cream); transition: opacity .5s ease, visibility .5s;
+  }
+  .preloader svg { width: 96px; height: 96px; animation: spin 2.6s linear infinite; }
+  .preloader .pb { transform-box: fill-box; transform-origin: center; transform: scale(0); animation: pre-bite .45s var(--ease-spring) forwards; }
+  .preloader .pb1 { animation-delay: .15s; }
+  .preloader .pb2 { animation-delay: .4s; }
+  .preloader .pb3 { animation-delay: .65s; }
+  @keyframes pre-bite { to { transform: scale(1); } }
+  .preloader.is-done { opacity: 0; visibility: hidden; }
+  html:not(.js) .preloader { display: none; }
+  .js:not(.is-ready) .hero-card, .js:not(.is-ready) .hero-brand, .js:not(.is-ready) .hero-hint { opacity: 0; animation: none; }
+
+  /* Sound button in the nav */
+  .nav .sound-btn { width: 38px; height: 38px; background: var(--sand-2); color: var(--ink); }
+  .nav .sound-btn:hover { background: var(--line); }
+  .nav .sound-btn svg { width: 18px; height: 18px; }
+
+  /* Copy code */
+  .code-row { display: inline-flex; align-items: center; gap: 8px; }
+  .copy-btn { display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 10px; background: rgba(255,255,255,.14); color: var(--cream); cursor: pointer; transition: background-color .2s, transform .3s var(--ease-spring); }
+  .copy-btn:hover { background: rgba(255,255,255,.26); transform: scale(1.08); }
+  .copy-btn svg { width: 18px; height: 18px; }
+
+  /* Footer: newsletter, social, legal */
+  .footer-news {
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: 24px 40px; align-items: center;
+    margin-bottom: 48px; padding: clamp(22px, 3vw, 32px); border-radius: 24px;
+    background: rgba(255, 255, 255, .05); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+  }
+  .news-title { margin: 0 0 6px; color: var(--cream); font-size: clamp(1.4rem, 2.6vw, 1.9rem); }
+  .footer-news p { margin: 0; font-size: .92rem; }
+  .news-form { display: flex; flex-wrap: wrap; gap: 10px; }
+  .news-form input {
+    flex: 1 1 220px; min-width: 0; padding: .85em 1.1em; border: 1.5px solid rgba(246, 231, 210, .2); border-radius: 999px;
+    background: rgba(0, 0, 0, .2); color: var(--cream); font: inherit;
+  }
+  .news-form input::placeholder { color: rgba(246, 231, 210, .5); }
+  .news-form input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 4px rgba(227, 164, 64, .2); }
+  .news-form input[aria-invalid="true"] { border-color: #FF7A6A; }
+  .news-msg { flex-basis: 100%; min-height: 1.2em; margin: 0; font-size: .85rem; font-weight: 600; color: #A8EBB6; }
+  .news-msg.is-error { color: #FFB3A6; }
+  .footer .social { display: flex; gap: 10px; margin-top: 18px; padding: 0; list-style: none; }
+  .social a {
+    display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(255, 255, 255, .08); color: var(--cream);
+    transition: background-color .2s, transform .35s var(--ease-spring);
+  }
+  .social a:hover { background: var(--red); transform: translateY(-3px) rotate(-8deg); }
+  .social svg { width: 18px; height: 18px; }
+  .footer .foot-h { margin: 0 0 12px; font-family: var(--font-body); color: var(--cream); font-size: .9rem; letter-spacing: .02em; }
+  .legal-links { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+  .footer .link-plain { padding: 0; color: #D9C3A8; font-size: .8rem; font-weight: 500; }
+  .footer .link-plain:hover { color: var(--gold); }
+  .academic { margin: 14px 0 0; font-size: .75rem; color: rgba(217, 195, 168, .7); text-align: center; }
+  @media (max-width: 760px) { .footer-news { grid-template-columns: 1fr; } }
+
+  /* Legal dialog */
+  .legal-card {
+    position: relative; max-height: calc(100dvh - 32px); overflow: auto;
+    padding: clamp(26px, 4vw, 40px); border-radius: 28px; background: var(--cream); box-shadow: var(--shadow-2);
+  }
+  .legal-card h2 { margin: 0 50px 18px 0; font-size: clamp(1.6rem, 3.4vw, 2.2rem); }
+  .legal-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; padding: 4px; border-radius: 999px; background: var(--sand-2); width: fit-content; }
+  .legal-tabs button { padding: .5em 1em; border: 0; border-radius: 999px; background: none; font: inherit; font-weight: 700; font-size: .85rem; color: var(--muted); cursor: pointer; }
+  .legal-tabs button[aria-selected="true"] { background: var(--white); color: var(--ink); box-shadow: var(--shadow-1); }
+  .legal-panel p { margin: 0 0 12px; color: var(--muted); }
+  .legal-panel[hidden] { display: none; }
+  .legal-list { margin: 0 0 18px; padding-left: 1.2em; color: var(--muted); }
+  .legal-list li { margin-bottom: 6px; }
+
+  /* Cookie notice */
+  .cookie-banner {
+    position: fixed; left: 50%; bottom: 18px; z-index: 260;
+    display: flex; gap: 16px; align-items: flex-start;
+    width: min(640px, calc(100% - 24px)); padding: 18px 20px; border-radius: 22px;
+    background: var(--white); color: var(--ink); box-shadow: var(--shadow-2), 0 0 0 1px var(--line);
+    transform: translateX(-50%); animation: cb-in .6s var(--ease-spring);
+  }
+  .cookie-banner[hidden] { display: none; }
+  @keyframes cb-in { from { opacity: 0; transform: translate(-50%, 40px); } }
+  .cookie-banner.is-eaten { animation: cb-out .7s ease-in forwards; }
+  @keyframes cb-out { 40% { transform: translate(-50%, -8px); } 100% { opacity: 0; transform: translate(-50%, 60px) scale(.9); } }
+  .cb-cookie { flex-shrink: 0; width: 48px; height: 48px; animation: float 4s ease-in-out infinite; }
+  .cookie-banner.is-eaten .cb-cookie { animation: bump .4s var(--ease-spring); }
+  .cookie-banner strong { display: block; margin-bottom: 4px; font-family: var(--font-display); font-size: 1.15rem; }
+  .cookie-banner p { margin: 0 0 12px; font-size: .88rem; color: var(--muted); }
+  .cb-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  @media (max-width: 520px) { .cb-cookie { display: none; } }
+
+  /* =========================================================
+     Contents menu (hamburger)
+     ========================================================= */
+  .menu {
+    position: fixed; inset: 0; z-index: 90; overflow-y: auto;
+    background: radial-gradient(circle, rgba(255, 255, 255, .07) 0 14px, transparent 15px) 0 0 / 72px 72px, var(--red);
+    color: var(--cream);
+    clip-path: circle(0 at calc(100% - 44px) 36px);
+    visibility: hidden;
+    transition: clip-path .7s cubic-bezier(.7, 0, .2, 1), visibility 0s .7s;
+  }
+  .menu.is-open { clip-path: circle(150vmax at calc(100% - 44px) 36px); visibility: visible; transition: clip-path .7s cubic-bezier(.7, 0, .2, 1); }
+  html.menu-open { overflow: hidden; }
+  .menu-inner { display: flex; flex-direction: column; min-height: 100%; padding: 14px 0 36px; }
+  .menu-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: clamp(18px, 4vh, 40px); }
+  .menu .logo { background: var(--cream); color: var(--red); box-shadow: inset 0 0 0 2px var(--red), 0 0 0 2px var(--cream); }
+  .menu-close {
+    display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 12px;
+    background: var(--cream); color: var(--red); cursor: pointer; transition: transform .35s var(--ease-spring);
+  }
+  .menu-close:hover { transform: rotate(90deg); }
+  .menu-close svg { width: 20px; height: 20px; }
+  .menu-eyebrow { margin: 0 0 14px; font-size: .78rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: #FFD9A0; }
+  .menu-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 24px; margin: 0; padding: 0; list-style: none; }
+  .menu-list li { opacity: 0; transform: translateY(18px); transition: opacity .45s, transform .55s var(--ease-out); }
+  .menu.is-open .menu-list li { opacity: 1; transform: none; transition-delay: calc(.25s + var(--i) * .04s); }
+  .menu-list a {
+    display: grid; grid-template-columns: auto 1fr; column-gap: 14px; align-items: baseline;
+    padding: 14px 12px; border-radius: 16px; color: inherit; text-decoration: none;
+    transition: background-color .25s, transform .35s var(--ease-spring);
+  }
+  .menu-list a:hover, .menu-list a:focus-visible { background: rgba(255, 255, 255, .1); transform: translateX(6px); }
+  .menu-list a:focus-visible { outline-color: var(--cream); }
+  .menu-list a[aria-current] { background: rgba(0, 0, 0, .16); }
+  .menu-list a[aria-current] .mt::after { content: ""; display: inline-block; width: 8px; height: 8px; margin-left: 10px; border-radius: 50%; background: #FFD9A0; vertical-align: middle; }
+  .mn { min-width: 1.6em; grid-row: span 2; font-family: var(--font-display); font-weight: 800; font-size: .95rem; color: #FFD9A0; font-variant-numeric: tabular-nums; }
+  .mt { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.3rem, 2.2vw, 1.75rem); line-height: 1.15; }
+  .ms { margin-top: 2px; font-size: .86rem; color: rgba(255, 248, 236, .8); }
+  .menu-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: auto; padding-top: 28px; }
+  .menu-cat { background: var(--cream); color: var(--red-deep); box-shadow: none; }
+  .menu-cat:hover { background: var(--white); }
+  .menu-cat svg { width: 1.4em; height: 1.4em; }
+  .menu-hint { font-size: .8rem; color: rgba(255, 248, 236, .75); }
+  @media (max-width: 900px) { .menu-list { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) {
+    .menu-list { grid-template-columns: 1fr; gap: 2px; }
+    .menu-list a { padding: 9px 8px; }
+    .mt { font-size: 1.25rem; }
+    .menu-hint { display: none; }
+  }
+
+  /* =========================================================
      Scroll reveal
      ========================================================= */
   .js .reveal { opacity: 0; transform: translateY(32px); transition: opacity .8s var(--ease-out), transform .9s var(--ease-out); transition-delay: var(--d, 0s); }
@@ -1228,6 +1391,12 @@
 </head>
 <body>
 <script>document.documentElement.classList.add('js');</script>
+<a class="skip-link" href="#top" data-i18n="skip">Skip to content</a>
+<noscript><p class="noscript">Activa JavaScript para disfrutar de la cesta, los juegos y las animaciones. · Turn on JavaScript to enjoy the basket, the games and the animations.</p></noscript>
+<div class="preloader" id="preloader" aria-hidden="true">
+  <svg viewBox="-24 -24 48 48"><defs><mask id="pre-bites"><rect x="-30" y="-30" width="60" height="60" fill="#fff"/><circle class="pb pb1" cx="17" cy="-12" r="10" fill="#000"/><circle class="pb pb2" cx="-16" cy="14" r="11" fill="#000"/><circle class="pb pb3" cx="15" cy="18" r="9" fill="#000"/></mask></defs><g mask="url(#pre-bites)"><use href="#mini-cookie" x="-22" y="-22" width="44" height="44"/></g></svg>
+  <span class="logo">Quely</span>
+</div>
 
 <!-- Reusable SVG pieces -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
@@ -1299,17 +1468,50 @@
     </ul>
     <div class="nav-tools">
       <button class="lang-btn" id="lang-btn" type="button" data-i18n-aria="lang.switch" aria-label="Cambiar a español"><span data-lang="en">EN</span><span data-lang="es">ES</span></button>
+      <button class="sound-btn" id="sound-nav" type="button" aria-pressed="true" data-i18n-aria="sound" aria-label="Crunch sound">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z" fill="currentColor"/><path class="wave" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/><path class="mute" d="M16 9l6 6M22 9l-6 6"/></svg>
+      </button>
       <button class="btn btn--small basket-btn" id="basket-btn" type="button" data-open-basket>
         <svg class="bag-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg>
         <span class="label" data-i18n="nav.buy">Buy online</span>
         <span class="badge" id="basket-count" hidden>0</span>
       </button>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-links" data-i18n-aria="menu.open" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="menu" data-i18n-aria="menu.open" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
 
-<main id="top">
+<!-- Contents menu -->
+<div class="menu" id="menu" inert>
+  <div class="menu-inner wrap">
+    <div class="menu-top">
+      <span class="logo">Quely</span>
+      <button type="button" class="menu-close" data-menu-close data-i18n-aria="menu.close" aria-label="Close menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>
+    </div>
+    <nav data-i18n-aria="menu.title" aria-label="Contents">
+      <p class="menu-eyebrow" data-i18n="menu.title">Contents</p>
+      <ol class="menu-list">
+        <li style="--i:0"><a href="#top"><span class="mn">01</span><span class="mt" data-i18n="mn.1">Home</span><span class="ms" data-i18n="ms.1">Bite the falling cookies</span></a></li>
+        <li style="--i:1"><a href="#story"><span class="mn">02</span><span class="mt" data-i18n="mn.2">Our story</span><span class="ms" data-i18n="ms.2">Bake your own batch</span></a></li>
+        <li style="--i:2"><a href="#island"><span class="mn">03</span><span class="mt" data-i18n="mn.3">The island</span><span class="ms" data-i18n="ms.3">Sunset, sea and windmill</span></a></li>
+        <li style="--i:3"><a href="#cookies"><span class="mn">04</span><span class="mt" data-i18n="mn.4">Products</span><span class="ms" data-i18n="ms.4">Quelitas, Quelitos and Merienda</span></a></li>
+        <li style="--i:4"><a href="#quiz"><span class="mn">05</span><span class="mt" data-i18n="mn.5">Which Quely are you?</span><span class="ms" data-i18n="ms.5">A three-question test</span></a></li>
+        <li style="--i:5"><a href="#reviews"><span class="mn">06</span><span class="mt" data-i18n="mn.6">Reviews</span><span class="ms" data-i18n="ms.6">What our customers say</span></a></li>
+        <li style="--i:6"><a href="#scratch"><span class="mn">07</span><span class="mt" data-i18n="mn.7">Scratch the flour</span><span class="ms" data-i18n="ms.7">Find a hidden discount</span></a></li>
+        <li style="--i:7"><a href="#game"><span class="mn">08</span><span class="mt" data-i18n="mn.8">Minigame</span><span class="ms" data-i18n="ms.8">Catch the cookies!</span></a></li>
+        <li style="--i:8"><a href="#wheel"><span class="mn">09</span><span class="mt" data-i18n="mn.9">The wheel</span><span class="ms" data-i18n="ms.9">Only for the brave</span></a></li>
+        <li style="--i:9"><a href="#faq"><span class="mn">10</span><span class="mt" data-i18n="mn.10">FAQ</span><span class="ms" data-i18n="ms.10">Your questions answered</span></a></li>
+        <li style="--i:10"><a href="#contact"><span class="mn">11</span><span class="mt" data-i18n="mn.11">Contact</span><span class="ms" data-i18n="ms.11">Write to us</span></a></li>
+      </ol>
+    </nav>
+    <div class="menu-foot">
+      <button type="button" class="btn btn--small menu-cat" data-menu-cat><svg viewBox="-20 -20 40 40" aria-hidden="true"><use href="#cat-face-cookie" x="-20" y="-20" width="40" height="40"/></svg><span>Turn on cat mode</span></button>
+      <span class="menu-hint" data-i18n="menu.hint">Tip: press Esc to close</span>
+    </div>
+  </div>
+</div>
+
+<main id="top" tabindex="-1">
   <!-- ============ HERO ============ -->
   <section class="hero" id="hero" aria-labelledby="hero-title">
     <canvas class="hero-canvas" id="cookie-field" aria-hidden="true"></canvas>
@@ -1436,7 +1638,7 @@
         <span class="pill island-tip reveal" style="--d:.15s" data-i18n="island.tip">Psst… give the windmill a push</span>
       </header>
     </div>
-    <svg class="island-art" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMax slice" role="img" data-i18n-aria="island.img" aria-label="Illustration of Mallorca: a windmill, olive trees and the sea, with a cookie for a sun">
+    <svg class="island-art" viewBox="0 0 1440 560" preserveAspectRatio="xMidYMax slice" role="group" data-i18n-aria="island.img" aria-label="Illustration of Mallorca: a windmill, olive trees and the sea, with a cookie for a sun">
       <defs>
         <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stop-color="#FFF8EC"/><stop offset=".55" stop-color="#FDE7C4"/><stop offset="1" stop-color="#F9CD92"/>
@@ -1625,7 +1827,7 @@
       <header class="section-head">
         <h2 id="reviews-title" class="reveal" data-i18n="reviews.title">What our customers say</h2>
       </header>
-      <div class="review-grid">
+      <div class="review-grid" tabindex="0" role="region" data-i18n-aria="reviews.list" aria-label="Customer reviews">
         <figure class="review reveal" style="--d:0s">
           <header>
             <span class="avatar" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#FCE1C8"/><path d="M7 50c1-10 7-14.5 17-14.5S40 40 41 50z" fill="#D7261E"/><path d="M20.5 28h7v7.5a3.5 3.5 0 0 1-7 0z" fill="#E5AE84" opacity=".85"/><ellipse cx="24" cy="21.5" rx="9" ry="10" fill="#E5AE84"/><path d="M14.8 20.5C14.5 13 18.5 10 24 10s9.5 3 9.2 10.5c-1.6-3.6-4.4-5-9.2-5s-7.6 1.4-9.2 5z" fill="#3A2416"/><g class="eyes" fill="#2A1A11"><circle cx="20.6" cy="21.5" r="1.15"/><circle cx="27.4" cy="21.5" r="1.15"/></g><circle cx="18.3" cy="25" r="1.6" fill="#E87A6A" opacity=".35"/><circle cx="29.7" cy="25" r="1.6" fill="#E87A6A" opacity=".35"/><path d="M15.2 23.5c.6 6.6 4 9.5 8.8 9.5s8.2-2.9 8.8-9.5c-1.4 2.4-3.4 3.6-5.2 3.6h-7.2c-1.8 0-3.8-1.2-5.2-3.6z" fill="#3A2416"/><path d="M21.6 27.6c1.6 1 3.2 1 4.8 0" stroke="#F6E7D2" stroke-width="1.4" fill="none" stroke-linecap="round"/></svg></span>
@@ -1676,7 +1878,7 @@
           <span class="prize-tag" data-i18n="scratch.won">You've won</span>
           <strong>−10%</strong>
           <span class="prize-off" data-i18n="scratch.off">off your order with the code</span>
-          <code>QUELY1853</code>
+          <span class="code-row"><code>QUELY1853</code><button type="button" class="copy-btn" id="copy-code" data-i18n-aria="copy" aria-label="Copy the code"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg></button></span>
           <button type="button" class="btn btn--small" id="prize-apply">Apply to my basket</button>
         </div>
         <canvas class="scratch-canvas" id="scratch-canvas" aria-hidden="true"></canvas>
@@ -1737,7 +1939,7 @@
         <div class="wheel-effects" id="wheel-effects"></div>
       </div>
       <div class="wheel-stage reveal reveal--pop">
-        <svg class="wheel-svg" id="wheel-svg" viewBox="-232 -244 464 476" role="img" data-i18n-aria="wheel.aria" aria-label="Prize wheel">
+        <svg class="wheel-svg" id="wheel-svg" viewBox="-232 -244 464 476" role="group" data-i18n-aria="wheel.aria" aria-label="Prize wheel">
           <circle r="224" fill="#1E0D07" stroke="#E3A440" stroke-width="5"/>
           <g class="lights"><circle cx="211.0" cy="0.0" r="4.5"/><circle cx="198.3" cy="72.2" r="4.5"/><circle cx="161.6" cy="135.6" r="4.5"/><circle cx="105.5" cy="182.7" r="4.5"/><circle cx="36.6" cy="207.8" r="4.5"/><circle cx="-36.6" cy="207.8" r="4.5"/><circle cx="-105.5" cy="182.7" r="4.5"/><circle cx="-161.6" cy="135.6" r="4.5"/><circle cx="-198.3" cy="72.2" r="4.5"/><circle cx="-211.0" cy="0.0" r="4.5"/><circle cx="-198.3" cy="-72.2" r="4.5"/><circle cx="-161.6" cy="-135.6" r="4.5"/><circle cx="-105.5" cy="-182.7" r="4.5"/><circle cx="-36.6" cy="-207.8" r="4.5"/><circle cx="36.6" cy="-207.8" r="4.5"/><circle cx="105.5" cy="-182.7" r="4.5"/><circle cx="161.6" cy="-135.6" r="4.5"/><circle cx="198.3" cy="-72.2" r="4.5"/></g>
           <g id="wheel-rot"></g>
@@ -1810,32 +2012,91 @@
 <!-- ============ FOOTER ============ -->
 <footer class="footer" id="site-footer">
   <div class="wrap">
+    <div class="footer-news">
+      <div>
+        <h2 class="news-title" data-i18n="news.title">Join the Quely Club</h2>
+        <p data-i18n="news.text">Recipes, news and the odd crumb-filled surprise. No spam, promise.</p>
+      </div>
+      <form class="news-form" id="news-form" novalidate>
+        <label class="sr-only" for="news-email" data-i18n="f.email">Email</label>
+        <input id="news-email" type="email" autocomplete="email" required data-i18n-ph="news.ph" placeholder="you@email.com">
+        <button class="btn" type="submit"><span data-i18n="news.btn">Subscribe</span> <svg aria-hidden="true"><use href="#arrow"/></svg></button>
+        <p class="news-msg" id="news-msg" aria-live="polite"></p>
+      </form>
+    </div>
     <div class="footer-top">
       <div class="footer-brand">
         <a class="logo" href="#top">Quely</a>
         <p data-i18n="foot.tag">Cookies from Mallorca.</p>
+        <ul class="social">
+          <li><a href="#" data-social="instagram" aria-label="Quely · Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a></li>
+          <li><a href="#" data-social="tiktok" aria-label="Quely · TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 3h3a4 4 0 0 0 4 4v3a7 7 0 0 1-4-1.3V15a6 6 0 1 1-6-6v3.2A2.8 2.8 0 1 0 14 15z"/></svg></a></li>
+          <li><a href="#" data-social="youtube" aria-label="Quely · YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .4-3.8 31 31 0 0 0-.4-3.8zM10 15V9l5.2 3z"/></svg></a></li>
+          <li><a href="#" data-social="facebook" aria-label="Quely · Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 8V6.5c0-.8.5-1.5 1.5-1.5H17V2h-2.6C11.6 2 10.5 3.9 10.5 6.3V8H8v3h2.5v11H14V11h2.6l.4-3z"/></svg></a></li>
+        </ul>
       </div>
       <nav aria-label="Shop">
-        <h4 data-i18n="foot.shop">Shop</h4>
+        <h3 class="foot-h" data-i18n="foot.shop">Shop</h3>
         <ul><li><a href="#cookies" data-i18n="nav.cookies">Cookies</a></li><li><a href="#cookies" data-open-basket data-i18n="foot.gifts">Gift boxes</a></li><li><a href="#cookies" data-open-basket data-i18n="foot.offers">Offers</a></li></ul>
       </nav>
       <nav aria-label="Company">
-        <h4 data-i18n="foot.company">Company</h4>
+        <h3 class="foot-h" data-i18n="foot.company">Company</h3>
         <ul><li><a href="#story" data-i18n="nav.story">Our story</a></li><li><a href="#contact" data-i18n="foot.stores">Stores</a></li><li><a href="#contact" data-i18n="nav.contact">Contact</a></li></ul>
       </nav>
       <nav aria-label="Help">
-        <h4 data-i18n="foot.help">Help</h4>
+        <h3 class="foot-h" data-i18n="foot.help">Help</h3>
         <ul><li><a href="#faq" data-i18n="foot.faq">FAQ</a></li><li><a href="#faq-shipping" data-i18n="foot.shipping">Shipping</a></li><li><a href="#faq-shipping" data-i18n="foot.returns">Returns</a></li></ul>
       </nav>
     </div>
     <div class="giant" id="giant" aria-hidden="true"><span>Q</span><span>u</span><span>e</span><span>l</span><span>y</span></div>
     <div class="footer-bottom">
       <span data-i18n="foot.rights">© 2026 Quely. All rights reserved.</span>
+      <nav class="legal-links" data-i18n-aria="legal.title" aria-label="Legal information">
+        <button type="button" class="link-plain" data-legal="notice" data-i18n="legal.t1">Legal notice</button>
+        <button type="button" class="link-plain" data-legal="privacy" data-i18n="legal.t2">Privacy</button>
+        <button type="button" class="link-plain" data-legal="cookies" data-i18n="legal.t3">Cookies</button>
+      </nav>
       <span data-i18n="foot.made">Made with olive oil in Mallorca</span>
     </div>
+    <p class="academic" data-i18n="foot.academic">Academic project. This is not the official Quely website.</p>
   </div>
 </footer>
 
+
+<!-- Legal information -->
+<dialog class="pdialog legal" id="legal" aria-labelledby="legal-title">
+  <div class="legal-card">
+    <button class="close-btn" type="button" data-close data-i18n-aria="close" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>
+    <h2 id="legal-title" data-i18n="legal.title">Legal information</h2>
+    <div class="legal-tabs" role="tablist">
+      <button type="button" role="tab" data-tab="notice" aria-selected="true" data-i18n="legal.t1">Legal notice</button>
+      <button type="button" role="tab" data-tab="privacy" aria-selected="false" data-i18n="legal.t2">Privacy</button>
+      <button type="button" role="tab" data-tab="cookies" aria-selected="false" data-i18n="legal.t3">Cookies</button>
+    </div>
+    <div class="legal-panel" data-panel="notice" role="tabpanel"><p data-i18n="legal.n1"></p><p data-i18n="legal.n2"></p></div>
+    <div class="legal-panel" data-panel="privacy" role="tabpanel" hidden><p data-i18n="legal.p1"></p><p data-i18n="legal.p2"></p></div>
+    <div class="legal-panel" data-panel="cookies" role="tabpanel" hidden>
+      <p data-i18n="legal.c0"></p>
+      <ul class="legal-list"><li data-i18n="legal.c1"></li><li data-i18n="legal.c2"></li><li data-i18n="legal.c3"></li><li data-i18n="legal.c4"></li></ul>
+      <button type="button" class="btn btn--small btn--ghost" id="clear-data" data-i18n="legal.clear">Delete my saved data</button>
+      <p class="note" id="clear-note" aria-live="polite"></p>
+    </div>
+  </div>
+</dialog>
+
+<!-- Cookie notice -->
+<div class="cookie-banner" id="cookie-banner" role="region" data-i18n-aria="cb.aria" aria-label="Cookie notice" hidden>
+  <svg class="cb-cookie" viewBox="-20 -20 40 40" aria-hidden="true"><use href="#mini-cookie" x="-20" y="-20" width="40" height="40"/></svg>
+  <div>
+    <strong data-i18n="cb.title">This site uses cookies… the good kind</strong>
+    <p data-i18n="cb.text">We only keep your basket, language and game records in your browser so everything works. No advertising or tracking.</p>
+    <div class="cb-actions">
+      <button type="button" class="btn btn--small" data-cb="all" data-i18n="cb.accept">Accept</button>
+      <button type="button" class="btn btn--small btn--ghost" data-cb="min" data-i18n="cb.min">Only the essential ones</button>
+      <button type="button" class="link-plain" data-legal="cookies" data-i18n="cb.more">Cookie policy</button>
+    </div>
+  </div>
+</div>
 
 <!-- Galleta, the bakery cat -->
 <div class="michi" id="michi">
@@ -1957,6 +2218,16 @@
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 
+  // Preloader: a cookie gets three bites, then the page appears
+  const preloader = $('#preloader'), preT0 = performance.now();
+  let preDone = false;
+  const hidePreloader = () => {
+    if (preDone) return; preDone = true;
+    setTimeout(() => { preloader.classList.add('is-done'); document.documentElement.classList.add('is-ready'); }, reduceMotion ? 0 : Math.max(0, 950 - (performance.now() - preT0)));
+  };
+  if (document.readyState === 'complete') hidePreloader(); else addEventListener('load', hidePreloader);
+  setTimeout(hidePreloader, 2500);
+
   /* ------------------------------------------------------------
      Languages (EN / ES). Every visible text lives here.
      ------------------------------------------------------------ */
@@ -1996,6 +2267,35 @@
       'about.text': 'For over 170 years, Quely has made cookies and snacks on the island, with simple recipes and local ingredients such as olive oil. Three generations of know-how in every bite.',
       'stat.1': 'Our beginnings', 'stat.2': 'Natural olive oil', 'stat.3': 'Made on the island',
       'about.btn': 'Our story',
+      'menu.title': 'Contents', 'menu.hint': 'Tip: press Esc to close',
+      'mn.1': 'Home', 'ms.1': 'Bite the falling cookies',
+      'mn.2': 'Our story', 'ms.2': 'Bake your own batch',
+      'mn.3': 'The island', 'ms.3': 'Sunset, sea and windmill',
+      'mn.4': 'Products', 'ms.4': 'Quelitas, Quelitos and Merienda',
+      'mn.5': 'Which Quely are you?', 'ms.5': 'A three-question test',
+      'mn.6': 'Reviews', 'ms.6': 'What our customers say',
+      'mn.7': 'Scratch the flour', 'ms.7': 'Find a hidden discount',
+      'mn.8': 'Minigame', 'ms.8': 'Catch the cookies!',
+      'mn.9': 'The wheel', 'ms.9': 'Only for the brave',
+      'mn.10': 'FAQ', 'ms.10': 'Your questions answered',
+      'mn.11': 'Contact', 'ms.11': 'Write to us',
+      'skip': 'Skip to content', 'meta.away': "🍪 Come back, they're getting cold!", 'copy': 'Copy the code', 'copied': 'Code QUELY1853 copied!',
+      'social.demo': 'Sample link: this is where the real Quely profile would go.',
+      'news.title': 'Join the Quely Club', 'news.text': 'Recipes, news and the odd crumb-filled surprise. No spam, promise.',
+      'news.ph': 'you@email.com', 'news.btn': 'Subscribe', 'news.ok': "Welcome to the club! (Demo mode: nothing has been sent.)",
+      'foot.academic': 'Academic project. This is not the official Quely website.',
+      'legal.title': 'Legal information', 'legal.t1': 'Legal notice', 'legal.t2': 'Privacy', 'legal.t3': 'Cookies',
+      'legal.n1': 'This website is an academic web design and development project, made for educational purposes. It is not the official Quely website and has no connection with the company.',
+      'legal.n2': 'Quely, Quelitas, Quelitos and Quely Merienda are trademarks of their respective owners. Product images are used only to illustrate the project. Prices, coupons, reviews and discount codes are examples.',
+      'legal.p1': "This demo doesn't send your data to any server. The contact and newsletter forms work in demo mode: what you type never leaves your computer.",
+      'legal.p2': 'If the site were published for real, this page would explain who processes the data, why, for how long and how to exercise your rights (access, rectification, erasure…), as required by the GDPR.',
+      'legal.c0': "We don't use advertising or tracking cookies. We only keep in your browser (local storage) what the site needs to work:",
+      'legal.c1': 'Your basket and the discounts you have won.', 'legal.c2': 'Your language and whether you want sound.',
+      'legal.c3': 'Your records in the minigame and the oven.', 'legal.c4': 'Whether cat mode is on, and your answer to the cookie notice.',
+      'legal.clear': 'Delete my saved data', 'legal.cleared': 'Done: your data has been deleted. The page will reload.',
+      'cb.aria': 'Cookie notice', 'cb.title': 'This site uses cookies… the good kind',
+      'cb.text': 'We only keep your basket, language and game records in your browser so everything works. No advertising or tracking.',
+      'cb.accept': 'Accept', 'cb.min': 'Only the essential ones', 'cb.more': 'Cookie policy',
       'cat.aria': 'Galleta, the bakery cat. Click to pet her',
       'cat.intro': "Meow! I'm Galleta, the bakery cat. Shall we switch on cat mode?",
       'cat.yes': 'Yes, meow!', 'cat.later': 'Not now', 'cat.enable': 'Turn on cat mode', 'cat.disable': 'Turn off cat mode',
@@ -2058,7 +2358,7 @@
       'chip.choc': 'Milk chocolate', 'chip.kids': "Kids' favourite",
       'chip.fuet': 'Quelitas + fuet', 'chip.go': 'Ready to go', 'chip.snack': 'Snack time',
       'view': 'View product', 'all': 'See all products',
-      'reviews.title': 'What our customers say', 'stars': '5 out of 5 stars',
+      'reviews.title': 'What our customers say', 'reviews.list': 'Customer reviews', 'stars': '5 out of 5 stars',
       'r.1': 'Perfect with my morning coffee. Light, crunchy and not too sweet.',
       'r.2': 'My kids love the Quely Merienda every afternoon. A great snack for school.',
       'r.3': 'The Quelitos with chocolate are my favourite. Crunchy and really tasty.',
@@ -2128,6 +2428,35 @@
       'about.text': 'Desde hace más de 170 años, Quely elabora galletas y snacks en la isla, con recetas sencillas e ingredientes locales como el aceite de oliva. Tres generaciones de saber hacer en cada bocado.',
       'stat.1': 'Nuestros inicios', 'stat.2': 'Aceite de oliva natural', 'stat.3': 'Hecho en la isla',
       'about.btn': 'Nuestra historia',
+      'menu.title': 'Contenidos', 'menu.hint': 'Truco: pulsa Esc para cerrar',
+      'mn.1': 'Inicio', 'ms.1': 'Muerde las galletas que caen',
+      'mn.2': 'Nuestra historia', 'ms.2': 'Hornea tu propia tanda',
+      'mn.3': 'La isla', 'ms.3': 'Atardecer, mar y molino',
+      'mn.4': 'Productos', 'ms.4': 'Quelitas, Quelitos y Merienda',
+      'mn.5': '¿Qué Quely eres?', 'ms.5': 'Un test de tres preguntas',
+      'mn.6': 'Opiniones', 'ms.6': 'Lo que dicen los clientes',
+      'mn.7': 'Rasca la harina', 'ms.7': 'Descubre un descuento escondido',
+      'mn.8': 'Minijuego', 'ms.8': '¡Atrapa las galletas!',
+      'mn.9': 'La ruleta', 'ms.9': 'Solo para valientes',
+      'mn.10': 'Preguntas frecuentes', 'ms.10': 'Te respondemos',
+      'mn.11': 'Contacto', 'ms.11': 'Escríbenos',
+      'skip': 'Saltar al contenido', 'meta.away': '🍪 ¡Vuelve, que se enfrían!', 'copy': 'Copiar el código', 'copied': '¡Código QUELY1853 copiado!',
+      'social.demo': 'Enlace de ejemplo: aquí iría el perfil real de Quely.',
+      'news.title': 'Únete al Club Quely', 'news.text': 'Recetas, novedades y alguna sorpresa con migas. Sin spam, prometido.',
+      'news.ph': 'tu@email.com', 'news.btn': 'Suscribirme', 'news.ok': '¡Bienvenido al club! (Modo demo: no se ha enviado nada.)',
+      'foot.academic': 'Proyecto académico. Esta no es la web oficial de Quely.',
+      'legal.title': 'Información legal', 'legal.t1': 'Aviso legal', 'legal.t2': 'Privacidad', 'legal.t3': 'Cookies',
+      'legal.n1': 'Esta web es un proyecto académico de diseño y desarrollo web, realizado con fines educativos. No es la web oficial de Quely ni tiene relación con la empresa.',
+      'legal.n2': 'Quely, Quelitas, Quelitos y Quely Merienda son marcas de sus respectivos propietarios. Las imágenes de los productos se usan solo para ilustrar el proyecto. Los precios, cupones, opiniones y códigos de descuento son de ejemplo.',
+      'legal.p1': 'Esta demo no envía tus datos a ningún servidor. Los formularios de contacto y de newsletter funcionan en modo demostración: lo que escribes no sale de tu ordenador.',
+      'legal.p2': 'Si la web se publicara de verdad, aquí se explicaría quién trata los datos, para qué, durante cuánto tiempo y cómo ejercer tus derechos (acceso, rectificación, supresión…), como exige el RGPD.',
+      'legal.c0': 'No usamos cookies de publicidad ni de seguimiento. Solo guardamos en tu navegador (almacenamiento local) lo que la web necesita para funcionar:',
+      'legal.c1': 'Tu cesta y los descuentos que hayas conseguido.', 'legal.c2': 'El idioma elegido y si quieres sonido.',
+      'legal.c3': 'Tus récords del minijuego y del horno.', 'legal.c4': 'Si tienes activado el modo gato y tu respuesta al aviso de cookies.',
+      'legal.clear': 'Borrar mis datos guardados', 'legal.cleared': 'Listo: tus datos se han borrado. La página se recargará.',
+      'cb.aria': 'Aviso de cookies', 'cb.title': 'Esta web usa cookies… de las buenas',
+      'cb.text': 'Solo guardamos en tu navegador tu cesta, el idioma y tus récords para que todo funcione. Nada de publicidad ni de seguimiento.',
+      'cb.accept': 'Aceptar', 'cb.min': 'Solo las necesarias', 'cb.more': 'Política de cookies',
       'cat.aria': 'Galleta, la gata del obrador. Pulsa para acariciarla',
       'cat.intro': '¡Miau! Soy Galleta, la gata del obrador. ¿Activamos el modo gato?',
       'cat.yes': '¡Sí, miau!', 'cat.later': 'Ahora no', 'cat.enable': 'Activar modo gato', 'cat.disable': 'Desactivar modo gato',
@@ -2190,7 +2519,7 @@
       'chip.choc': 'Chocolate con leche', 'chip.kids': 'Favorita de los peques',
       'chip.fuet': 'Quelitas + fuet', 'chip.go': 'Lista para llevar', 'chip.snack': 'Hora de merendar',
       'view': 'Ver producto', 'all': 'Ver todos los productos',
-      'reviews.title': 'Lo que dicen nuestros clientes', 'stars': '5 de 5 estrellas',
+      'reviews.title': 'Lo que dicen nuestros clientes', 'reviews.list': 'Opiniones de clientes', 'stars': '5 de 5 estrellas',
       'r.1': 'Perfectas con el café de la mañana. Ligeras, crujientes y nada empalagosas.',
       'r.2': 'A mis hijos les encanta la Quely Merienda cada tarde. Una merienda genial para el cole.',
       'r.3': 'Los Quelitos con chocolate son mis favoritos. Crujientes y riquísimos.',
@@ -2241,14 +2570,34 @@
   const nav = $('#nav');
   const toggle = $('.nav-toggle');
   const links = $('#nav-links');
-  toggle.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') !== 'true';
+  // Contents menu (hamburger): every section of the page
+  const menu = $('#menu');
+  const isMenuOpen = () => menu.classList.contains('is-open');
+  function markMenuCurrent() {
+    let cur = null;
+    $$('.menu-list a', menu).forEach(a => {
+      a.removeAttribute('aria-current');
+      const sec = document.querySelector(a.getAttribute('href'));
+      if (sec && sec.getBoundingClientRect().top < innerHeight * .4) cur = a;
+    });
+    (cur || $('.menu-list a', menu)).setAttribute('aria-current', 'location');
+  }
+  const renderMenuCat = () => { $('[data-menu-cat] span', menu).textContent = t(catMode ? 'cat.disable' : 'cat.enable'); };
+  function setMenu(open) {
+    if (open) markMenuCurrent();
+    menu.classList.toggle('is-open', open);
+    menu.inert = !open;
+    document.documentElement.classList.toggle('menu-open', open);
+    ['#top', '#site-footer', '#nav'].forEach(sel => { const el = $(sel); if (el) el.inert = open; });
     toggle.setAttribute('aria-expanded', open);
     toggle.setAttribute('aria-label', t(open ? 'menu.close' : 'menu.open'));
-    links.classList.toggle('is-open', open);
-  });
-  links.addEventListener('click', e => {
-    if (e.target.closest('a')) { toggle.setAttribute('aria-expanded', 'false'); links.classList.remove('is-open'); }
+    if (open) { renderMenuCat(); setTimeout(() => $('.menu-list a[aria-current]', menu).focus({ preventScroll: true }), 80); }
+    else toggle.focus({ preventScroll: true });
+  }
+  toggle.addEventListener('click', () => setMenu(!isMenuOpen()));
+  menu.addEventListener('click', e => {
+    if (e.target.closest('[data-menu-close]') || e.target.closest('.menu-list a')) setMenu(false);
+    else if (e.target.closest('[data-menu-cat]')) { setMenu(false); setCatMode(!catMode, true); }
   });
   const navMap = new Map($$('.nav-links a:not(.btn)').map(a => [a.getAttribute('href').slice(1), a]));
   const sectionObs = new IntersectionObserver(entries => {
@@ -2310,13 +2659,11 @@
   /* ------------------------------------------------------------
      Crunch sound (synthesised, no audio files)
      ------------------------------------------------------------ */
-  let audio = null, soundOn = true;
-  const soundBtn = $('#sound');
-  soundBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    soundOn = !soundOn;
-    soundBtn.setAttribute('aria-pressed', soundOn);
-  });
+  let audio = null, soundOn = store.get('quely-sound') !== '0';
+  const soundBtns = $$('#sound, #sound-nav');
+  const setSound = on => { soundOn = on; store.set('quely-sound', on ? '1' : '0'); soundBtns.forEach(b => b.setAttribute('aria-pressed', on)); };
+  soundBtns.forEach(b => b.addEventListener('click', e => { e.stopPropagation(); setSound(!soundOn); }));
+  setSound(soundOn);
   function crunch(big) {
     if (!soundOn) return;
     try {
@@ -3063,7 +3410,7 @@
   function openBasket() {
     if (pDlg.open) pDlg.close();
     toastEl.classList.remove('is-on');
-    toggle.setAttribute('aria-expanded', 'false'); links.classList.remove('is-open');
+    if (isMenuOpen()) setMenu(false);
     renderBasket();
     if (!basketDlg.open) basketDlg.showModal();
   }
@@ -3774,6 +4121,92 @@
   wheelAccept.addEventListener('change', renderWheelUI);
   acceptLabel.addEventListener('animationend', () => acceptLabel.classList.remove('is-nudge'));
 
+  /* ---------- Finishing touches ---------- */
+  // Social links: put the real URLs here
+  const SOCIAL = { instagram: '', tiktok: '', youtube: '', facebook: '' };
+  $$('[data-social]').forEach(a => {
+    const url = SOCIAL[a.dataset.social];
+    if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; }
+    else a.addEventListener('click', e => { e.preventDefault(); showToast(t('social.demo')); });
+  });
+
+  // The tab title misses you when you leave
+  document.addEventListener('visibilitychange', () => { document.title = t(document.hidden ? 'meta.away' : 'meta.title'); });
+
+  // Contents menu: close with Escape
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && isMenuOpen()) setMenu(false); });
+
+  // Copy the discount code
+  $('#copy-code').addEventListener('click', async () => {
+    const code = 'QUELY1853';
+    try { await navigator.clipboard.writeText(code); }
+    catch (_) {
+      const tmp = document.createElement('textarea');
+      tmp.value = code; document.body.append(tmp); tmp.select();
+      try { document.execCommand('copy'); } catch (__) { /* nothing else to try */ }
+      tmp.remove();
+    }
+    showToast(t('copied'));
+  });
+
+  // Newsletter
+  const newsForm = $('#news-form'), newsEmail = $('#news-email'), newsMsg = $('#news-msg');
+  let newsDone = false;
+  newsForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(newsEmail.value.trim());
+    newsEmail.setAttribute('aria-invalid', !ok);
+    newsMsg.classList.toggle('is-error', !ok);
+    if (!ok) { newsDone = false; newsMsg.textContent = t('e.email'); newsEmail.focus(); return; }
+    newsDone = true;
+    newsMsg.textContent = t('news.ok');
+    newsEmail.value = '';
+    burst(newsForm.getBoundingClientRect(), 14);
+  });
+  const renderNews = () => { if (newsDone) newsMsg.textContent = t('news.ok'); };
+
+  // Legal information (notice, privacy, cookies)
+  const legalDlg = $('#legal');
+  function openLegal(tab) {
+    $$('[data-tab]', legalDlg).forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+    $$('[data-panel]', legalDlg).forEach(p => { p.hidden = p.dataset.panel !== tab; });
+    if (!legalDlg.open) legalDlg.showModal();
+  }
+  document.addEventListener('click', e => {
+    const l = e.target.closest('[data-legal]');
+    if (l) { e.preventDefault(); openLegal(l.dataset.legal); }
+  });
+  legalDlg.addEventListener('click', e => {
+    if (e.target === legalDlg) legalDlg.close();
+    const tab = e.target.closest('[data-tab]');
+    if (tab) openLegal(tab.dataset.tab);
+  });
+  $('[role="tablist"]', legalDlg).addEventListener('keydown', e => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const tabs = $$('[data-tab]', legalDlg), i = tabs.findIndex(b => b.getAttribute('aria-selected') === 'true');
+    const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+    openLegal(next.dataset.tab); next.focus();
+  });
+  $('#clear-data').addEventListener('click', () => {
+    try { Object.keys(localStorage).filter(k => k.startsWith('quely-')).forEach(k => localStorage.removeItem(k)); } catch (_) { /* storage blocked */ }
+    $('#clear-note').textContent = t('legal.cleared');
+    setTimeout(() => location.reload(), 1300);
+  });
+
+  // Cookie notice (the site only keeps functional data in the browser)
+  const cookieBanner = $('#cookie-banner');
+  let consentPending = !store.get('quely-consent'), catWaiting = false;
+  if (consentPending) setTimeout(() => { cookieBanner.hidden = false; }, 1500);
+  cookieBanner.addEventListener('click', e => {
+    const b = e.target.closest('[data-cb]');
+    if (!b) return;
+    store.set('quely-consent', b.dataset.cb);
+    consentPending = false;
+    cookieBanner.classList.add('is-eaten');
+    crunch(false);
+    setTimeout(() => { cookieBanner.hidden = true; if (catWaiting) showCat(); }, reduceMotion ? 0 : 700);
+  });
+
   /* ---------- Galleta, the bakery cat (and cat mode) ---------- */
   const michi = $('#michi'), michiBtn = $('#michi-cat'), michiBubble = $('#michi-bubble');
   const michiText = $('#michi-text'), michiActions = $('#michi-actions');
@@ -3876,6 +4309,7 @@
 
   function showCat() {
     if (M.state !== 'hidden') return;
+    if (consentPending) { catWaiting = true; return; }
     M.state = 'home';
     const h = homePos(); M.x = h.x; M.y = h.y; placeCat();
     setTimeout(() => {
@@ -4017,6 +4451,8 @@
     buildWheel();
     renderWheelUI();
     renderGameText();
+    renderNews();
+    renderMenuCat();
     if (!touched && !scratched) drawFlour();
     kick();
   }
